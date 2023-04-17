@@ -186,6 +186,7 @@ class RegisterController extends Controller
             
         }catch(Exception $ex){
             DB::rollback();
+            dd($ex);
             return redirect()->back()->with('result', ['error', 'Data #'.$customer->name.' Added Failed.']);
         }
     }

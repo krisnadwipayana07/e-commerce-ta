@@ -131,9 +131,16 @@
                             <a href="javascript:;" onclick="penuliskode_modal('Pay a Credit', '{{ $transaction["route"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Pay</a>
                         </div>
                         @else
-                        <div class="col-md-12">
-                            <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Pay a Down Payment</a>
-                        </div>
+                            @if ($transaction['status'] == "REJECTED" || $transaction['status'] == "PENDING")
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8">
+                                <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-success">Review Submission</a>
+                            </div>
+                            @else
+                            <div class="col-md-12">
+                                <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Pay a Down Payment</a>
+                            </div>
+                            @endif
                         @endif
                     </div>
                     @elseif ($transaction['isTransfer'])

@@ -147,6 +147,8 @@ Route::namespace('Customer')->prefix('customer/')->name('customer.')->group(func
         Route::resource('notification', 'NotificationController');
         Route::get('/notifications/transaction', 'NotificationController@transaction_index')->name('notification.transaction.index');
         Route::get('/notifications/transaction/{transaction}', 'NotificationController@transaction_show')->name('notification.transaction.show');
+        Route::get('/notifications/transaction/edit/{transaction}', 'NotificationController@transaction_edit')->name('notification.transaction.edit');
+        Route::post('/notifications/transaction/edit/{transactionId}', 'NotificationController@transaction_edit_store')->name('notification.transaction.edit_store');
         Route::get('/credit/payment/{transaction}', 'NotificationController@credit_payment_index')->name('credit.payment.index');
         Route::get('/down/payment/{transaction}', 'NotificationController@dp_payment_index')->name('dp.payment.index');
         Route::post('/credit/payment/{transaction}', 'NotificationController@credit_payment_store')->name('credit.payment.store');

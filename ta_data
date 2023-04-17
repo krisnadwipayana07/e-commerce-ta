@@ -1,0 +1,295 @@
+/*
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 5.7.33 : Database - e-commerce-ta
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`e-commerce-ta` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `e-commerce-ta`;
+
+/*Table structure for table `admins` */
+
+DROP TABLE IF EXISTS `admins`;
+
+CREATE TABLE `admins` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admins_name_unique` (`name`),
+  UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
+  UNIQUE KEY `admins_email_unique` (`email`),
+  UNIQUE KEY `admins_username_unique` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `admins` */
+
+insert  into `admins`(`id`,`img`,`role`,`name`,`address`,`phone_number`,`email`,`username`,`password`,`deleted_at`,`created_at`,`updated_at`) values 
+('f19d01d2-8f7a-4a5b-93c6-44cd1c80be81','1671072954.png','SUPERADMIN','admin','Admin address','0976767576567','admin@gmail.com','admin','$2y$10$dhVMYNZzv5BksskYWOB5c.cmClSlG7Oku2DBAVx45Lq9PjHf.TkM6',NULL,'2022-10-15 07:59:04','2022-12-15 09:55:54');
+
+/*Table structure for table `category_payments` */
+
+DROP TABLE IF EXISTS `category_payments`;
+
+CREATE TABLE `category_payments` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `category_payments` */
+
+insert  into `category_payments`(`id`,`name`,`status`,`deleted_at`,`created_at`,`updated_at`) values 
+('249342a4-fa6e-407a-b166-da31c3557d99','Kredit','active',NULL,'2022-10-15 08:24:28','2022-12-15 09:53:06'),
+('a3f40f5e-01a1-47b1-b4ce-4575841f0026','Ovo','active','2022-12-15 09:53:16','2022-10-15 08:24:27','2022-12-15 09:53:16'),
+('cd2769d2-11a9-4eb5-8bee-4e2503b0c40b','Cash','active',NULL,'2022-10-15 08:24:24','2022-10-15 08:24:24');
+
+/*Table structure for table `category_properties` */
+
+DROP TABLE IF EXISTS `category_properties`;
+
+CREATE TABLE `category_properties` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `category_properties_name_unique` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `category_properties` */
+
+insert  into `category_properties`(`id`,`name`,`status`,`deleted_at`,`created_at`,`updated_at`) values 
+('4371af71-e11b-468a-9006-c26a9872a7b9','Furniture Ruang Tamu','active',NULL,'2022-10-15 08:13:18','2022-12-15 08:49:42'),
+('4510f0ed-4319-4646-80e4-59116d1cf299','Furniture Ruang Tidur','active',NULL,'2022-10-15 08:13:21','2022-12-15 08:50:08'),
+('99b628b4-dacc-49b6-b332-be95649606c0','Furniture Rumah Tangga','active',NULL,'2022-12-15 08:57:24','2022-12-15 08:57:24'),
+('b467e92f-cbd1-4242-bdf6-d9276771fa64','Peralatan Elektronik','active',NULL,'2022-12-15 08:50:33','2022-12-15 08:57:47'),
+('c1d930e1-1178-4f80-9054-a81f5b2f0849','Elektronik Rumah Tangga','active',NULL,'2022-10-15 08:13:22','2022-12-15 08:39:15'),
+('c33b2ab0-f42d-48ea-8b2b-ae68375fb694','Furniture Kantor','active',NULL,'2022-12-15 08:58:17','2022-12-15 08:58:17'),
+('fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Elektronik Dapur','active',NULL,'2022-12-15 08:51:04','2022-12-15 08:53:13');
+
+/*Table structure for table `customers` */
+
+DROP TABLE IF EXISTS `customers`;
+
+CREATE TABLE `customers` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `customers_name_unique` (`name`),
+  UNIQUE KEY `customers_phone_number_unique` (`phone_number`),
+  UNIQUE KEY `customers_email_unique` (`email`),
+  UNIQUE KEY `customers_username_unique` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `customers` */
+
+insert  into `customers`(`id`,`img`,`name`,`address`,`phone_number`,`email`,`username`,`password`,`deleted_at`,`created_at`,`updated_at`) values 
+('a25c3cb5-c024-41eb-a7bc-660abe707784','1665797725.jpg','customer2','desc','0876554','customer2@gmail.com','customer2','$2y$10$Kp9LcuOyAeq3xeQ1Xwo.POixlNP5S.KrzpTJ6R9nTteFqCrF5J6B6',NULL,'2022-10-15 08:35:25','2022-10-15 08:35:25'),
+('b97a2b85-2876-47ed-bda3-60354e4e2cac','1665797705.jpg','customer1','desc','0876552','customer1@gmail.com','customer1','$2y$10$BBD0ynNE6AZONgZ1cftcqOl0qByyJkAETZE7qxvbNxjKzmyhDG5nW',NULL,'2022-10-15 08:35:05','2022-10-15 08:35:40');
+
+/*Table structure for table `migrations` */
+
+DROP TABLE IF EXISTS `migrations`;
+
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `migrations` */
+
+insert  into `migrations`(`id`,`migration`,`batch`) values 
+(1,'2021_07_03_064422_create_admins_table',1),
+(2,'2022_10_08_134635_create_customers_table',1),
+(3,'2022_10_08_145857_create_category_properties_table',1),
+(4,'2022_10_08_214937_create_properties_table',1),
+(5,'2022_10_09_075540_create_category_payments_table',1),
+(6,'2022_10_09_095751_create_transactions_table',1),
+(7,'2022_10_09_095800_create_transaction_details_table',1),
+(8,'2022_10_24_102210_create_sub_category_properties_table',2);
+
+/*Table structure for table `properties` */
+
+DROP TABLE IF EXISTS `properties`;
+
+CREATE TABLE `properties` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sub_category_property_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` int(11) NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `properties_name_unique` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `properties` */
+
+insert  into `properties`(`id`,`sub_category_property_id`,`img`,`name`,`description`,`price`,`status`,`deleted_at`,`created_at`,`updated_at`) values 
+('14b110ad-223f-4d0f-a54a-634430d01efd','a43b0a2b-0d40-4d08-b321-71ea4b4b27f4','1666634976.jpg','Kursi Tamu Dari Jati','desc',200000,'active','2022-12-15 09:19:03','2022-10-25 01:09:36','2022-12-15 09:19:03'),
+('2bef3386-eea8-4c34-9ccb-f342eb2028b8','a43b0a2b-0d40-4d08-b321-71ea4b4b27f4','1671749291.jpg','Mesin cuci Sharp 2 tabung est 75 nt kapasitas 7.5kg','BARANG BARU BERGARANSI RESMI ES-T75NT-PK(biru dan pink) FITUR: Mesin cuci 2 tabung Turup Transparan Puremagic2 Kapasitas : 7.5Kg Didesain kokoh dan stabil, sehingga dapat mengurangi getaran dan kebisingan saat proses pencucian Body pada mesin cuci ini terbuat dari plastik, sehingga anti korosi, tahan karat, dan anti tikus Dilengkapi dengan fitur-fitur menarik, seperti single pulsator, silvermagic protection on pulsator, dan hemat listrik SPESIFIKASI : Dimensi Produk : 44 x 79 x 94 cm Daya Listrik (Watt) : 330 Watt',1500000,'active',NULL,'2022-12-15 09:49:05','2022-12-23 05:48:11'),
+('3468a425-9f2e-4b37-b3fd-3233330af30c','a43b0a2b-0d40-4d08-b321-71ea4b4b27f4','1666634996.jpg','Kursi Kerja Dari Jati','desc',250000,'active','2022-12-15 09:19:00','2022-10-25 01:09:56','2022-12-15 09:19:00'),
+('53fd4481-cbae-4d93-835d-c51dbc1500ef','cb29a821-c12e-425f-9e69-a02880093950','1671749368.jpg','Philips Blender 5000 Series 2L Plastic - Green + Accessory HR2223/30','-',900000,'active',NULL,'2022-12-15 09:32:19','2022-12-23 05:49:28'),
+('59cda705-583b-4122-a4ea-59fe9d7947c6','e1b9876f-6caf-4797-88f6-f2cc59d62086','1671749260.jpg','KIPAS ANGIN BERDIRI BESI TORNADO GMC 318 STAND FAN 16 INCH','Kipas Angin Besi GMC 318\r\nBaling-baling 3 besi\r\nukuran 16 inch\r\nlebih kuat dan kokoh\r\n\r\n- Angin kencang\r\n- Baling-baling besi\r\n- Jaring pengaman kokoh\r\n- Penumpu kuat,tidak mudah jatuh\r\n- Tiang penyangga kokoh\r\n- Warna elegan\r\n- Daya 60 Watt\r\n- Tegangan 220 Volt\r\n- Frekuensi 50 Hz\r\n- Ukuran dus 510x176x415mm',180000,'active',NULL,'2022-12-15 09:51:45','2022-12-23 05:47:40'),
+('923c0594-4a44-44b1-b5ab-8f7d5a6ce841','d5c69e0d-d972-42a2-b9c1-9bb4d5e3a19f','1671749387.jpg','Philips Dry Iron - HD1172/99','Lapisan tapak setrika anti-lengket \r\nTapak setrika Philips dilapisi dengan lapisan khusus anti-lengket agar licin di atas semua kain.',300000,'active',NULL,'2022-12-15 09:50:41','2022-12-23 05:49:47'),
+('93c143e3-27ea-46e6-ada9-60b1b5dd44ce','2a8c6a7a-d44e-4d6b-8163-07c03bd63ee9','1666634940.jpg','Meja Kopi Dari Besi','desc',150000,'active','2022-12-15 09:23:28','2022-10-25 01:09:00','2022-12-15 09:23:28'),
+('a05d4d8e-8a25-4278-a1a1-c44535b8c6e1','302bd04c-98ec-4cc6-97d2-9ecdd1679d6c','1671749311.jpg','Mixer Roti dan Kue 7 liter Heavy Duty Multi Fungsi','Mixer untuk segala jenis kue.',4000000,'active',NULL,'2022-12-15 09:23:23','2022-12-23 05:48:31'),
+('aab08742-2bee-4c5f-b218-e4c8593f45f5','00528d3e-b2af-4b7e-836b-812c44b02083','1671749247.jpg','HAN RIVER Rice Cooker HRRC03 magic com Portable','Kualitas OKE !!',200000,'active',NULL,'2022-12-15 09:21:05','2022-12-23 05:47:27'),
+('acb62780-f6f6-44c7-8a44-fa24c2f775f0','00528d3e-b2af-4b7e-836b-812c44b02083','1671511621.png','KIPAS ANGIN BERDIRI BESI TORNADO GMC 318 STAND FAN 16 INCH 32','qwqeqe',1232312,'active','2022-12-20 11:56:12','2022-12-20 11:47:01','2022-12-20 11:56:12'),
+('b8b38fc3-3e04-41e1-b64b-04b63baa0c67','40b1664e-13fe-4b7e-b944-ccbcd69d982b','1671749432.jpg','TCL 43A18 - 43 inch Google TV - 4K UHD - Dolby Audio - Netflix- 43A18','TCL 43 inch Google TV - 4K UHD - Dolby Audio - Google Assistant - Netflix/Youtube (model 43A18) adalah televisi LED berukuran 43 inch yang cocok digunakan untuk kebutuhan menonton di rumah Anda. Bingkai televisi ini didesain dengan warna hitam yang elegan dan sangat sesuai untuk berbagai jenis interior. Anda dapat menikmati konsumsi daya yang lebih efisien dengan mengendalikan fitur pencahayaan berdasarkan konten pada televisi Anda. Anda juga dapat memanfaatkan koneksi antarmuka menggunakan USB yang praktis untuk memutar konten multimedia melalui televisi Anda. Tidak hanya tampilan visual, Tv ini juga memberikan Anda keleluasaan untuk dapat menikmati kualitas audio yang lebih tangguh.',3300000,'active',NULL,'2022-12-15 09:38:56','2022-12-23 05:50:32'),
+('c34ae885-e7be-4837-917d-6f0246640158','57086517-ad67-4066-b7c6-95da745ee085','1671749274.jpg','Kulkas POLYTRON Jumbo 2 pintu 260 liter PRW 296Y','Kuklas baru',3000000,'active',NULL,'2022-12-15 09:24:52','2022-12-23 05:47:54'),
+('c48fdb97-224f-4059-a855-fd7ef5529651','40b1664e-13fe-4b7e-b944-ccbcd69d982b','1671071841.jpg','POLYTRON DIGITAL LED TV 32\" PLD 32V1853','Kondisi: Baru\r\nBerat Satuan: 9,8 kg\r\nKategori: Televisi\r\nEtalase: Semua Etalase\r\nLED TV dengan Garansi 5 Tahun yang sudah mendukung Digital TV (DVB-T2)',1900000,'active','2022-12-20 12:02:21','2022-12-15 09:37:21','2022-12-20 12:02:21'),
+('c9cb582f-89c4-4610-b18b-b236fd4e122a','8b5dc3ea-1774-4bb5-8211-a83ab0a903cb','1671749352.jpg','Polytron AC Neuva Pro 1 PK PAC 09VZ','olytron AC Neuva Pro 1 PK PAC 09VZ merupakan air conditioner yang membuat Anda dapat merasakan sejuknya ruangan namun tetap hemat energi dan ramah lingkungan. Air conditioner seri Neuva Ice ini memiliki kekuatan 1 PK yang cocok untuk berada dalam seluruh ruangan Anda untuk menjadi solusi ketika cuaca panas sedang ekstrem dengan pendinginan yang cepat. POLYTRON Neuva Ice AC 1 PK PAC 09VZ memiliki fitur Fastest Cooling yang dapat mendinginkan ruangan lebih cepat dibandingkan dengan merk lain sehingga memberikan kenyamanan yang lebih cepat.',3000000,'active',NULL,'2022-12-15 09:40:57','2022-12-23 05:49:12'),
+('d63423de-c33e-4090-a5cb-09adf4b943c0','a43b0a2b-0d40-4d08-b321-71ea4b4b27f4','1671072316.jpg','POLYTRON Mesin Cuci 1 Tabung Zeromatic Laguna Hijab 8 KG PAW 8028','Kini Hadir, Mesin cuci automatic Zeromatic Laguna dari Polytron yang dapat menjawab kebutuhan anda. Mesin cuci ini, sangat cocok digunakan bagi ibu-ibu pintar di indonesia karena, mesin cuci ini dapat menjawab berbagai kebutuhan mencuci ibu di indonesia. dengan fitur unggulan Laguna Wave dan Laguna Drum, ibu-ibu dapat dengan mudah merendam pakaian serta tidak perlu lagi mengucek baju karena mesin cuci ini sudah di design sedemikian rupa untuk menghasilkan efek seperti mengucek baju. mesin cuci automatic ini juga sudah dilengkapi dengan fitur turbo mix sehingga detergent bubuk, maupun cair tidak meninggalkan residu menghasilkan cucian yang jauh lebih bersih. Aroma boost yang dimiliki dari Zeromatic Laguna meningkatkan efektifitas dari pelembut dan pewangi sehingga cucian menjadi lebih lembut dan wangi. mesin cuci ini di lengkapi juga dengan berbagai program mencuci yang dapat disesuaikan dengan kebutuhan bahan anda',2500000,'active','2022-12-20 12:03:34','2022-12-15 09:45:16','2022-12-20 12:03:34'),
+('dc1f3b26-7700-43e4-b1be-353543530d2a','811960fa-4a2d-487e-bb25-4736f95c5c84','1671749407.jpg','Sanken Dispenser Galon Bawah HWD-C558IC Dispenser Bottom Loading','Barang OK !',1800000,'active',NULL,'2022-12-15 09:30:36','2022-12-23 05:50:07'),
+('dde89f49-ee99-4fc4-bd91-ba163f1e4431','8b5dc3ea-1774-4bb5-8211-a83ab0a903cb','1671749226.jpg','AC Aqua Japan 1 PK AQA-KCR9ANR, AC 1PK Aqua Standar + Pasang - PAKET TRADE IN','SPESIFIKASI AC :\r\n- Type : AC Standard\r\n- Warna : Putih\r\n- Daya Listrik (Watt) : 760 Watt\r\n- Dimensi Indoor (W x D x h) : 810 x 200 x 280 mm\r\n- Berat : 9 Kg\r\n- Daya PK : 1 PK\r\n- Kapasitas Pendinginan : 9000 BTU/h\r\n- Tipe Refrigrant : R32\r\n- Ukuran Pipa Cair & Gas (Inch) : ⌀1/4 ⌀3/8\r\n- Dimensi Outdoor (W x D x h) : 696 x 256 x 432 mm\r\n- Berat Outdoor : 24 Kg\r\n- Garansi Produk : 1 Tahun Sparepart, 5 Tahun Kompresor',3000000,'active',NULL,'2022-12-15 09:42:11','2022-12-23 05:47:06'),
+('e67c6009-021c-4b06-bd8f-bddbc9fc9955','fef660c7-4be6-439d-a331-451fabfb5e9d','1671749327.jpg','Panasonic Microwave Oven Low Watt NN ST32 / NN-ST32HM - Garansi Resmi','Kondisi: Baru\r\nBerat Satuan: 15 kg\r\nKategori: Microwave\r\nEtalase: Microwave Oven Grill\r\nKatalog: Panasonic NN-ST32HMTTE',1600000,'active',NULL,'2022-12-15 09:34:19','2022-12-23 05:48:47');
+
+/*Table structure for table `sub_category_properties` */
+
+DROP TABLE IF EXISTS `sub_category_properties`;
+
+CREATE TABLE `sub_category_properties` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_property_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `sub_category_properties` */
+
+insert  into `sub_category_properties`(`id`,`category_property_id`,`name`,`status`,`deleted_at`,`created_at`,`updated_at`) values 
+('00528d3e-b2af-4b7e-836b-812c44b02083','fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Rice Cooker','active',NULL,'2022-12-15 09:07:00','2022-12-15 09:07:00'),
+('0daa4df5-b9db-4d25-9dde-f022ad4735c4','c33b2ab0-f42d-48ea-8b2b-ae68375fb694','Rak Buku','active',NULL,'2022-12-15 09:10:01','2022-12-15 09:10:01'),
+('14c7c05d-e27a-4a4a-bf9a-a87282d2602a','c33b2ab0-f42d-48ea-8b2b-ae68375fb694','Kursi Kantor','active',NULL,'2022-12-15 09:09:35','2022-12-15 09:09:35'),
+('15288a43-f090-45ef-8d60-93971843d5e3','4510f0ed-4319-4646-80e4-59116d1cf299','Bantal Guling','active',NULL,'2022-12-15 09:13:32','2022-12-15 09:13:32'),
+('2024a62e-5d00-44cc-8d27-f0ea84bf6412','4510f0ed-4319-4646-80e4-59116d1cf299','Meja Belajar','active',NULL,'2022-12-15 09:14:05','2022-12-15 09:14:05'),
+('2a8c6a7a-d44e-4d6b-8163-07c03bd63ee9','4510f0ed-4319-4646-80e4-59116d1cf299','Meja Besi','active',NULL,'2022-10-25 01:04:29','2022-10-25 01:07:53'),
+('302bd04c-98ec-4cc6-97d2-9ecdd1679d6c','fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Mixer','active',NULL,'2022-12-15 09:06:48','2022-12-15 09:06:48'),
+('33d62116-0319-4d10-8a77-16ff0aa72697','99b628b4-dacc-49b6-b332-be95649606c0','Kursi Jati','active',NULL,'2022-12-15 09:16:09','2022-12-15 09:16:09'),
+('3a32e86c-8e34-48db-9167-79f3a6dc10fa','4510f0ed-4319-4646-80e4-59116d1cf299','Lemari Pakaian','active',NULL,'2022-12-15 09:12:55','2022-12-15 09:12:55'),
+('3a71f5a3-cdc4-4724-9239-5f43dda5b9ea','b467e92f-cbd1-4242-bdf6-d9276771fa64','Kamera','active',NULL,'2022-12-15 09:17:25','2022-12-15 09:17:25'),
+('40b1664e-13fe-4b7e-b944-ccbcd69d982b','c1d930e1-1178-4f80-9054-a81f5b2f0849','TV','active',NULL,'2022-12-15 09:01:51','2022-12-15 09:02:58'),
+('57086517-ad67-4066-b7c6-95da745ee085','fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Kulkas','active',NULL,'2022-12-15 09:06:16','2022-12-15 09:06:16'),
+('68c340c1-f370-4183-8ad3-61837cb66215','c33b2ab0-f42d-48ea-8b2b-ae68375fb694','Meja Kantor','active',NULL,'2022-12-15 09:09:13','2022-12-15 09:09:13'),
+('6eda1b23-ec8a-482a-a442-fab0de197993','4371af71-e11b-468a-9006-c26a9872a7b9','Sofa','active',NULL,'2022-12-15 09:11:22','2022-12-15 09:11:22'),
+('811960fa-4a2d-487e-bb25-4736f95c5c84','fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Dispenser','active',NULL,'2022-12-15 09:07:17','2022-12-15 09:07:17'),
+('86ec0a49-b46c-4f98-985b-b49fa52dec71','4371af71-e11b-468a-9006-c26a9872a7b9','Rak TV','active',NULL,'2022-12-15 09:11:59','2022-12-15 09:11:59'),
+('8a13b9b9-9fa6-4544-8249-f6e48a6b50a7','b467e92f-cbd1-4242-bdf6-d9276771fa64','Laptop','active',NULL,'2022-12-15 09:17:14','2022-12-15 09:17:14'),
+('8b5dc3ea-1774-4bb5-8211-a83ab0a903cb','c1d930e1-1178-4f80-9054-a81f5b2f0849','AC','active',NULL,'2022-12-15 09:03:18','2022-12-15 09:03:18'),
+('96f8d96f-ce88-4afb-920e-1e5be5bdafc9','4510f0ed-4319-4646-80e4-59116d1cf299','Kasur Busa','active',NULL,'2022-12-15 09:13:18','2022-12-15 09:13:18'),
+('97400ca1-4576-4957-af22-eacba5d8997d','b467e92f-cbd1-4242-bdf6-d9276771fa64','Handphone','active',NULL,'2022-12-15 09:17:07','2022-12-15 09:17:07'),
+('98cd7d64-a5bc-4c7c-b1ba-2a0e6f2ad562','4371af71-e11b-468a-9006-c26a9872a7b9','Lemari Hias','active',NULL,'2022-12-15 09:12:38','2022-12-15 09:12:38'),
+('a43b0a2b-0d40-4d08-b321-71ea4b4b27f4','c1d930e1-1178-4f80-9054-a81f5b2f0849','Mesin Cuci','active',NULL,'2022-10-25 01:04:24','2022-12-15 09:00:28'),
+('a6c3b66a-9169-45f0-a3f5-2818192eea9d','4510f0ed-4319-4646-80e4-59116d1cf299','Meja Jati Belanda','active',NULL,'2022-10-25 01:04:40','2022-10-25 01:07:43'),
+('c70d7e6b-2bb9-4ccc-996d-0541908ac0ed','99b628b4-dacc-49b6-b332-be95649606c0','Meja Makan','active',NULL,'2022-12-15 09:15:52','2022-12-15 09:15:52'),
+('cb29a821-c12e-425f-9e69-a02880093950','fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Blender','active',NULL,'2022-12-15 09:05:49','2022-12-15 09:05:49'),
+('d5c69e0d-d972-42a2-b9c1-9bb4d5e3a19f','c1d930e1-1178-4f80-9054-a81f5b2f0849','Setrika','active',NULL,'2022-12-15 09:01:15','2022-12-15 09:01:15'),
+('e1b9876f-6caf-4797-88f6-f2cc59d62086','c1d930e1-1178-4f80-9054-a81f5b2f0849','Kipas Angin','active',NULL,'2022-12-15 09:03:55','2022-12-15 09:03:55'),
+('e575abc1-2e61-48c3-bbf8-a02fa99a5792','4510f0ed-4319-4646-80e4-59116d1cf299','Divan','active',NULL,'2022-12-15 09:13:45','2022-12-15 09:13:45'),
+('e6028d8a-cd63-4619-94e4-2a55a94ac88c','4510f0ed-4319-4646-80e4-59116d1cf299','Meja Rias','active',NULL,'2022-12-15 09:13:04','2022-12-15 09:13:04'),
+('ea88dda1-e1b4-4bbd-8772-7bedabcca010','4371af71-e11b-468a-9006-c26a9872a7b9','Meja Ruang Tamu','active',NULL,'2022-12-15 09:11:38','2022-12-15 09:11:38'),
+('f9605c76-c450-47a5-b28d-8cdf2df6f9aa','c33b2ab0-f42d-48ea-8b2b-ae68375fb694','Kursi Gaming','active',NULL,'2022-12-15 09:09:47','2022-12-15 09:09:47'),
+('fcc0616d-42fa-4221-9be7-9c000ac5240b','c33b2ab0-f42d-48ea-8b2b-ae68375fb694','Lemari Arsip','active',NULL,'2022-12-15 09:10:22','2022-12-15 09:10:22'),
+('fe44c582-2911-4d59-b022-fe288ca96314','4510f0ed-4319-4646-80e4-59116d1cf299','Nakas','active',NULL,'2022-12-15 09:13:57','2022-12-15 09:13:57'),
+('fef660c7-4be6-439d-a331-451fabfb5e9d','fc2c4a5b-7961-4acc-b808-73489bb4f3aa','Microwave','active',NULL,'2022-12-15 09:05:23','2022-12-15 09:05:23');
+
+/*Table structure for table `transaction_details` */
+
+DROP TABLE IF EXISTS `transaction_details`;
+
+CREATE TABLE `transaction_details` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `property_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `transaction_details` */
+
+insert  into `transaction_details`(`id`,`transaction_id`,`property_id`,`qty`,`price`,`total_price`,`deleted_at`,`created_at`,`updated_at`) values 
+('9fbb9f4b-1603-4201-a907-4f100ec556cb','b83a0020-7ee8-4912-84a6-0e082520f068','3468a425-9f2e-4b37-b3fd-3233330af30c',1,250000,250000,NULL,'2022-10-25 01:56:48','2022-10-25 01:56:48'),
+('a0fc33c2-12f4-44e4-aae0-3a058ca84126','b83a0020-7ee8-4912-84a6-0e082520f068','14b110ad-223f-4d0f-a54a-634430d01efd',2,200000,400000,NULL,'2022-10-25 01:56:48','2022-10-25 01:56:48');
+
+/*Table structure for table `transactions` */
+
+DROP TABLE IF EXISTS `transactions`;
+
+CREATE TABLE `transactions` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `category_payment_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `recipient_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deliver_to` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_payment` int(11) NOT NULL,
+  `customer_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `transactions_code_unique` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `transactions` */
+
+insert  into `transactions`(`id`,`code`,`category_payment_id`,`recipient_name`,`deliver_to`,`account_number`,`img`,`total_payment`,`customer_id`,`admin_id`,`status`,`deleted_at`,`created_at`,`updated_at`) values 
+('b83a0020-7ee8-4912-84a6-0e082520f068','B8362','cd2769d2-11a9-4eb5-8bee-4e2503b0c40b','udin','surabaya',NULL,NULL,650000,'b97a2b85-2876-47ed-bda3-60354e4e2cac','f19d01d2-8f7a-4a5b-93c6-44cd1c80be81','pending',NULL,'2022-10-25 01:56:48','2022-10-25 01:56:48');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

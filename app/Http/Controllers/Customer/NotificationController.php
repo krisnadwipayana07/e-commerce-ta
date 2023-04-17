@@ -23,11 +23,13 @@ class NotificationController extends Controller
     protected $category_product;
     protected $statuses = [
         'paid' => 'PAID',
-        'in_progress' => 'IN PROGRESS'
+        'in_progress' => 'IN PROGRESS',
+        'pending' => 'PENDING'
     ];
     protected $buttons = [
         'paid' => 'success',
-        'in_progress' => 'warning'
+        'in_progress' => 'warning',
+        'pending' => 'info'
     ];
 
     public function __construct()
@@ -76,7 +78,7 @@ class NotificationController extends Controller
         //             ->make(true);
         // }
         $customer = Auth::guard('customer')->user();
-        $status = ['paid', 'in_progress'];
+        $status = ['paid', 'in_progress', 'pending'];
         $data = Transaction::with(['category_payment'])
                 ->where('customer_id', $customer->id)
                 ->whereIn('status', $status)

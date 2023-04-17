@@ -248,16 +248,23 @@ class TransactionController extends Controller
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
         }
     }
-    
-    public function evidence_payment_reject(Transaction $transaction)
+
+    public function evidence_payment_reject(Transaction $transaction, Request $request)
     {
         DB::beginTransaction();
         try{
-            $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
-            foreach ($transactionDetails as $transactionDetail) {
-                $transactionDetail->delete();
+            // $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+            // foreach ($transactionDetails as $transactionDetail) {
+            //     $transactionDetail->delete();
+            // }
+            // $transaction->delete();
+            $action = $transaction->update([
+                'status' => 'reject'
+            ]);
+            if ($action) {
+                $message = $request->has('message') ? $request->message : "Your Credit Payment Submission has been Rejected! Please review your submission!";
+                store_notif($transaction->customer_id, $message, "Transaction");
             }
-            $transaction->delete();
             DB::commit();
             return redirect()->route('admin.evidence_payment.index');
         }catch(Exception $ex){

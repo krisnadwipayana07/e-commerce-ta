@@ -76,11 +76,15 @@
     <img id="preview-photo" src="{{ ($submission->photo) ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
 @endif
-<div class="row">
-    <div class="col-md-2">
-        <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
-            @csrf
-            @method('PUT')
+<form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
+    @csrf
+    @method('PUT')
+    <div class="form-group py-3">
+        <label>Pesan <small><em>(opsional)</em></small></label>
+        <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
+    </div>
+    <div class="row">
+        <div class="col-md-2">
             @php
             $stt = 'paid';
             @endphp
@@ -93,18 +97,18 @@
             <div class="border-bottom py-3">
                 <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Approve</button>
             </div>
-        </form>
+        </div>
+        <div class="col-md-2">
+            <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+                @csrf
+                @method('DELETE')
+                <div class="border-bottom py-3">
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Reject</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-md-2">
-        <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
-            @csrf
-            @method('DELETE')
-            <div class="border-bottom py-3">
-                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Reject</button>
-            </div>
-        </form>
-    </div>
-</div>
+</form>
 <script>
     $(document).ready(function() {
             // for display myimg

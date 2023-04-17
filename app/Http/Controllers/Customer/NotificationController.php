@@ -24,12 +24,14 @@ class NotificationController extends Controller
     protected $statuses = [
         'paid' => 'PAID',
         'in_progress' => 'IN PROGRESS',
-        'pending' => 'PENDING'
+        'pending' => 'PENDING',
+        'rejected' => 'REJECTED'
     ];
     protected $buttons = [
         'paid' => 'success',
         'in_progress' => 'warning',
-        'pending' => 'info'
+        'pending' => 'info',
+        'rejected' => 'danger'
     ];
 
     public function __construct()

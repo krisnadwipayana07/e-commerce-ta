@@ -24,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->string('customer_id');
             $table->string('admin_id');
             $table->string('status')->default('pending');
+            $table->string('img')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

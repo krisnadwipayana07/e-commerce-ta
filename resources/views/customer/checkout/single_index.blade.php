@@ -1,5 +1,15 @@
 @extends('landing.landing')
 
+@section('inject-head')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+@endsection
+
 @section('content')
     <div class="news">
         <div class="container">
@@ -75,6 +85,9 @@
                         <div class="form-group">
                             <label>Alamat</label>
                             <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control" placeholder="Address">{{ auth()->guard('customer')->user()->address }}</textarea>
+                            <div id="map" class="my-3" style="height: 280px;"></div>
+                            <input type="hidden" id="latitude" name="lat">
+                            <input type="hidden" id="longitude" name="lng">
                         </div>
                         <div class="form-group">
                             <label>Nomor Telepon</label>
@@ -453,5 +466,34 @@
 
         return "IDR " + rupiah;
     }
+
+    // Init map
+    var map = L.map('map').setView([-2.6, 120.16], 5);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    
+    // Keep track of the currently displayed marker
+    var displayedMarker = null;
+
+    // Map on click event listener
+    map.on('click', function (e) {
+        // Get latitude longitude
+        var latitude = e.latlng.lat;
+        var longitude = e.latlng.lng;
+
+        // Remove the displayed marker (if any)
+        if (displayedMarker) {
+            displayedMarker.remove();
+        }
+
+        // Set input value
+        $('#latitude').val(latitude);
+        $('#longitude').val(longitude);
+
+        // Add marker to the map
+        displayedMarker = L.marker([latitude, longitude]).addTo(map);
+    });
 </script>
 @endsection

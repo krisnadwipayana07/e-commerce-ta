@@ -20,6 +20,12 @@
     <h6 class="font-weight-bold">Evidence Payment</h6>
     <img id="preview-ktp" src="{{ ($data->evidence_payment) ? url('/upload/customer/submission_credit_payment/', $data->evidence_payment) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Address</h6>
+    <div id="map" class="my-3" style="height: 280px;"></div>
+    <input type="hidden" id="latitude" name="lat" value="{{ $data->transaction->latitude ?: '' }}">
+    <input type="hidden" id="longitude" name="lng" value="{{ $data->transaction->longitude ?: '' }}">
+</div>
 <div class="row">
     <div class="col-md-2">
         <form method="POST" action="{{ route('admin.submission.credit.payment.approve', $data->id) }}">

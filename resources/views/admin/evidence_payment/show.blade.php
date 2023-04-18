@@ -76,6 +76,12 @@
     <img id="preview-photo" src="{{ ($submission->photo) ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
 @endif
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Address</h6>
+    <div id="map" class="my-3" style="height: 280px;"></div>
+    <input type="hidden" id="latitude" name="lat" value="{{ $data->latitude ?: '' }}">
+    <input type="hidden" id="longitude" name="lng" value="{{ $data->longitude ?: '' }}">
+</div>
 <div class="form-group py-3">
     <label>Pesan <small><em>(opsional)</em></small></label>
     <input form="reject-form" type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">

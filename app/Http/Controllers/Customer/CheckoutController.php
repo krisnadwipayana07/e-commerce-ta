@@ -459,7 +459,9 @@ class CheckoutController extends Controller
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
                     'status' => "in_progress",
-                    'due_date' => $due_date
+                    'due_date' => $due_date,
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Payment by bank transfer is waiting for confirmation", 'Transaction');

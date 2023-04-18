@@ -338,7 +338,9 @@ class NotificationController extends Controller
                     'account_number' => $request->account_number,
                     'total_payment' => $request->total,
                     'status' => "in_progress",
-                    'due_date' => $due_date
+                    'due_date' => $due_date,
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
                 store_notif($customer->id, "Payment by bank transfer is waiting for confirmation", 'Transaction');
                 $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Success checkout property, here to transfer payment']);

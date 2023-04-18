@@ -37,6 +37,7 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet">
 
+    @yield('inject-head')
 </head>
 
 <body>

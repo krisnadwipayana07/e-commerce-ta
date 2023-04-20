@@ -350,7 +350,10 @@ class CheckoutController extends Controller
                     'credit_period' => $request->credit_period,
                     'payment_credit' => $request->payment_credit,
                     'down_payment' => $request->down_payment,
-                    'status' => "pending"
+                    'status' => "pending",
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
+
                 ]);
 
                 $upload_path = "/upload/transaction/submission_credit/";

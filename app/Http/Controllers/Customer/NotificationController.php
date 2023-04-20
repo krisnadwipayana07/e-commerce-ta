@@ -211,7 +211,9 @@ class NotificationController extends Controller
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
                     'total_payment' => $request->total,
-                    'status' => "pending"
+                    'status' => "pending",
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
                 store_notif($customer->id, "Cash On Delivery Transaction updated successfully.", "Transaction");
                 $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Cash On Delivery Transaction updated successfully.']);

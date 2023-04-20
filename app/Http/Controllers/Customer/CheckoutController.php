@@ -319,7 +319,9 @@ class CheckoutController extends Controller
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
-                    'status' => "pending"
+                    'status' => "pending",
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
                 $notif = store_notif($customer->id, "successful cash purchase. Make payment when the goods arrive", "Transaction");
                 $redirect = redirect()->route('landing.index')->with('result', ['success', 'Success checkout!']);

@@ -87,7 +87,9 @@ class CheckoutController extends Controller
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
-                    'status' => "pending"
+                    'status' => "pending",
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
                 $notif = store_notif($customer->id, "successful cash purchase. Make payment when the goods arrive", "Transaction");
                 $redirect = redirect()->route('landing.index')->with('result', ['success', 'Success checkout!']);
@@ -118,7 +120,9 @@ class CheckoutController extends Controller
                     'credit_period' => $request->credit_period,
                     'payment_credit' => $request->payment_credit,
                     'down_payment' => $request->down_payment,
-                    'status' => "pending"
+                    'status' => "pending",
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
 
                 $upload_path = "/upload/transaction/submission_credit/";
@@ -227,7 +231,9 @@ class CheckoutController extends Controller
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
                     'status' => "in_progress",
-                    'due_date' => $due_date
+                    'due_date' => $due_date,
+                    "latitude" => $request->lat,
+                    "longitude" => $request->lng
                 ]);
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Payment by bank transfer is waiting for confirmation", 'Transaction');

@@ -83,8 +83,11 @@
     <input type="hidden" id="longitude" name="lng" value="{{ $data->longitude ?: '' }}">
 </div>
 <div class="form-group py-3">
-    <label>Pesan <small><em>(opsional)</em></small></label>
-    <input form="reject-form" type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
+    <label>Pesan Notifikasi ke User <small><em>(opsional)</em></small></label>
+    <div class="d-flex">
+        <input form="reject-form" type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
+        <button class="btn btn-primary">Kirim Notifikasi</button>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-2">

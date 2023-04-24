@@ -113,7 +113,7 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="ktp_number" class="form-label">Nomor KTP</label>
-                            <input type="text" class="form-control credit_period_input" name="ktp_number" id="ktp_number">
+                            <input type="number" class="form-control credit_period_input" name="ktp_number" id="ktp_number">
                         </div>
                         <div class="form-group credit_period">
                             <label for="ktp_address" class="form-label">Alamat Sesuai KTP</label>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="post_code" class="form-label">Kode Pos</label>
-                            <input type="text" class="form-control credit_period_input" name="post_code" id="post_code">
+                            <input type="number" class="form-control credit_period_input" name="post_code" id="post_code">
                         </div>
                         <div class="form-group credit_period">
                             <label for="birth_place" class="form-label">Tempat Lahir</label>
@@ -137,12 +137,12 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="birth_date" class="form-label">Tanggal Lahir</label>
-                            <input type="date" class="form-control credit_period_input" name="birth_date" id="birth_date">
+                            <input type="date" class="form-control credit_period_input w-25" name="birth_date" id="birth_date">
                         </div>
                         <div class="form-group credit_period">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
-                            <select name="gender" id="gender" class="form-control">
-                                <option value="">Pilih Jenis Kelamin</option>
+                            <select name="gender" id="gender" class="form-control credit_period_input">
+                                <option value="">--PILIH--</option>
                                 <option value="male">Laki-laki</option>
                                 <option value="female">Perempuan</option>
                             </select>
@@ -158,7 +158,10 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="long_occupied" class="form-label">Lama Di Tempati</label>
-                            <input type="number" class="form-control credit_period_input" name="long_occupied" id="long_occupied">
+                            <div class="d-flex align-items-center">
+                                <input type="number" class="form-control credit_period_input w-25" name="long_occupied" id="long_occupied">
+                                <p class="pl-2">/Bulan</p>
+                            </div>
                         </div>
                         <div class="form-group credit_period">
                             <label for="education" class="form-label">Pendidikan</label>
@@ -211,23 +214,50 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="length_of_work" class="form-label">Lama Bekerja</label>
-                            <input type="number" class="form-control credit_period_input" name="length_of_work" id="length_of_work">
+                            <div class="d-flex align-items-center">
+                                <input type="number" class="form-control w-25 credit_period_input" name="length_of_work" id="length_of_work">
+                                <p class="pl-2">/Bulan</p>
+                            </div>
                         </div>
                         <div class="form-group credit_period">
                             <label for="income_amount" class="form-label">Jumlah Penghasilan</label>
-                            <input type="number" class="form-control credit_period_input" name="income_amount" id="income_amount">
+                            <select name="income_amount" id="income_amount" class="form-control">
+                                <option value="">--PILIH--</option>
+                                <option value=500000>< 500 Ribu</option>
+                                <option value=2000000>1 - 2 juta</option>
+                                <option value=4000000>3 - 4 juta</option>
+                                <option value=5000000>>5 juta</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="extra_income" class="form-label">Penghasilan Tambahan</label>
-                            <input type="number" class="form-control" name="extra_income" id="extra_income">
+                            <select name="extra_income" id="extra_income" class="form-control">
+                                <option value="">--PILIH--</option>
+                                <option value=500000>< 500 Ribu</option>
+                                <option value=2000000>1 - 2 juta</option>
+                                <option value=4000000>3 - 4 juta</option>
+                                <option value=5000000>>5 juta</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="spending" class="form-label">Pengeluaran</label>
-                            <input type="number" class="form-control" name="spending" id="spending">
+                            <select name="spending" id="spending" class="form-control">
+                                <option value="">--PILIH--</option>
+                                <option value=500000>< 500 Ribu</option>
+                                <option value=2000000>1 - 2 juta</option>
+                                <option value=4000000>3 - 4 juta</option>
+                                <option value=5000000>>5 juta</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="residual_income" class="form-label">Sisa Penghasilan</label>
-                            <input type="number" class="form-control credit_period_input" name="residual_income" id="residual_income">
+                            <select name="residual_income" id="residual_income" class="form-control">
+                                <option value="">--PILIH--</option>
+                                <option value=500000>< 500 Ribu</option>
+                                <option value=2000000>1 - 2 juta</option>
+                                <option value=4000000>3 - 4 juta</option>
+                                <option value=5000000>>5 juta</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="transportation_type" class="form-label">Jenis Kendaraan</label>
@@ -265,7 +295,13 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="bank" class="form-label">Nama Bank</label>
-                            <input type="text" class="form-control credit_period_input" name="bank" id="bank">
+                            <select name="bank" id="bank" class="form-control">
+                                <option value="">--PILIH--</option>
+                                <option value="BRI">BRI</option>
+                                <option value="BCA">BCA</option>
+                                <option value="BNI">BNI</option>
+                                <option value="Mandiri">Mandiri</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="owner_rekening" class="form-label">Pemilik Rekening</label>
@@ -304,11 +340,11 @@
                             </select>
                             <small style="color: red;">*Only credit payment</small>
                         </div>
-                        <div class="form-group total_field">
+                        {{-- <div class="form-group total_field">
                             <label>Total:</label>
                             <input type="hidden" name="total" id="total_payment" value="{{ $total }}">
                             <br><b>{{ format_rupiah($total) }}</b>
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-block btn-success" id="btn-submit">Kirim</button>
                         <div class="form-check credit_period">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
@@ -321,11 +357,11 @@
             </div>
         </div>
     </div>
-    <div class="total_field_temp" style="display: none;">
+    {{-- <div class="total_field_temp" style="display: none;">
         <label>Total:</label>
         <input type="hidden" name="total" id="total_payment" value="{{ $total }}">
         <br><b>{{ format_rupiah($total) }}</b>
-    </div>
+    </div> --}}
     <!-- end news section -->
 @endsection
 

@@ -246,7 +246,13 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="residual_income" class="form-label">Sisa Penghasilan</label>
-                            <input type="number" class="form-control credit_period_input" name="residual_income" id="residual_income">
+                            <select name="residual_income" id="residual_income" class="form-control">
+                                <option value="">--PILIH--</option>
+                                <option value=500000>< 500 Ribu</option>
+                                <option value=2000000>1 - 2 juta</option>
+                                <option value=4000000>3 - 4 juta</option>
+                                <option value=5000000>>5 juta</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="transportation_type" class="form-label">Jenis Kendaraan</label>
@@ -329,11 +335,11 @@
                             </select>
                             <small style="color: red;">*Only credit payment</small>
                         </div>
-                        <div class="form-group total_field">
+                        {{-- <div class="form-group total_field">
                             <label>Total:</label>
                             <input type="hidden" name="total" value="{{ $total }}">
                             <br><b>{{ format_rupiah($total) }}</b>
-                        </div>
+                        </div> --}}
                         <div class="form-check credit_period">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
@@ -346,12 +352,12 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="total_payment" value="{{ $total }}">
+    {{-- <input type="hidden" id="total_payment" value="{{ $total }}">
     <div class="total_field_temp" style="display: none;">
         <label>Total:</label>
         <input type="hidden" name="total" value="{{ $total }}">
         <br><b>{{ format_rupiah($total) }}</b>
-    </div>
+    </div> --}}
     <!-- end news section -->
 @endsection
 

@@ -16,80 +16,80 @@ use Psy\TabCompletion\Matcher\FunctionsMatcher;
 // RETURN COMPONENT
 function actionBtnProperty($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink, $addStockLink)
 {
-    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
 
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data '. $modelInfo .'\', \''.$deleteLink.'\', \''.$indexLink.'\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
+    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data ' . $modelInfo . '\', \'' . $deleteLink . '\', \'' . $indexLink . '\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
 
-    $btn .= '<a href="'.$addStockLink.'" class="btn btn-sm btn-secondary ms-2 text-white"><i class="bi-plus"></i></a>';
+    $btn .= '<a href="' . $addStockLink . '" class="btn btn-sm btn-secondary ms-2 text-white"><i class="bi-plus"></i></a>';
 
     return $btn;
 }
 
 function actionBtn($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink)
 {
-    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
 
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data '. $modelInfo .'\', \''.$deleteLink.'\', \''.$indexLink.'\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
+    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data ' . $modelInfo . '\', \'' . $deleteLink . '\', \'' . $indexLink . '\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
 
     return $btn;
 }
 
 function menuActionBtnasdfas($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink, $recipeLink)
 {
-    $btn = '<a href="'.$recipeLink.'" class="btn btn-sm btn-secondary text-white"><i class="ri-survey-line"></i></a>';
+    $btn = '<a href="' . $recipeLink . '" class="btn btn-sm btn-secondary text-white"><i class="ri-survey-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info ms-2 text-white"><i class="ri-search-line"></i></i></a>';
+    $btn .= '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info ms-2 text-white"><i class="ri-search-line"></i></i></a>';
 
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data '. $modelInfo .'\', \''.$deleteLink.'\', \''.$indexLink.'\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
+    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data ' . $modelInfo . '\', \'' . $deleteLink . '\', \'' . $indexLink . '\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
 
     return $btn;
 }
 
 function menuActionBtn($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink, $recipeLink)
 {
-    $btn = '<a href="'.$recipeLink.'" class="btn btn-sm btn-secondary text-white"><i class="ri-survey-line"></i></a>';
+    $btn = '<a href="' . $recipeLink . '" class="btn btn-sm btn-secondary text-white"><i class="ri-survey-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info ms-2 text-white"><i class="ri-search-line"></i></i></a>';
+    $btn .= '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info ms-2 text-white"><i class="ri-search-line"></i></i></a>';
 
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data '. $modelInfo .'\', \''.$deleteLink.'\', \''.$indexLink.'\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
+    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data ' . $modelInfo . '\', \'' . $deleteLink . '\', \'' . $indexLink . '\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
 
     return $btn;
 }
 
 function actionBtn2($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink)
 {
-    $btn = '<a href="'.$detailLink.'" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn = '<a href="' . $detailLink . '" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
 
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
 
-    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data '. $modelInfo .'\', \''.$deleteLink.'\', \''.$indexLink.'\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
+    $btn .= '<a href="javascript:;" onclick="delete_data(\'Data ' . $modelInfo . '\', \'' . $deleteLink . '\', \'' . $indexLink . '\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
 
     return $btn;
 }
 
 function actionBtnStaff2($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink)
 {
-    $btn = '<a href="'.$detailLink.'" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn = '<a href="' . $detailLink . '" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
     return $btn;
 }
 
 function actionBtnStaff($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink)
 {
-    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
     return $btn;
 }
 
 function onlyShowBtn($modelInfo, $detailLink)
 {
-    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
     return $btn;
 }
 
@@ -101,21 +101,21 @@ function onlyShowBtnRedirect($detailLink)
 
 function onlyDeleteBtn($modelInfo, $destroyLink, $indexLink)
 {
-    $btn = '<a href="javascript:;" onclick="delete_data(\'Data '. $modelInfo .'\', \''.$destroyLink.'\', \''.$indexLink.'\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
+    $btn = '<a href="javascript:;" onclick="delete_data(\'Data ' . $modelInfo . '\', \'' . $destroyLink . '\', \'' . $indexLink . '\')" class="btn btn-sm btn-danger ms-2"><i class="ri-delete-bin-line"></i></a>';
     return $btn;
 }
 
 function showEditBtn2($modelInfo, $indexLink, $detailLink, $editLink, $deleteLink)
 {
-    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
     return $btn;
 }
 
 function showEditBtn($modelInfo, $detailLink, $editLink)
 {
-    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data '. $modelInfo .'\', \''.$detailLink.'\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
-    $btn .= '<a href="'.$editLink.'" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
+    $btn = '<a href="javascript:;" onclick="penuliskode_modal(\'Detail Data ' . $modelInfo . '\', \'' . $detailLink . '\')" class="btn btn-sm btn-info text-white"><i class="ri-search-line"></i></i></a>';
+    $btn .= '<a href="' . $editLink . '" class="btn btn-sm btn-warning ms-2 text-white"><i class="ri-pencil-line"></i></a>';
     return $btn;
 }
 
@@ -123,9 +123,9 @@ function displayBenefit($data)
 {
     $txt = "<ul>";
     foreach ($data as $item) {
-        $txt .= "<li>".$item."</li>";
+        $txt .= "<li>" . $item . "</li>";
     }
-    return $txt."</ul>";
+    return $txt . "</ul>";
 }
 
 // Manage input image
@@ -140,12 +140,12 @@ function insertImg($upload_path)
 
     if ($request->file('myimg')->isValid()) {
         $image = $request->file('myimg');
-        $image_name = time().'.'.$image->extension();
+        $image_name = time() . '.' . $image->extension();
         $img = Image::make($image->path());
         // $img->resize(500, 500, function ($const) {
         //     $const->aspectRatio();
         // })->save($path.''.$image_name);
-        $img->save($path.''.$image_name);
+        $img->save($path . '' . $image_name);
     }
     return $image_name;
 }
@@ -161,16 +161,16 @@ function updateImg($upload_path, $data_name)
         }
         if ($request->file('myimg')->isValid()) {
             $image = $request->file('myimg');
-            $image_name = time().'.'.$image->extension();
+            $image_name = time() . '.' . $image->extension();
 
             $img = Image::make($image->path());
             // $img->resize(500, 500, function ($const) {
             //     $const->aspectRatio();
             // })->save($path.''.$image_name);
-            $img->save($path.''.$image_name);
+            $img->save($path . '' . $image_name);
 
             if ($data_name != ''  && $data_name != null) {
-                $file_old = $path.$data_name;
+                $file_old = $path . $data_name;
                 if (file_exists($file_old)) {
                     unlink($file_old);
                 }
@@ -185,7 +185,7 @@ function deleteImg($upload_path, $data_name)
 {
     $path = public_path($upload_path);
     if ($data_name != ''  && $data_name != null) {
-        $file_old = $path.$data_name;
+        $file_old = $path . $data_name;
         unlink($file_old);
     }
 }
@@ -203,13 +203,13 @@ function generateOrderNumber($id)
 
 function generateDigit($id)
 {
-    return ($id < 10) ? '00'.$id : ($id < 100 ? '0'.$id : $id);
+    return ($id < 10) ? '00' . $id : ($id < 100 ? '0' . $id : $id);
 }
 
 function generateNumberTransaction($id)
 {
     $date = Carbon::now()->format('Ymd');
-    $number = ($id < 10) ? '00'.$id : ($id < 100 ? '0'.$id : $id);
+    $number = ($id < 10) ? '00' . $id : ($id < 100 ? '0' . $id : $id);
     $notrans = 'TRCT' . $date . $number;
     return $notrans;
 }
@@ -217,7 +217,7 @@ function generateNumberTransaction($id)
 function generateNumberBooking($id)
 {
     $date = Carbon::now()->format('Ymd');
-    $number = ($id < 10) ? '00'.$id : ($id < 100 ? '0'.$id : $id);
+    $number = ($id < 10) ? '00' . $id : ($id < 100 ? '0' . $id : $id);
     $notrans = 'BK' . $date . $number;
     return $notrans;
 }
@@ -225,7 +225,7 @@ function generateNumberBooking($id)
 function generateNumberTransactionProduct($id)
 {
     $date = Carbon::now()->format('Ymd');
-    $number = ($id < 10) ? '00'.$id : ($id < 100 ? '0'.$id : $id);
+    $number = ($id < 10) ? '00' . $id : ($id < 100 ? '0' . $id : $id);
     $notrans = 'TRCTP' . $date . $number;
     return $notrans;
 }
@@ -244,10 +244,17 @@ function responseApi($status, $data, $msg)
 
 function format_rupiah($str)
 {
-    if (! is_numeric($str)) {
+    if (!is_numeric($str)) {
         return false;
     }
-    return "IDR ".number_format($str, 0, ',', '.');
+    return "IDR " . number_format($str, 0, ',', '.');
+}
+function IDRConvert($str)
+{
+    if (!is_numeric($str)) {
+        return false;
+    }
+    return "Rp. " . number_format($str, 0, ',', '.');
 }
 
 function format_date($date, $dayname = false)
@@ -260,7 +267,7 @@ function format_date($date, $dayname = false)
 
 function format_datetime($date)
 {
-    return Carbon::parse($date)->addHours(1)->translatedFormat('d F Y H:i:s')." WIB";
+    return Carbon::parse($date)->addHours(1)->translatedFormat('d F Y H:i:s') . " WIB";
 }
 
 function format_time($date)
@@ -279,7 +286,7 @@ function format_time_add_hours($date, $hours)
 
 function returnStatus($key = 'showall')
 {
-    $arr = ['active'=>'Active', 'inactive'=>'Inactive'];
+    $arr = ['active' => 'Active', 'inactive' => 'Inactive'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -291,7 +298,7 @@ function returnStatus($key = 'showall')
 
 function returnAdminRole($key = 'showall')
 {
-    $arr = ['SUPERADMIN'=>'SUPER ADMIN', 'ADMIN'=>'ADMIN'];
+    $arr = ['SUPERADMIN' => 'SUPER ADMIN', 'ADMIN' => 'ADMIN'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -303,7 +310,7 @@ function returnAdminRole($key = 'showall')
 
 function returnTransaction($key = 'showall')
 {
-    $arr = ['done'=>'Done', 'cancel'=>'Cancel'];
+    $arr = ['done' => 'Done', 'cancel' => 'Cancel'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -315,7 +322,7 @@ function returnTransaction($key = 'showall')
 
 function returnPackageType($key = 'showall')
 {
-    $arr = ['weekday'=>'Weekday', 'weekend'=>'Weekend', 'everyday'=>'Everyday'];
+    $arr = ['weekday' => 'Weekday', 'weekend' => 'Weekend', 'everyday' => 'Everyday'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -327,7 +334,7 @@ function returnPackageType($key = 'showall')
 
 function returnStatusConfirmation($key = 'showall')
 {
-    $arr = ['pending'=>'Pending', 'approve'=>'Approve', 'decline'=>'Decline'];
+    $arr = ['pending' => 'Pending', 'approve' => 'Approve', 'decline' => 'Decline'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -339,7 +346,7 @@ function returnStatusConfirmation($key = 'showall')
 
 function returnStatusBooking($key = 'showall')
 {
-    $arr = ['pending'=>'Pending', 'approve'=>'Approve', 'decline'=>'Decline', 'finish'=>'Finish'];
+    $arr = ['pending' => 'Pending', 'approve' => 'Approve', 'decline' => 'Decline', 'finish' => 'Finish'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -352,11 +359,12 @@ function returnStatusBooking($key = 'showall')
 function returnStatusOrder($key = 'showall')
 {
     $arr = [
-        'pending'=>'Pending', 
-        'in_progress'=>'In Progress', 
+        'pending' => 'Pending',
+        'in_progress' => 'In Progress',
         // 'received'=>'Received', 
         // 'cancel'=>'Cancel', 
-        'paid' =>'Paid'];
+        'paid' => 'Paid'
+    ];
     if ($key == 'showall') {
         return $arr;
     }
@@ -368,7 +376,7 @@ function returnStatusOrder($key = 'showall')
 
 function returnStatusProgress($key = 'showall')
 {
-    $arr = ['pending'=>'Pending', 'in progress'=>'In Progress', 'done'=>'Done'];
+    $arr = ['pending' => 'Pending', 'in progress' => 'In Progress', 'done' => 'Done'];
     if ($key == 'showall') {
         return $arr;
     }
@@ -449,7 +457,8 @@ if (!function_exists('set_active')) {
     }
 }
 
-function store_notif($user_id, $message, $type) {
+function store_notif($user_id, $message, $type)
+{
     $data = Notification::create([
         'customer_id' => $user_id,
         'type' => $type,

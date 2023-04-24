@@ -49,6 +49,10 @@
 
 @section('page-js')
     <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
         $('#datatables').DataTable({
             processing: true,
             serverSide: true,

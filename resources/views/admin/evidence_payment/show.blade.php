@@ -1,4 +1,4 @@
-<div class="border-bottom py-3">
+aaaa<div class="border-bottom py-3">
     <h6 class="font-weight-bold">Code</h6>{{ $data->code }}
 </div>
 <div class="border-bottom py-3">
@@ -156,27 +156,39 @@
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">KTP</h6>
-    <img id="preview-ktp" src="{{ ($submission->ktp) ? url('/upload/transaction/submission_credit/', $submission->ktp) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    <a target="_blank" href="{{ ($submission->ktp) ? url('/upload/transaction/submission_credit/', $submission->ktp) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
+        <img id="preview-ktp" src="{{ ($submission->ktp) ? url('/upload/transaction/submission_credit/', $submission->ktp) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    </a>
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Salary Slip</h6>
-    <img id="preview-salary_slip" src="{{ ($submission->salary_slip) ? url('/upload/transaction/submission_credit/', $submission->salary_slip) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    <a target="_blank" href="{{ ($submission->salary_slip) ? url('/upload/transaction/submission_credit/', $submission->salary_slip) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
+        <img id="preview-salary_slip" src="{{ ($submission->salary_slip) ? url('/upload/transaction/submission_credit/', $submission->salary_slip) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    </a>
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Photo Selfi</h6>
-    <img id="preview-photo" src="{{ ($submission->photo) ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    <a target="_blank" href="{{ ($submission->photo) ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
+        <img id="preview-photo" src="{{ ($submission->photo) ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    </a>
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">House Image</h6>
-    <img id="preview-photo" src="{{ ($submission->house_image) ? url('/upload/transaction/submission_credit/', $submission->house_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    <a target="_blank" href="{{ ($submission->house_image) ? url('/upload/transaction/submission_credit/', $submission->house_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
+        <img id="preview-photo" src="{{ ($submission->house_image) ? url('/upload/transaction/submission_credit/', $submission->house_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    </a>
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Transportation Image</h6>
-    <img id="preview-photo" src="{{ ($submission->transportation_image) ? url('/upload/transaction/submission_credit/', $submission->transportation_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    <a target="_blank" href="{{ ($submission->transportation_image) ? url('/upload/transaction/submission_credit/', $submission->transportation_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
+        <img id="preview-photo" src="{{ ($submission->transportation_image) ? url('/upload/transaction/submission_credit/', $submission->transportation_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    </a> 
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Rekening Book Image</h6>
-    <img id="preview-photo" src="{{ ($submission->rekening_book_image) ? url('/upload/transaction/submission_credit/', $submission->rekening_book_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    <a target="_blank" href="{{ ($submission->rekening_book_image) ? url('/upload/transaction/submission_credit/', $submission->rekening_book_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
+        <img id="preview-photo" src="{{ ($submission->rekening_book_image) ? url('/upload/transaction/submission_credit/', $submission->rekening_book_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+    </a>
 </div>
 @endif
 <div class="border-bottom py-3">
@@ -202,7 +214,7 @@
         $stt = 'in_progress';
         @endphp
         @endif
-        <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
+        <form hidden={{$data->status !== "in_progress"}} method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
             @csrf
             @method('PUT')
             <input type="hidden" name="status" value="{{ $stt }}">
@@ -212,7 +224,7 @@
         </form>
     </div>
     <div class="col-md-2">
-        <form id="reject-form" method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+        <form hidden={{$data->status !== "in_progress"}} id="reject-form" method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
             @csrf
             @method('DELETE')
             <div class="border-bottom py-3">
@@ -222,6 +234,7 @@
     </div>
 </div>
 <script>
+    
     $(document).ready(function() {
             // for display myimg
             $('#myimg').change(function(){

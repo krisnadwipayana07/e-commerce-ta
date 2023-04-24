@@ -73,6 +73,7 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::get('evidence_payment/{transaction}', 'TransactionController@evidence_payment_show')->name('evidence_payment.show');
         Route::put('evidence_payment/{transaction}', 'TransactionController@evidence_payment_approve')->name('evidence_payment.approve');
         Route::delete('evidence_payment/{transaction}', 'TransactionController@evidence_payment_reject')->name('evidence_payment.reject');
+        Route::post('evidence_payment/{transaction}', 'TransactionController@evidence_payment_notify_user')->name('evidence_payment.notify_user');
         
         Route::get('submission_premium', 'SubmissionPremiumController@submission_premium_index')->name('submission_premium.index');
         Route::get('submission_premium/{submission_premium_customer}', 'SubmissionPremiumController@submission_premium_show')->name('submission_premium.show');

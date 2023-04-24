@@ -199,8 +199,9 @@ aaaa<div class="border-bottom py-3">
 </div>
 <div class="form-group py-3">
     <label>Pesan Notifikasi ke User <small><em>(opsional)</em></small></label>
-    <form class="d-flex">
-        <input form="reject-form" type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
+    <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST" class="d-flex">
+        @csrf
+        <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
         <button type="submit" class="btn btn-primary">Kirim Notifikasi</button>
     </form>
 </div>

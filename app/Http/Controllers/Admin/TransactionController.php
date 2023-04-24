@@ -283,4 +283,14 @@ class TransactionController extends Controller
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
         }
     }
+
+    public function evidence_payment_notify_user(Transaction $transaction, Request $request)
+    {
+        try {
+            store_notif($transaction->customer_id, $request->message ?: "Something wrong in your transactions! Please check your transactions", 'Transaction');
+            return redirect()->back()->with('result', ['success', 'Notifications has been sent!']);
+        } catch (Exception $ex) {
+            return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
+        }
+    }
 }

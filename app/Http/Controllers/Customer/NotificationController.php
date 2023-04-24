@@ -309,6 +309,7 @@ class NotificationController extends Controller
                     "gender" => $request->gender,
                     "home_state" => $request->home_state,
                     "long_occupied" => $request->long_occupied,
+                    "year_or_month_occupied" => $request->year_or_month_occupied,
                     "education" => $request->education,
                     "marital_status" => $request->marital_status,
                     "jobs" => $request->jobs,
@@ -316,6 +317,7 @@ class NotificationController extends Controller
                     "company_address" => $request->company_address,
                     "company_phone" => $request->company_phone,
                     "length_of_work" => $request->length_of_work,
+                    "year_or_month_work" => $request->year_or_month_work,
                     "income_amount" => $request->income_amount,
                     "extra_income" => $request->extra_income,
                     "spending" => $request->spending,
@@ -370,7 +372,6 @@ class NotificationController extends Controller
         } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
-            dd($ex);
             return redirect()->route('landing.index')->with('result', ['error', 'Somethings Error: ' . $ex]);
         }
     }

@@ -333,8 +333,8 @@ class NotificationController extends Controller
                     "transportation_image" => $transportation_image_name,
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
-                store_notif($customer->id, "Credit application data has been updated. You will be contacted by the store to confirm", 'Transaction');
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Credit application data has been updated. You will be contacted by the store to confirm']);
+                store_notif($customer->id, "Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya", 'Transaction');
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya']);
             } else {
                 $due_date = Carbon::now()->addDay();
                 $transaction->update([
@@ -348,8 +348,8 @@ class NotificationController extends Controller
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
                 ]);
-                store_notif($customer->id, "Payment by bank transfer is waiting for confirmation", 'Transaction');
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Success checkout property, here to transfer payment']);
+                store_notif($customer->id, "Pembayaran melalui via transfer sedang menunggu untuk konfirmasi", 'Transaction');
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Pembayaran melalui via transfer sedang menunggu untuk konfirmasi']);
             }
             $property = Property::where('id', $request->property_id)->first();
             $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)->get()->first();
@@ -452,7 +452,7 @@ class NotificationController extends Controller
                 "evidence_payment" => $img_name,
                 "status" => "pending"
             ]);
-            $notif = store_notif($transaction->customer_id, "Your Down Payment Sended", "Submission Down Payment");
+            $notif = store_notif($transaction->customer_id, "DP berhasil masuk, mohon menunggu konfirmasi dari admin", "Submission Down Payment");
             DB::commit();
 
             return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);

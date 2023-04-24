@@ -215,7 +215,8 @@ aaaa<div class="border-bottom py-3">
         $stt = 'in_progress';
         @endphp
         @endif
-        <form hidden={{$data->status !== "in_progress"}} method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
+        @if ($data->status === "pending")
+        <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
             @csrf
             @method('PUT')
             <input type="hidden" name="status" value="{{ $stt }}">
@@ -223,15 +224,18 @@ aaaa<div class="border-bottom py-3">
                 <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Approve</button>
             </div>
         </form>
+        @endif
     </div>
     <div class="col-md-2">
-        <form hidden={{$data->status !== "in_progress"}} id="reject-form" method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+        @if ($data->status === "pending")
+        <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
             @csrf
             @method('DELETE')
             <div class="border-bottom py-3">
-                <button form="reject-form" type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Reject</button>
+                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Reject</button>
             </div>
         </form>
+        @endif
     </div>
 </div>
 <script>

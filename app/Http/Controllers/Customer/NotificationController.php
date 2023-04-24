@@ -203,7 +203,7 @@ class NotificationController extends Controller
         DB::beginTransaction();
         try {
             $transaction = Transaction::where('id', $transactionId)->get()->first();
-            dd($transaction);
+            // dd($transaction);
             $customer = Auth::guard('customer')->user();
             $payment = CategoryPayment::where('id', $request->category_payment_id)->first();
             if ($payment->name == "Cash" || $payment->name == "Cash On Delivery") {
@@ -243,7 +243,7 @@ class NotificationController extends Controller
                     'credit_period' => $request->credit_period,
                     'payment_credit' => $request->payment_credit,
                     'down_payment' => $request->down_payment,
-                    'status' => "pending",
+                    'status' => $request->status,
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
                 ]);

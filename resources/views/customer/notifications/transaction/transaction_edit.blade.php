@@ -64,10 +64,12 @@
                     <form action="{{ route('customer.notification.transaction.edit_store', $transaction->id) }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="property_id" value="{{ $property->id }}">
                         <input type="hidden" name="quantity_property" value="{{ $quantity }}">
+                        <input type="hidden" name="category_payment_id" value="{{ $transaction->category_payment_id }}">
+                        <input type="hidden" name="status" value="{{ $transaction->status }}">
                         @csrf
                         <div class="form-group">
                             <label>Jenis Pembayaran:</label>
-                            <select disabled name="category_payment_id" class="select-picker form-control @error('category_payment_id') is-invalid @enderror"  style="width:100%;" id="payment">
+                            <select disabled class="select-picker form-control style="width:100%;" id="payment">
                                 <option value="">-Pilih-</option>
                                 @foreach ($payments as $payment)
                                 @if(($payment->name != "Kredit" && $payment->name != "Credit") || auth()->guard('customer')->user()->allow_credit)
@@ -363,7 +365,7 @@
         $('.credit_period').hide();
 
         // Init form value
-        window.onLoad = initForm();
+        initForm();
     });
 
     function initForm() {
@@ -381,15 +383,15 @@
             $('.credit_period').show();
             $('#btn-submit').addClass("disabled");
             $('#checkbox-agree').attr('checked', false);
-            // html = "<label>Total:</label>";
-            // html += "<input type='hidden' name='total' value="+ n_total +">";
-            // html += "<br><b>"+ format_rupiah(n_total) +"</b>";
-            // html += "<br><label>Down Payment:</label>";
-            // html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
-            // html += "<br><b>"+ format_rupiah(dp) +"</b>";
-            // html += "<br><label>Payment per month:</label>";
-            // html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / 3) +">";
-            // html += "<br><b>"+ format_rupiah((n_total - dp) / 3) +"</b>";
+            html = "<label>Total:</label>";
+            html += "<input type='hidden' name='total' value="+ n_total +">";
+            html += "<br><b>"+ format_rupiah(n_total) +"</b>";
+            html += "<br><label>Down Payment:</label>";
+            html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
+            html += "<br><b>"+ format_rupiah(dp) +"</b>";
+            html += "<br><label>Payment per month:</label>";
+            html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / 3) +">";
+            html += "<br><b>"+ format_rupiah((n_total - dp) / 3) +"</b>";
             $('.total_field').html(html);
         }
     }
@@ -415,15 +417,15 @@
             $('.credit_period').show();
             $('#btn-submit').addClass("disabled");
             $('#checkbox-agree').attr('checked', false);
-            // html = "<label>Total:</label>";
-            // html += "<input type='hidden' name='total' value="+ n_total +">";
-            // html += "<br><b>"+ format_rupiah(n_total) +"</b>";
-            // html += "<br><label>Down Payment:</label>";
-            // html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
-            // html += "<br><b>"+ format_rupiah(dp) +"</b>";
-            // html += "<br><label>Payment per month:</label>";
-            // html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / 3) +">";
-            // html += "<br><b>"+ format_rupiah((n_total - dp) / 3) +"</b>";
+            html = "<label>Total:</label>";
+            html += "<input type='hidden' name='total' value="+ n_total +">";
+            html += "<br><b>"+ format_rupiah(n_total) +"</b>";
+            html += "<br><label>Down Payment:</label>";
+            html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
+            html += "<br><b>"+ format_rupiah(dp) +"</b>";
+            html += "<br><label>Payment per month:</label>";
+            html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / 3) +">";
+            html += "<br><b>"+ format_rupiah((n_total - dp) / 3) +"</b>";
             $('.total_field').html(html);
         } else {
             $('.evidence_payment').hide();
@@ -448,15 +450,15 @@
         }
         var n_total = total + (total * bunga);
         var dp = Math.round((Math.round(n_total * 30/100)) / 1000) * 1000;
-        // html = "<label>Total:</label>";
-        // html += "<input type='hidden' name='total' value="+ n_total +">";
-        // html += "<br><b>"+ format_rupiah(n_total) +"</b>";
-        // html += "<br><label>Down Payment:</label>";
-        // html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
-        // html += "<br><b>"+ format_rupiah(dp) +"</b>";
-        // html += "<br><label>Payment per month:</label>";
-        // html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / val) +">";
-        // html += "<br><b>"+ format_rupiah((n_total - dp) / val) +"</b>";
+        html = "<label>Total:</label>";
+        html += "<input type='hidden' name='total' value="+ n_total +">";
+        html += "<br><b>"+ format_rupiah(n_total) +"</b>";
+        html += "<br><label>Down Payment:</label>";
+        html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
+        html += "<br><b>"+ format_rupiah(dp) +"</b>";
+        html += "<br><label>Payment per month:</label>";
+        html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / val) +">";
+        html += "<br><b>"+ format_rupiah((n_total - dp) / val) +"</b>";
         $('.total_field').html(html);
 
     });

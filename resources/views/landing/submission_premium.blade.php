@@ -35,7 +35,7 @@
                             <input type="file" class="form-control" name="ktp" id="ktp">
                         </div>
                         <div class="mb-3">
-                            <label for="salary_slip" class="form-label">Salary Slip</label>
+                            <label for="salary_slip" class="form-label">Slip Gaji</label>
                             <input type="file" class="form-control" name="salary_slip" id="salary_slip">
                         </div>
                         <div class="mb-3">

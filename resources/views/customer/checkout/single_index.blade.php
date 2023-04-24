@@ -155,7 +155,11 @@
                             <label for="long_occupied" class="form-label">Lama Di Tempati</label>
                             <div class="d-flex align-items-center">
                                 <input type="number" class="form-control credit_period_input w-25" name="long_occupied" id="long_occupied">
-                                <p class="pl-2">/Bulan</p>
+                                <select name="type_stay" id="type_stay" class="form-control credit_period_input">
+                                    <option value="">--PILIH--</option>
+                                    <option value="Bulan">Bulan</option>
+                                    <option value="Tahun">Tahun</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group credit_period">
@@ -211,7 +215,11 @@
                             <label for="length_of_work" class="form-label">Lama Bekerja</label>
                             <div class="d-flex align-items-center">
                                 <input type="number" class="form-control w-25 credit_period_input" name="length_of_work" id="length_of_work">
-                                <p class="pl-2">/Bulan</p>
+                                <select name="type_work" id="type_work" class="form-control credit_period_input">
+                                    <option value="">--PILIH--</option>
+                                    <option value="Bulan">Bulan</option>
+                                    <option value="Tahun">Tahun</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group credit_period">
@@ -315,7 +323,7 @@
                             <input type="file" class="form-control credit_period_input" name="photo" id="photo">
                         </div>
                         <div class="form-group credit_period">
-                            <label for="salary_slip" class="form-label">Salary Slip</label>
+                            <label for="salary_slip" class="form-label">Slip Gaji</label>
                             <input type="file" class="form-control credit_period_input" name="salary_slip" id="salary_slip">
                         </div>
                         <div class="form-group credit_period">

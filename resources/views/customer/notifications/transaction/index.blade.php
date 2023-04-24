@@ -112,9 +112,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                        
-                        </div>
+                        <div class="col-md-4"></div>
                         <div class="col-md-8">
                             <div class="text-center">
                                 <h5>Status Transaksi</h5>
@@ -131,16 +129,15 @@
                         <div class="col-md-8 pb-1">
                             <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-success">Review Data</a>
                         </div>
-                        </div>
                         @if ($transaction['isDP'])
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-1">
                             <a href="javascript:;" onclick="penuliskode_modal('Pay a Credit', '{{ $transaction["route"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar</a>
                         </div>
                         @else
                             @if ($transaction['status'] == "REJECTED" || $transaction['status'] == "PENDING")
                             <div class="col-md-4"></div>
                             @else
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-1">
                                 <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar DP</a>
                             </div>
                             @endif
@@ -152,8 +149,7 @@
                             <a href="javascript:;" onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction["routeTransfer"] }}')" class="btn btn-block btn-success @if($transaction['status'] == 'PAID') disabled @endif">Transfer</a>
                         </div>
                     </div>
-                    @endif
-                    
+                    @endif   
                 </div>
             </div>
         </div>

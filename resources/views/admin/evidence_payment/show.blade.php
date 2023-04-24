@@ -84,10 +84,10 @@
 </div>
 <div class="form-group py-3">
     <label>Pesan Notifikasi ke User <small><em>(opsional)</em></small></label>
-    <div class="d-flex">
+    <form class="d-flex">
         <input form="reject-form" type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
-        <button class="btn btn-primary">Kirim Notifikasi</button>
-    </div>
+        <button type="submit" class="btn btn-primary">Kirim Notifikasi</button>
+    </form>
 </div>
 <div class="row">
     <div class="col-md-2">

@@ -8,6 +8,9 @@
     <h6 class="font-weight-bold">Deliver To</h6>{{ $data->deliver_to }}
 </div>
 <div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Phone Number</h6>{{ $data->account_number }}
+</div>
+<div class="border-bottom py-3">
     <h6 class="font-weight-bold">Detail Transaction</h6>
     <table class="table table-borderless">
         <tbody>
@@ -54,6 +57,94 @@
 </div>
 @endif
 @if ($data->category_payment->name == "Kredit" || $data->category_payment->name == "Credit")
+<h2 class="pt-5 fw-bold">Detail User Kredit</h2>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Full Name</h6>{{ $submission->full_name }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Nickname</h6>{{ $submission->nickname }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Mother Name</h6>{{ $submission->mother_name }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Mother Name</h6>{{ $submission->post_code }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Birth Place</h6>{{ $submission->birth_place }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Birth Date</h6>{{ $submission->birth_date }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Gender</h6>{{ $submission->gender }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Home State</h6>{{ $submission->home_state }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Long Occupied</h6>{{ $submission->long_occupied }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Education</h6>{{ $submission->education }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Maritial Status</h6>{{ $submission->marital_status }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Job</h6>{{ $submission->jobs }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Company Name</h6>{{ $submission->company_name }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Company Address</h6>{{ $submission->company_address }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Company Phone</h6>{{ $submission->company_phone }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Length Of Work</h6>{{ $submission->length_of_work }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Income Amount</h6> @currency($submission->income_amount)
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Extra Income</h6> @currency($submission->extra_income)
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Spending</h6>@currency($submission->spending)
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Residual Income</h6>@currency($submission->residual_income)
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Transportation Type</h6>{{ $submission->transportation_type }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Transportation Brand</h6>{{ $submission->transportation_brand }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Year Of Purchase</h6>{{ $submission->year_of_purchase }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Police Number</h6>{{ $submission->police_number }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Transportation Color</h6>{{ $submission->transportation_color }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">BPKB Number</h6>{{ $submission->bpkb_number }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Number Of Bank Account</h6>{{ $submission->rekening_number }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Name Of Bank Account</h6>{{ $submission->bank }}
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Owner Of Bank Account</h6>{{ $submission->owner_rekening }}
+</div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">KTP Name</h6>{{ $submission->ktp_name }}
 </div>
@@ -74,6 +165,18 @@
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Photo Selfi</h6>
     <img id="preview-photo" src="{{ ($submission->photo) ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">House Image</h6>
+    <img id="preview-photo" src="{{ ($submission->house_image) ? url('/upload/transaction/submission_credit/', $submission->house_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Transportation Image</h6>
+    <img id="preview-photo" src="{{ ($submission->transportation_image) ? url('/upload/transaction/submission_credit/', $submission->transportation_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
+</div>
+<div class="border-bottom py-3">
+    <h6 class="font-weight-bold">Rekening Book Image</h6>
+    <img id="preview-photo" src="{{ ($submission->rekening_book_image) ? url('/upload/transaction/submission_credit/', $submission->rekening_book_image) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
 @endif
 <div class="border-bottom py-3">

@@ -52,7 +52,7 @@ class NotificationController extends Controller
         $notifications = Notification::where("customer_id", Auth::guard("customer")->user()->id)->orderBy('created_at', 'desc')->get();
         return view('customer.notifications.index', compact('header_category', 'notifications'));
     }
-    
+
     public function show(Notification $notification)
     {
         $notification->update([
@@ -89,10 +89,10 @@ class NotificationController extends Controller
         $customer = Auth::guard('customer')->user();
         $status = ['paid', 'in_progress', 'pending', 'reject'];
         $data = Transaction::with(['category_payment'])
-                ->where('customer_id', $customer->id)
-                ->whereIn('status', $status)
-                ->orderBy('created_at', 'DESC')
-                ->get();
+            ->where('customer_id', $customer->id)
+            ->whereIn('status', $status)
+            ->orderBy('created_at', 'DESC')
+            ->get();
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();
@@ -146,7 +146,7 @@ class NotificationController extends Controller
     public function transaction_show(Request $request, Transaction $transaction)
     {
         $header_category = $this->category_product;
-        $transaction = Transaction::with(['category_payment'])->find($transaction->id);  
+        $transaction = Transaction::with(['category_payment'])->find($transaction->id);
         $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $transaction->id)->get();
         $isCredit = $transaction->category_payment->name == "Credit" || $transaction->category_payment->name == "Kredit" ? true : false;
         $submission_credit_payment = new SubmissionCreditPayment();
@@ -159,7 +159,7 @@ class NotificationController extends Controller
         return view('customer.notifications.transaction.show', compact('header_category', 'transaction', 'detail_transactions', 'submission_credit_payment', 'count_submission_credit_payment', 'isCredit'));
     }
 
-    public function transaction_edit(Transaction $transaction) 
+    public function transaction_edit(Transaction $transaction)
     {
         $transaction_detail = TransactionDetail::where('transaction_id', $transaction->id)->get()->first();
         $propertyId = $transaction_detail->property_id;
@@ -171,7 +171,7 @@ class NotificationController extends Controller
         return view('customer.notifications.transaction.transaction_edit', compact('transaction', 'property', 'header_category', 'payments', 'quantity', 'submission'));
     }
 
-    public function transaction_edit_store(Request $request, $transactionId) 
+    public function transaction_edit_store(Request $request, $transactionId)
     {
         $request->validate(
             [
@@ -184,7 +184,8 @@ class NotificationController extends Controller
                 'evidence_payment' => 'nullable',
                 'credit_period' => 'nullable',
                 'total' => 'required'
-            ], [],
+            ],
+            [],
             [
                 'property_id' => 'Property',
                 'quantity_property' => 'Quantity',
@@ -202,6 +203,7 @@ class NotificationController extends Controller
         DB::beginTransaction();
         try {
             $transaction = Transaction::where('id', $transactionId)->get()->first();
+            dd($transaction);
             $customer = Auth::guard('customer')->user();
             $payment = CategoryPayment::where('id', $request->category_payment_id)->first();
             if ($payment->name == "Cash" || $payment->name == "Cash On Delivery") {
@@ -251,42 +253,42 @@ class NotificationController extends Controller
                 if (!File::isDirectory($path)) {
                     File::makeDirectory($path, 0777, true, true);
                 }
-        
+
                 if ($request->file('ktp')->isValid()) {
                     $ktp = $request->file('ktp');
-                    $ktp_name = 'ktp_'. Str::random(5) . time() . '.' . $ktp->extension();
+                    $ktp_name = 'ktp_' . Str::random(5) . time() . '.' . $ktp->extension();
                     $k = Image::make($ktp->path());
-                    $k->save($path.''.$ktp_name);
+                    $k->save($path . '' . $ktp_name);
                 }
                 if ($request->file('salary_slip')->isValid()) {
                     $salary_slip = $request->file('salary_slip');
-                    $salary_slip_name = 'salaryslip_'. Str::random(5) . time() . '.' . $salary_slip->extension();
+                    $salary_slip_name = 'salaryslip_' . Str::random(5) . time() . '.' . $salary_slip->extension();
                     $ss = Image::make($salary_slip->path());
-                    $ss->save($path.''.$salary_slip_name);
+                    $ss->save($path . '' . $salary_slip_name);
                 }
                 if ($request->file('photo')->isValid()) {
                     $photo = $request->file('photo');
-                    $photo_name = 'photo_'. Str::random(5) . time() . '.' . $photo->extension();
+                    $photo_name = 'photo_' . Str::random(5) . time() . '.' . $photo->extension();
                     $p = Image::make($photo->path());
-                    $p->save($path.''.$photo_name);
+                    $p->save($path . '' . $photo_name);
                 }
                 if ($request->file('house_image')->isValid()) {
                     $house_image = $request->file('house_image');
-                    $house_image_name = 'house_image_'. Str::random(5) . time() . '.' . $house_image->extension();
+                    $house_image_name = 'house_image_' . Str::random(5) . time() . '.' . $house_image->extension();
                     $hi = Image::make($house_image->path());
-                    $hi->save($path.''.$house_image_name);
+                    $hi->save($path . '' . $house_image_name);
                 }
                 if ($request->file('transportation_image')->isValid()) {
                     $transportation_image = $request->file('transportation_image');
-                    $transportation_image_name = 'transportation_image_'. Str::random(5) . time() . '.' . $transportation_image->extension();
+                    $transportation_image_name = 'transportation_image_' . Str::random(5) . time() . '.' . $transportation_image->extension();
                     $ti = Image::make($transportation_image->path());
-                    $ti->save($path.''.$transportation_image_name);
+                    $ti->save($path . '' . $transportation_image_name);
                 }
                 if ($request->file('rekening_book_image')->isValid()) {
                     $rekening_book_image = $request->file('rekening_book_image');
-                    $rekening_book_image_name = 'rekening_book_image_'. Str::random(5) . time() . '.' . $rekening_book_image->extension();
+                    $rekening_book_image_name = 'rekening_book_image_' . Str::random(5) . time() . '.' . $rekening_book_image->extension();
                     $rbi = Image::make($rekening_book_image->path());
-                    $rbi->save($path.''.$rekening_book_image_name);
+                    $rbi->save($path . '' . $rekening_book_image_name);
                 }
 
                 $submissionCT = SubmissionCreditTransaction::where('transaction_id', $transactionId)->get()->first();
@@ -365,33 +367,35 @@ class NotificationController extends Controller
             }
             DB::commit();
             return $redirect;
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
             dd($ex);
             return redirect()->route('landing.index')->with('result', ['error', 'Somethings Error: ' . $ex]);
         }
     }
-    
+
     public function credit_payment_index(Transaction $transaction)
     {
         return view("customer.notifications.transaction.credit_payment", compact("transaction"));
     }
-    
+
     public function dp_payment_index(Transaction $transaction)
     {
         return view("customer.notifications.transaction.down_payment", compact("transaction"));
     }
-    
+
     public function credit_payment_store(Request $request, Transaction $transaction)
     {
         $request->validate(
-        [
-            'myimg' => 'required',
-        ], [],
-        [
-            'myimg' => 'Image',
-        ]);
+            [
+                'myimg' => 'required',
+            ],
+            [],
+            [
+                'myimg' => 'Image',
+            ]
+        );
         DB::beginTransaction();
         try {
             if ($request->hasFile('myimg')) {
@@ -413,22 +417,24 @@ class NotificationController extends Controller
             DB::commit();
 
             return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
             return redirect()->route("customer.notification.transaction.index")->with("result", ["error", "Failed"]);
         }
     }
-    
+
     public function dp_payment_store(Request $request, Transaction $transaction)
     {
         $request->validate(
-        [
-            'myimg' => 'required',
-        ], [],
-        [
-            'myimg' => 'Image',
-        ]);
+            [
+                'myimg' => 'required',
+            ],
+            [],
+            [
+                'myimg' => 'Image',
+            ]
+        );
         DB::beginTransaction();
         try {
             if ($request->hasFile('myimg')) {
@@ -450,27 +456,29 @@ class NotificationController extends Controller
             DB::commit();
 
             return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
             return redirect()->route("customer.notification.transaction.index")->with("result", ["error", "Failed"]);
         }
     }
-    
+
     public function transfer_payment_index(Transaction $transaction)
     {
         return view("customer.notifications.transaction.transfer_payment", compact("transaction"));
     }
-    
+
     public function transfer_payment_store(Request $request, Transaction $transaction)
     {
         $request->validate(
-        [
-            'myimg' => 'required',
-        ], [],
-        [
-            'myimg' => 'Image',
-        ]);
+            [
+                'myimg' => 'required',
+            ],
+            [],
+            [
+                'myimg' => 'Image',
+            ]
+        );
         DB::beginTransaction();
         try {
             if ($request->hasFile('myimg')) {
@@ -490,7 +498,7 @@ class NotificationController extends Controller
             DB::commit();
 
             return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
             return redirect()->route("customer.notification.transaction.index")->with("result", ["error", "Failed"]);

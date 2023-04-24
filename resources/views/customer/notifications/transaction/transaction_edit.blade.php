@@ -67,7 +67,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Jenis Pembayaran:</label>
-                            <select name="category_payment_id" class="select-picker form-control @error('category_payment_id') is-invalid @enderror"  style="width:100%;" id="payment">
+                            <select disabled name="category_payment_id" class="select-picker form-control @error('category_payment_id') is-invalid @enderror"  style="width:100%;" id="payment">
                                 <option value="">-Pilih-</option>
                                 @foreach ($payments as $payment)
                                 @if(($payment->name != "Kredit" && $payment->name != "Credit") || auth()->guard('customer')->user()->allow_credit)
@@ -330,11 +330,11 @@
                             </select>
                             <small style="color: red;">*Only credit payment</small>
                         </div>
-                        <div class="form-group total_field">
+                        {{-- <div class="form-group total_field">
                             <label>Total:</label>
                             <input type="hidden" name="total" value="{{ $total }}">
                             <br><b>{{ format_rupiah($total) }}</b>
-                        </div>
+                        </div> --}}
                         <div class="form-check credit_period">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
@@ -347,12 +347,12 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="total_payment" value="{{ $total }}">
+    {{-- <input type="hidden" id="total_payment" value="{{ $total }}">
     <div class="total_field_temp" style="display: none;">
         <label>Total:</label>
         <input type="hidden" name="total" value="{{ $total }}">
         <br><b>{{ format_rupiah($total) }}</b>
-    </div>
+    </div> --}}
     <!-- end news section -->
 @endsection
 

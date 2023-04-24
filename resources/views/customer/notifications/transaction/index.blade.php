@@ -123,6 +123,10 @@
                                 <button type="button" class="btn btn-{{ $transaction['button'] }} btn-block">{{ $transaction['status'] }}</button>
                             </div>
                         </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
+                            <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-success">Review Submission</a>
+                        </div>
                     </div>
                     @if ($transaction['isCredit'])
                     <div class="row mt-2">
@@ -133,9 +137,6 @@
                         @else
                             @if ($transaction['status'] == "REJECTED" || $transaction['status'] == "PENDING")
                             <div class="col-md-4"></div>
-                            <div class="col-md-8">
-                                <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-success">Review Submission</a>
-                            </div>
                             @else
                             <div class="col-md-12">
                                 <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Pay a Down Payment</a>
@@ -150,6 +151,7 @@
                         </div>
                     </div>
                     @endif
+                    
                 </div>
             </div>
         </div>

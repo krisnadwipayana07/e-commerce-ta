@@ -155,7 +155,7 @@
                             <label for="long_occupied" class="form-label">Lama Di Tempati</label>
                             <div class="d-flex align-items-center">
                                 <input type="number" class="form-control credit_period_input w-25" name="long_occupied" id="long_occupied">
-                                <select name="type_stay" id="type_stay" class="form-control credit_period_input">
+                                <select name="year_or_month_occupied" id="year_or_month_occupied" class="form-control credit_period_input">
                                     <option value="">--PILIH--</option>
                                     <option value="Bulan">Bulan</option>
                                     <option value="Tahun">Tahun</option>
@@ -215,7 +215,7 @@
                             <label for="length_of_work" class="form-label">Lama Bekerja</label>
                             <div class="d-flex align-items-center">
                                 <input type="number" class="form-control w-25 credit_period_input" name="length_of_work" id="length_of_work">
-                                <select name="type_work" id="type_work" class="form-control credit_period_input">
+                                <select name="year_or_month_work" id="year_or_month_work" class="form-control credit_period_input">
                                     <option value="">--PILIH--</option>
                                     <option value="Bulan">Bulan</option>
                                     <option value="Tahun">Tahun</option>

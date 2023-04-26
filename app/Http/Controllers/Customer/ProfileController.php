@@ -152,21 +152,21 @@ class ProfileController extends Controller
             $correct_password = Hash::check($request->old_password, $customer->password);
             if (!$correct_password) {
                 Log::debug("Not correct");
-                return redirect()->back()->with('result', ['error', 'Old Password Not Match']);
+                return redirect()->back()->with('result', ['error', 'Kata Sandi Lama Tidak Cocok']);
             }
 
             if ($request->password != $request->confirmation_new_password) {
                 Log::debug("Not match");
-                return redirect()->back()->with('result', ['error', 'Password and confirmation password not match']);
+                return redirect()->back()->with('result', ['error', 'Kata sandi konfirmasi tidak cocok']);
             }
 
             $customer->update($request->only(['password']));
 
             DB::commit();
-            return redirect()->route('customer.profile.index')->with('result', ['success', 'Password changed']);
+            return redirect()->route('customer.profile.index')->with('result', ['success', 'Kata sandi diubah']);
         } catch (Exception $err) {
             DB::rollBack();
-            Log::debug("========= Change Password =========");
+            Log::debug("========= Ganti Password =========");
             Log::debug($err);
             return redirect()->back()->with('result', ['error', 'Somethings error']);
         }

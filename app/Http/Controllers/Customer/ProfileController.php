@@ -131,13 +131,13 @@ class ProfileController extends Controller
                 "salary" => $request->salary
             ]);
 
-            $notif = store_notif(auth()->guard('customer')->user()->id, "Your submission to premium account was sended", "Submission Premium Customer");
+            $notif = store_notif(auth()->guard('customer')->user()->id, "Pengajuan Anda ke akun premium telah dikirim", "Submission Premium Customer");
             DB::commit();
-            return redirect()->route('customer.profile.index')->with('result', ['success', "Submission Premium Account Sent"]);
+            return redirect()->route('customer.profile.index')->with('result', ['Berhasil', "Penyerahan Akun Premium Terkirim"]);
         } catch (Exception $err) {
             DB::rollBack();
             Log::debug($err);
-            return redirect()->back()->with('result', ['error', "Submission Premium Account Failed"]);
+            return redirect()->back()->with('result', ['error', "Pengajuan Akun Premium Gagal"]);
         }
     }
 

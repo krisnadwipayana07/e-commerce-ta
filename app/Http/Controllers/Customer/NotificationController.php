@@ -218,7 +218,7 @@ class NotificationController extends Controller
                     "longitude" => $request->lng
                 ]);
                 store_notif($customer->id, "Transaksi Cash On Delivery berhasil diperbarui.", "Transaction");
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Transaksi Cash On Delivery berhasil diperbarui.']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Transaksi Cash On Delivery berhasil diperbarui.']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
                 $transactionOnProgress = Transaction::where("customer_id", $customer->id)->where("status", "on_progress")->get();
@@ -336,7 +336,7 @@ class NotificationController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
                 store_notif($customer->id, "Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya", 'Transaction');
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya']);
             } else {
                 $due_date = Carbon::now()->addDay();
                 $transaction->update([
@@ -351,7 +351,7 @@ class NotificationController extends Controller
                     "longitude" => $request->lng
                 ]);
                 store_notif($customer->id, "Pembayaran melalui via transfer sedang menunggu untuk konfirmasi", 'Transaction');
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Pembayaran melalui via transfer sedang menunggu untuk konfirmasi']);
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['Berhasil', 'Pembayaran melalui via transfer sedang menunggu untuk konfirmasi']);
             }
             $property = Property::where('id', $request->property_id)->first();
             $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)->get()->first();
@@ -417,7 +417,7 @@ class NotificationController extends Controller
             $notif = store_notif($transaction->customer_id, "Pembayaran Kredit Anda Terkirim", "Submission Credit Payment");
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran sukses"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["Berhasil", "Transaksi pembayaran sukses"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
@@ -456,7 +456,7 @@ class NotificationController extends Controller
             $notif = store_notif($transaction->customer_id, "DP berhasil masuk, mohon menunggu konfirmasi dari admin", "Submission Down Payment");
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["Berhasil", "Success paying transaction"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
@@ -498,7 +498,7 @@ class NotificationController extends Controller
 
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran sukses"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["Berhasil", "Transaksi pembayaran sukses"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);

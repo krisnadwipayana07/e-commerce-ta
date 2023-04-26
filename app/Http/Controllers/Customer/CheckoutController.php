@@ -240,7 +240,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Pembayaran melalui transfer bank menunggu konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['Berhasil', 'silakan Lakukan pembayaran']);
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['Berhasil', 'Silakan Lakukan pembayaran']);
             }
             $carts = Cart::where('user_id', $customer->id)->get();
             foreach ($carts as $cart) {

@@ -217,8 +217,8 @@ class NotificationController extends Controller
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
                 ]);
-                store_notif($customer->id, "Cash On Delivery Transaction updated successfully.", "Transaction");
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Cash On Delivery Transaction updated successfully.']);
+                store_notif($customer->id, "Transaksi Cash On Delivery berhasil diperbarui.", "Transaction");
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Transaksi Cash On Delivery berhasil diperbarui.']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
                 $transactionOnProgress = Transaction::where("customer_id", $customer->id)->where("status", "on_progress")->get();
@@ -230,8 +230,8 @@ class NotificationController extends Controller
                 $total_credit += $request->payment_credit;
 
                 if ($total_credit > $customer->salary) {
-                    store_notif($customer->id, "Your transaction cannot be processed, because your salary not enough", "Transaction");
-                    return redirect()->back()->with("result", ["error", "Your transaction cannot be processed, because your salary not enough"]);
+                    store_notif($customer->id, "Transaksi Anda tidak dapat diproses, karena gaji Anda tidak cukup", "Transaction");
+                    return redirect()->back()->with("result", ["error", "Transaksi Anda tidak dapat diproses, karena gaji Anda tidak cukup"]);
                 }
 
                 $transaction->update([
@@ -414,10 +414,10 @@ class NotificationController extends Controller
                 "evidence_payment" => $img_name,
                 "status" => "pending"
             ]);
-            $notif = store_notif($transaction->customer_id, "Your Credit Payment Sended", "Submission Credit Payment");
+            $notif = store_notif($transaction->customer_id, "Pembayaran Kredit Anda Terkirim", "Submission Credit Payment");
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran sukses"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
@@ -498,7 +498,7 @@ class NotificationController extends Controller
 
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Success paying transaction"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran sukses"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);

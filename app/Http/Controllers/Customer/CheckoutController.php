@@ -91,7 +91,7 @@ class CheckoutController extends Controller
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
                 ]);
-                $notif = store_notif($customer->id, "successful cash purchase. Make payment when the goods arrive", "Transaction");
+                $notif = store_notif($customer->id, "Pembelian barang sukses. Lakukan pembayaran saat barang sudah sampai", "Transaction");
                 $redirect = redirect()->route('landing.index')->with('result', ['success', 'Success checkout!']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
@@ -104,8 +104,8 @@ class CheckoutController extends Controller
                 $total_credit += $request->payment_credit;
 
                 if ($total_credit > $customer->salary) {
-                    $notif = store_notif($customer->id, "Your transaction cannot be processed, because your salary not enough", "Transaction");
-                    return redirect()->back()->with("result", ["error", "Your transaction cannot be processed, because your salary not enough"]);
+                    $notif = store_notif($customer->id, "Transaksi Anda tidak dapat diproses, karena gaji Anda tidak cukup", "Transaction");
+                    return redirect()->back()->with("result", ["error", "Transaksi Anda tidak dapat diproses, karena gaji Anda tidak cukup"]);
                 }
 
                 $trx = Transaction::create([
@@ -213,9 +213,9 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Credit application data has been received. You will be contacted by the store to confirm", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. Anda akan dihubungi oleh toko untuk konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Success checkout property, here to pay a credit']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Sukses melakukan pembelian barang']);
             } else {
                 // if (!$request->hasFile('myimg')) {
                 //     return redirect()->back()->with('result', ['error', 'File payment must be upload first in this payment type.']);
@@ -238,9 +238,9 @@ class CheckoutController extends Controller
                     "longitude" => $request->lng
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Payment by bank transfer is waiting for confirmation", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Pembayaran melalui transfer bank menunggu konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Success checkout property, here to transfer payment']);
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Sukses melakukan pembelian barang']);
             }
             $carts = Cart::where('user_id', $customer->id)->get();
             foreach ($carts as $cart) {
@@ -331,7 +331,7 @@ class CheckoutController extends Controller
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
                 ]);
-                $notif = store_notif($customer->id, "successful cash purchase. Make payment when the goods arrive", "Transaction");
+                $notif = store_notif($customer->id, "Pembelian tunai yang sukses. Lakukan pembayaran saat barang sudah sampai", "Transaction");
                 $redirect = redirect()->route('landing.index')->with('result', ['success', 'Success checkout!']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
@@ -344,8 +344,8 @@ class CheckoutController extends Controller
                 $total_credit += $request->payment_credit;
 
                 if ($total_credit > $customer->salary) {
-                    $notif = store_notif($customer->id, "Your transaction cannot be processed, because your salary not enough", "Transaction");
-                    return redirect()->back()->with("result", ["error", "Your transaction cannot be processed, because your salary not enough"]);
+                    $notif = store_notif($customer->id, "Transaksi Anda tidak dapat diproses, karena gaji Anda tidak cukup", "Transaction");
+                    return redirect()->back()->with("result", ["error", "Transaksi Anda tidak dapat diproses, karena gaji Anda tidak cukup"]);
                 }
 
                 $trx = Transaction::create([
@@ -452,9 +452,9 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Credit application data has been received. You will be contacted by the store to confirm", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Data aplikasi kredit telah diterima. Anda akan dihubungi oleh toko untuk konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Success checkout property, here to pay a credit']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Sukses melakukan pembelian barang']);
             } else {
                 // if (!$request->hasFile('myimg')) {
                 //     return redirect()->back()->with('result', ['error', 'File payment must be upload first in this payment type.']);
@@ -477,9 +477,9 @@ class CheckoutController extends Controller
                     "longitude" => $request->lng
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Payment by bank transfer is waiting for confirmation", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Pembayaran melalui transfer bank menunggu konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Success checkout property, here to transfer payment']);
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Sukses melakukan pembelian barang, silakan melakukan pembayaran']);
             }
             $property = Property::where('id', $request->property_id)->first();
             TransactionDetail::create([

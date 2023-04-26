@@ -127,7 +127,7 @@
                     <div class="row mt-2">
                         <div class="col-md-4"></div>
                         <div class="col-md-8 pb-1">
-                            <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-success">Ubah Data</a>
+                            <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-secondary">Ubah Data</a>
                         </div>
                         @if ($transaction['isDP'])
                         <div class="col-md-12 mt-1">

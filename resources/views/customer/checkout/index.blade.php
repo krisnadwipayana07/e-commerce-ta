@@ -246,6 +246,7 @@
                                 <option value=4000000>3 - 4 juta</option>
                                 <option value=5000000>>5 juta</option>
                             </select>
+                            <small style="color: red;">*Isi jika ada penghasilan tambahan</small>
                         </div>
                         <div class="form-group credit_period">
                             <label for="spending" class="form-label">Pengeluaran</label>
@@ -346,20 +347,20 @@
                                 <option value="6" class="6months">6 Bulan (Bunga 2%)</option>
                                 <option value="12" class="12months">12 Bulan (Bunga 2,5%)</option>
                             </select>
-                            <small style="color: red;">*Only credit payment</small>
+                            <small style="color: red;">*Hanya untuk Pembayaran Kredit</small>
                         </div>
                         <div class="form-group total_field">
                             {{-- <label>Total:</label> --}}
                             <input type="hidden" name="total" id="total_payment" value="{{ $total }}">
                             {{-- <br><b>{{ format_rupiah($total) }}</b> --}}
                         </div>
-                        <button type="submit" class="btn btn-block btn-success" id="btn-submit">Kirim</button>
                         <div class="form-check credit_period">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
                                 Semua informasi dalam formulir ini adalah lengka dan benar. Dengan mengisi formulir ini, Saya memnerikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua dat dengan cara bagaimanapun yang layak menurut BALI ARTHA JAYA.
                             </label>
                         </div>
+                        <button type="submit" class="btn btn-block btn-success" id="btn-submit">Kirim</button>
                     </form>
                 </div>
             </div>

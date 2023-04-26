@@ -241,6 +241,7 @@
                                 <option value=4000000>3 - 4 juta</option>
                                 <option value=5000000>>5 juta</option>
                             </select>
+                            <small style="color: red;">*Isi jika ada penghasilan tambahan</small>
                         </div>
                         <div class="form-group credit_period">
                             <label for="spending" class="form-label">Pengeluaran</label>
@@ -341,7 +342,7 @@
                                 <option value="6" class="6months">6 Bulan (Bunga 2%)</option>
                                 <option value="12" class="12months">12 Bulan (Bunga 2,5%)</option>
                             </select>
-                            <small style="color: red;">*Only credit payment</small>
+                            <small style="color: red;">*Hanya untuk Pembayaran Kredit</small>
                         </div>
                         <div class="form-group total_field">
                             {{-- <label>Total:</label> --}}
@@ -362,7 +363,7 @@
     </div>
     <input type="hidden" id="total_payment" value="{{ $total }}">
     <div class="total_field_temp" style="display: none;">
-        <label>Total:</label>
+        {{-- <label>Total:</label> --}}
         <input type="hidden" name="total" value="{{ $total }}">
         {{-- <br><b>{{ format_rupiah($total) }}</b> --}}
     </div>
@@ -398,7 +399,7 @@
             $('#btn-submit').addClass("disabled");
             $('#checkbox-agree').attr('checked', false);
             // html = "<label>Total:</label>";
-            // html += "<input type='hidden' name='total' value="+ n_total +">";
+            html += "<input type='hidden' name='total' value="+ n_total +">";
             // html += "<br><b>"+ format_rupiah(n_total) +"</b>";
             // html += "<br><label>Down Payment:</label>";
             // html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
@@ -430,14 +431,14 @@
         }
         var n_total = total + (total * bunga);
         var dp = Math.round((Math.round(n_total * 30/100)) / 1000) * 1000;
+        html += "<input type='hidden' name='total' value="+ n_total +">";
         // html = "<label>Total:</label>";
-        // html += "<input type='hidden' name='total' value="+ n_total +">";
         // html += "<br><b>"+ format_rupiah(n_total) +"</b>";
         // html += "<br><label>Down Payment:</label>";
-        // html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
+        html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
         // html += "<br><b>"+ format_rupiah(dp) +"</b>";
         // html += "<br><label>Payment per month:</label>";
-        // html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / val) +">";
+        html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / val) +">";
         // html += "<br><b>"+ format_rupiah((n_total - dp) / val) +"</b>";
         $('.total_field').html(html);
 

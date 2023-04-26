@@ -244,20 +244,27 @@
                                 <option value=4000000 {{ $submission->extra_income == 4000000 ? 'selected' : '' }}>3 - 4 juta</option>
                                 <option value=5000000 {{ $submission->extra_income == 5000000 ? 'selected' : '' }}>5 juta</option>
                             </select>
+                            <small style="color: red;">*Isi jika ada penghasilan tambahan</small>
                         </div>
                         <div class="form-group credit_period">
                             <label for="spending" class="form-label">Pengeluaran</label>
                             <select name="spending" id="spending" class="form-control">
                                 <option value="">--PILIH--</option>
-                                <option value=500000 {{ $submission->extra_income == 500000 ? 'selected' : '' }}>< 500 Ribu</option>
-                                <option value=2000000 {{ $submission->extra_income == 2000000 ? 'selected' : '' }}>1 - 2 juta</option>
-                                <option value=4000000 {{ $submission->extra_income == 4000000 ? 'selected' : '' }}>3 - 4 juta</option>
-                                <option value=5000000 {{ $submission->extra_income == 5000000 ? 'selected' : '' }}>5 juta</option>
+                                <option value=500000 {{ $submission->spending == 500000 ? 'selected' : '' }}>< 500 Ribu</option>
+                                <option value=2000000 {{ $submission->spending == 2000000 ? 'selected' : '' }}>1 - 2 juta</option>
+                                <option value=4000000 {{ $submission->spending == 4000000 ? 'selected' : '' }}>3 - 4 juta</option>
+                                <option value=5000000 {{ $submission->spending == 5000000 ? 'selected' : '' }}>5 juta</option>
                             </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="residual_income" class="form-label">Sisa Penghasilan</label>
-                            <input type="number" class="form-control credit_period_input" name="residual_income" id="residual_income"  value="{{ $submission->residual_income ?: '' }}">
+                            <select name="residual_income" id="residual_income" class="form-control">
+                                <option  value="" >--PILIH--</option>
+                                <option  value=500000 {{ $submission->residual_income == 500000 ? 'selected' : '' }}>< 500 Ribu</option>
+                                <option  value=2000000 {{ $submission->residual_income == 2000000 ? 'selected' : '' }}>1 - 2 juta</option>
+                                <option  value=4000000 {{ $submission->residual_income == 4000000 ? 'selected' : '' }}>3 - 4 juta</option>
+                                <option  value=5000000 {{ $submission->residual_income == 5000000 ? 'selected' : '' }}>>5 juta</option>
+                            </select>
                         </div>
                         <div class="form-group credit_period">
                             <label for="transportation_type" class="form-label">Jenis Kendaraan</label>
@@ -338,7 +345,7 @@
                                 <option value="6" {{ $transaction->credit_period == 6 ? 'selected' : '' }} class="6months">6 Bulan (Bunga 2%)</option>
                                 <option value="12" {{ $transaction->credit_period == 12 ? 'selected' : '' }} class="12months">12 Bulan (Bunga 2,5%)</option>
                             </select>
-                            <small style="color: red;">*Only credit payment</small>
+                            <small style="color: red;">*Hanya untuk Pembayaran Kredit</small>
                         </div>
                         <div class="form-group total_field">
                             {{-- <label>Total:</label> --}}

@@ -213,7 +213,7 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. Anda akan dihubungi oleh toko untuk konfirmasi", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. Anda akan dihubungi oleh pihak toko untuk konfirmasi", 'Transaction');
 
                 $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
@@ -452,7 +452,7 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Data aplikasi kredit telah diterima. Anda akan dihubungi oleh toko untuk konfirmasi", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Data aplikasi kredit telah diterima. Anda akan dihubungi oleh pihak toko untuk konfirmasi", 'Transaction');
 
                 $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
             } else {

@@ -59,7 +59,8 @@ class CheckoutController extends Controller
                 'evidence_payment' => 'nullable',
                 'credit_period' => 'nullable',
                 'total' => 'required'
-            ], [],
+            ],
+            [],
             [
                 'category_payment_id' => 'Payment Type',
                 'recipient_name' => 'Recipient Name',
@@ -130,42 +131,42 @@ class CheckoutController extends Controller
                 if (!File::isDirectory($path)) {
                     File::makeDirectory($path, 0777, true, true);
                 }
-        
+
                 if ($request->file('ktp')->isValid()) {
                     $ktp = $request->file('ktp');
-                    $ktp_name = 'ktp_'. Str::random(5) . time() . '.' . $ktp->extension();
+                    $ktp_name = 'ktp_' . Str::random(5) . time() . '.' . $ktp->extension();
                     $k = Image::make($ktp->path());
-                    $k->save($path.''.$ktp_name);
+                    $k->save($path . '' . $ktp_name);
                 }
                 if ($request->file('salary_slip')->isValid()) {
                     $salary_slip = $request->file('salary_slip');
-                    $salary_slip_name = 'salaryslip_'. Str::random(5) . time() . '.' . $salary_slip->extension();
+                    $salary_slip_name = 'salaryslip_' . Str::random(5) . time() . '.' . $salary_slip->extension();
                     $ss = Image::make($salary_slip->path());
-                    $ss->save($path.''.$salary_slip_name);
+                    $ss->save($path . '' . $salary_slip_name);
                 }
                 if ($request->file('photo')->isValid()) {
                     $photo = $request->file('photo');
-                    $photo_name = 'photo_'. Str::random(5) . time() . '.' . $photo->extension();
+                    $photo_name = 'photo_' . Str::random(5) . time() . '.' . $photo->extension();
                     $p = Image::make($photo->path());
-                    $p->save($path.''.$photo_name);
+                    $p->save($path . '' . $photo_name);
                 }
                 if ($request->file('house_image')->isValid()) {
                     $house_image = $request->file('house_image');
-                    $house_image_name = 'house_image_'. Str::random(5) . time() . '.' . $house_image->extension();
+                    $house_image_name = 'house_image_' . Str::random(5) . time() . '.' . $house_image->extension();
                     $hi = Image::make($house_image->path());
-                    $hi->save($path.''.$house_image_name);
+                    $hi->save($path . '' . $house_image_name);
                 }
                 if ($request->file('transportation_image')->isValid()) {
                     $transportation_image = $request->file('transportation_image');
-                    $transportation_image_name = 'transportation_image_'. Str::random(5) . time() . '.' . $transportation_image->extension();
+                    $transportation_image_name = 'transportation_image_' . Str::random(5) . time() . '.' . $transportation_image->extension();
                     $ti = Image::make($transportation_image->path());
-                    $ti->save($path.''.$transportation_image_name);
+                    $ti->save($path . '' . $transportation_image_name);
                 }
                 if ($request->file('rekening_book_image')->isValid()) {
                     $rekening_book_image = $request->file('rekening_book_image');
-                    $rekening_book_image_name = 'rekening_book_image_'. Str::random(5) . time() . '.' . $rekening_book_image->extension();
+                    $rekening_book_image_name = 'rekening_book_image_' . Str::random(5) . time() . '.' . $rekening_book_image->extension();
                     $rbi = Image::make($rekening_book_image->path());
-                    $rbi->save($path.''.$rekening_book_image_name);
+                    $rbi->save($path . '' . $rekening_book_image_name);
                 }
 
                 SubmissionCreditTransaction::create([
@@ -213,7 +214,7 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. Anda akan dihubungi oleh pihak toko untuk konfirmasi", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
                 $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
@@ -260,14 +261,15 @@ class CheckoutController extends Controller
             DB::commit();
 
             return $redirect;
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
             return redirect()->back()->with('result', ['error', 'Somethings Error: ' . $ex]);
         }
     }
 
-    public function show() {
+    public function show()
+    {
         return response()->json([
             "message" => "show"
         ]);
@@ -296,7 +298,8 @@ class CheckoutController extends Controller
                 'evidence_payment' => 'nullable',
                 'credit_period' => 'nullable',
                 'total' => 'required'
-            ], [],
+            ],
+            [],
             [
                 'property_id' => 'Property',
                 'quantity_property' => 'Quantity',
@@ -371,42 +374,42 @@ class CheckoutController extends Controller
                 if (!File::isDirectory($path)) {
                     File::makeDirectory($path, 0777, true, true);
                 }
-        
+
                 if ($request->file('ktp')->isValid()) {
                     $ktp = $request->file('ktp');
-                    $ktp_name = 'ktp_'. Str::random(5) . time() . '.' . $ktp->extension();
+                    $ktp_name = 'ktp_' . Str::random(5) . time() . '.' . $ktp->extension();
                     $k = Image::make($ktp->path());
-                    $k->save($path.''.$ktp_name);
+                    $k->save($path . '' . $ktp_name);
                 }
                 if ($request->file('salary_slip')->isValid()) {
                     $salary_slip = $request->file('salary_slip');
-                    $salary_slip_name = 'salaryslip_'. Str::random(5) . time() . '.' . $salary_slip->extension();
+                    $salary_slip_name = 'salaryslip_' . Str::random(5) . time() . '.' . $salary_slip->extension();
                     $ss = Image::make($salary_slip->path());
-                    $ss->save($path.''.$salary_slip_name);
+                    $ss->save($path . '' . $salary_slip_name);
                 }
                 if ($request->file('photo')->isValid()) {
                     $photo = $request->file('photo');
-                    $photo_name = 'photo_'. Str::random(5) . time() . '.' . $photo->extension();
+                    $photo_name = 'photo_' . Str::random(5) . time() . '.' . $photo->extension();
                     $p = Image::make($photo->path());
-                    $p->save($path.''.$photo_name);
+                    $p->save($path . '' . $photo_name);
                 }
                 if ($request->file('house_image')->isValid()) {
                     $house_image = $request->file('house_image');
-                    $house_image_name = 'house_image_'. Str::random(5) . time() . '.' . $house_image->extension();
+                    $house_image_name = 'house_image_' . Str::random(5) . time() . '.' . $house_image->extension();
                     $hi = Image::make($house_image->path());
-                    $hi->save($path.''.$house_image_name);
+                    $hi->save($path . '' . $house_image_name);
                 }
                 if ($request->file('transportation_image')->isValid()) {
                     $transportation_image = $request->file('transportation_image');
-                    $transportation_image_name = 'transportation_image_'. Str::random(5) . time() . '.' . $transportation_image->extension();
+                    $transportation_image_name = 'transportation_image_' . Str::random(5) . time() . '.' . $transportation_image->extension();
                     $ti = Image::make($transportation_image->path());
-                    $ti->save($path.''.$transportation_image_name);
+                    $ti->save($path . '' . $transportation_image_name);
                 }
                 if ($request->file('rekening_book_image')->isValid()) {
                     $rekening_book_image = $request->file('rekening_book_image');
-                    $rekening_book_image_name = 'rekening_book_image_'. Str::random(5) . time() . '.' . $rekening_book_image->extension();
+                    $rekening_book_image_name = 'rekening_book_image_' . Str::random(5) . time() . '.' . $rekening_book_image->extension();
                     $rbi = Image::make($rekening_book_image->path());
-                    $rbi->save($path.''.$rekening_book_image_name);
+                    $rbi->save($path . '' . $rekening_book_image_name);
                 }
 
                 SubmissionCreditTransaction::create([
@@ -452,7 +455,7 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
-                $notif = store_notif(Auth::guard('customer')->user()->id, "Data aplikasi kredit telah diterima. Anda akan dihubungi oleh pihak toko untuk konfirmasi", 'Transaction');
+                $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
                 $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
@@ -495,7 +498,7 @@ class CheckoutController extends Controller
             DB::commit();
 
             return $redirect;
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
             return redirect()->route('landing.index')->with('result', ['error', 'Somethings Error: ' . $ex]);
@@ -513,7 +516,8 @@ class CheckoutController extends Controller
         $request->validate(
             [
                 'quantity' => 'required'
-            ], [],
+            ],
+            [],
             [
                 'quantity' => 'Quantity'
             ]
@@ -526,7 +530,7 @@ class CheckoutController extends Controller
             DB::commit();
 
             return redirect()->route('customer.checkout.index');
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
             return redirect()->back()->with("result", ["error", "Something error " . $ex]);

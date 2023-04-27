@@ -366,6 +366,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="total_payment" value="{{ $total }}">
     <div class="total_field_temp" style="display: none;">
         {{-- <label>Total:</label> --}}
         <input type="hidden" name="total" id="total_payment" value="{{ $total }}">
@@ -402,7 +403,7 @@
             $('.credit_period').show();
             $('#btn-submit').addClass("disabled");
             $('#checkbox-agree').attr('checked', false);
-            html = "<input type='hidden' name='total' value="+ n_total +">";
+            html += "<input type='hidden' name='total' value="+ n_total +">";
             html += "<input type='hidden' name='down_payment' value="+ (dp) +">";
             html += "<input type='hidden' name='payment_credit' value="+ ((n_total - dp) / 3) +">";
             $('.total_field').html(html);

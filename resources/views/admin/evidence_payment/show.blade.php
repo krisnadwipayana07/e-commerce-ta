@@ -83,7 +83,7 @@
     <h6 class="font-weight-bold">Status Rumah</h6>{{ $submission->home_state }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Lama Ditemmpati</h6>{{ $submission->long_occupied }}
+    <h6 class="font-weight-bold">Lama Ditempati</h6>{{ $submission->long_occupied  }} {{$submission->year_or_month_occupied}}
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Pendidikan</h6>{{ $submission->education }}
@@ -104,7 +104,7 @@
     <h6 class="font-weight-bold">Nomer Telepon Perusahaan</h6>{{ $submission->company_phone }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Lama Bekerja</h6>{{ $submission->length_of_work }}
+    <h6 class="font-weight-bold">Lama Bekerja</h6>{{ $submission->length_of_work }} {{$submission->year_or_month_work}}
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Jumlah Penghasilan</h6> @currency($submission->income_amount)

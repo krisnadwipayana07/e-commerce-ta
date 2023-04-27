@@ -39,6 +39,7 @@
                         <th>#</th>
                         <th>Code</th>
                         <th>Phone Number</th>
+                        <th>Name</th>
                         <th>Action</th>
                     </thead>
                 </table>
@@ -69,6 +70,10 @@
                 {
                     data: 'account_number',
                     name: 'account_number'
+                },
+                {
+                    data: 'recipient_name',
+                    name: 'recipient_name'
                 },
                 {
                     data: 'action',

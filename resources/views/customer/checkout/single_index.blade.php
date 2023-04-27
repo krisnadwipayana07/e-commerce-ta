@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <label>Jenis Pembayaran:</label>
                             <select name="category_payment_id" class="select-picker form-control @error('category_payment_id') is-invalid @enderror"  style="width:100%;" id="payment">
-                                <option value="">-Pilih-</option>
+                                <option value="">--PILIH--</option>
                                 @foreach ($payments as $payment)
                                 @if(($payment->name != "Kredit" && $payment->name != "Credit") || auth()->guard('customer')->user()->allow_credit)
                                 <option value="{{ $payment->id }}" data-val="{{ $payment->name }}" {{ (old('category_payment_id') == $payment->id) ? "selected" : "" }}>
@@ -80,18 +80,18 @@
                         </div>
                         <div class="form-group">
                             <label>Nama Penerima</label>
-                            <input type="text" name="recipient_name" class="form-control" value="{{ auth()->guard('customer')->user()->name }}" placeholder="Name">
+                            <input type="text" name="recipient_name" class="form-control" value="{{ auth()->guard('customer')->user()->name }}" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group">
                             <label>Alamat</label>
-                            <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control" placeholder="Address">{{ auth()->guard('customer')->user()->address }}</textarea>
+                            <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control" placeholder="Jawaban Anda">{{ auth()->guard('customer')->user()->address }}</textarea>
                             <div id="map" class="my-3" style="height: 280px;"></div>
                             <input type="hidden" id="latitude" name="lat">
                             <input type="hidden" id="longitude" name="lng">
                         </div>
                         <div class="form-group">
                             <label>Nomor Telepon</label>
-                            <input type="text" name="account_number" class="form-control" placeholder="Phone Number" >
+                            <input type="text" name="account_number" class="form-control" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group evidence_payment">
                             <label>Bukti Pembayaran</label>
@@ -100,35 +100,35 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="full_name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control credit_period_input" name="full_name" id="full_name">
+                            <input type="text" class="form-control credit_period_input" name="full_name" id="full_name" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group credit_period">
                             <label for="ktp_name" class="form-label">Nama Sesuai KTP</label>
-                            <input type="text" class="form-control credit_period_input" name="ktp_name" id="ktp_name">
+                            <input type="text" class="form-control credit_period_input" name="ktp_name" id="ktp_name" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group credit_period">
                             <label for="ktp_number" class="form-label">Nomor KTP</label>
-                            <input type="number" class="form-control credit_period_input" name="ktp_number" id="ktp_number">
+                            <input type="number" class="form-control credit_period_input" name="ktp_number" id="ktp_number" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group credit_period">
                             <label for="ktp_address" class="form-label">Alamat Sesuai KTP</label>
-                            <textarea name="ktp_address" id="ktp_address" cols="30" rows="10" placeholder="KTP Address" class="form-control credit_period_input"></textarea>
+                            <textarea name="ktp_address" id="ktp_address" cols="30" rows="10" placeholder="Jawaban Anda" class="form-control credit_period_input"></textarea>
                         </div>
                         <div class="form-group credit_period">
                             <label for="nickname" class="form-label">Nama Panggilan</label>
-                            <input type="text" class="form-control credit_period_input" name="nickname" id="nickname">
+                            <input type="text" class="form-control credit_period_input" name="nickname" id="nickname" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="mother_name" class="form-label">Nama Ibu Kandung</label>
-                            <input type="text" class="form-control credit_period_input" name="mother_name" id="mother_name">
+                            <input type="text" class="form-control credit_period_input" name="mother_name" id="mother_name" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="post_code" class="form-label">Kode Pos</label>
-                            <input type="number" class="form-control credit_period_input" name="post_code" id="post_code">
+                            <input type="number" class="form-control credit_period_input" name="post_code" id="post_code" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="birth_place" class="form-label">Tempat Lahir</label>
-                            <input type="text" class="form-control credit_period_input" name="birth_place" id="birth_place">
+                            <input type="text" class="form-control credit_period_input" name="birth_place" id="birth_place" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="birth_date" class="form-label">Tanggal Lahir</label>
@@ -201,15 +201,15 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="company_name" class="form-label">Nama Perusahaan</label>
-                            <input type="text" class="form-control credit_period_input" name="company_name" id="company_name">
+                            <input type="text" class="form-control credit_period_input" name="company_name" id="company_name" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="company_address" class="form-label">Alamat Perusahaan</label>
-                            <textarea name="company_address" id="company_address" cols="30" rows="10" class="form-control credit_period_input" placeholder="Address"></textarea>
+                            <textarea name="company_address" id="company_address" cols="30" rows="10" class="form-control credit_period_input" placeholder="Jawaban Anda"></textarea>
                         </div>
                         <div class="form-group credit_period">
                             <label for="company_phone" class="form-label">No Telepon Perusahaan</label>
-                            <input type="text" class="form-control credit_period_input" name="company_phone" id="company_phone">
+                            <input type="text" class="form-control credit_period_input" name="company_phone" id="company_phone" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="length_of_work" class="form-label">Lama Bekerja</label>
@@ -241,7 +241,7 @@
                                 <option value=4000000>3 - 4 juta</option>
                                 <option value=5000000>>5 juta</option>
                             </select>
-                            <small style="color: red;">*Isi jika ada penghasilan tambahan</small>
+                            <small style="color: red;">*Pilih jika memiliki penghasilan tambahan</small>
                         </div>
                         <div class="form-group credit_period">
                             <label for="spending" class="form-label">Pengeluaran</label>
@@ -274,28 +274,28 @@
                             </select>
                         </div>
                         <div class="form-group credit_period">
-                            <label for="transportation_brand" class="form-label">Merk</label>
-                            <input type="text" class="form-control credit_period_input" name="transportation_brand" id="transportation_brand">
+                            <label for="transportation_brand" class="form-label">Merek</label>
+                            <input type="text" class="form-control credit_period_input" name="transportation_brand" id="transportation_brand" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="year_of_purchase" class="form-label">Tahun Pembelian</label>
-                            <input type="text" class="form-control credit_period_input" name="year_of_purchase" id="year_of_purchase">
+                            <input type="text" class="form-control credit_period_input" name="year_of_purchase" id="year_of_purchase" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="police_number" class="form-label">Nomor Polisi</label>
-                            <input type="text" class="form-control credit_period_input" name="police_number" id="police_number">
+                            <input type="text" class="form-control credit_period_input" name="police_number" id="police_number" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="transportation_color" class="form-label">Warna</label>
-                            <input type="text" class="form-control credit_period_input" name="transportation_color" id="transportation_color">
+                            <input type="text" class="form-control credit_period_input" name="transportation_color" id="transportation_color" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="bpkb_number" class="form-label">Nomor BPKB</label>
-                            <input type="text" class="form-control credit_period_input" name="bpkb_number" id="bpkb_number">
+                            <input type="text" class="form-control credit_period_input" name="bpkb_number" id="bpkb_number" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="rekening_number" class="form-label">Nomor Rekening</label>
-                            <input type="text" class="form-control credit_period_input" name="rekening_number" id="rekening_number">
+                            <input type="text" class="form-control credit_period_input" name="rekening_number" id="rekening_number" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group credit_period">
                             <label for="bank" class="form-label">Nama Bank</label>
@@ -309,22 +309,22 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="owner_rekening" class="form-label">Pemilik Rekening</label>
-                            <input type="text" class="form-control credit_period_input" name="owner_rekening" id="owner_rekening">
+                            <input type="text" class="form-control credit_period_input" name="owner_rekening" id="owner_rekening" placeholder="Jawaban Anda" >
                         </div>
                         <div class="form-group credit_period">
                             <label for="house_image" class="form-label">Foto Rumah</label>
                             <input type="file" class="form-control credit_period_input" name="house_image" id="house_image">
                         </div>
                         <div class="form-group credit_period">
-                            <label for="ktp" class="form-label">KTP</label>
+                            <label for="ktp" class="form-label">Foto KTP</label>
                             <input type="file" class="form-control credit_period_input" name="ktp" id="ktp">
                         </div>
                         <div class="form-group credit_period">
-                            <label for="photo" class="form-label">Photo Selfie</label>
+                            <label for="photo" class="form-label">Foto Selfie</label>
                             <input type="file" class="form-control credit_period_input" name="photo" id="photo">
                         </div>
                         <div class="form-group credit_period">
-                            <label for="salary_slip" class="form-label">Slip Gaji</label>
+                            <label for="salary_slip" class="form-label">Foto Slip Gaji</label>
                             <input type="file" class="form-control credit_period_input" name="salary_slip" id="salary_slip">
                         </div>
                         <div class="form-group credit_period">
@@ -342,7 +342,7 @@
                                 <option value="6" class="6months">6 Bulan (Bunga 2%)</option>
                                 <option value="12" class="12months">12 Bulan (Bunga 2,5%)</option>
                             </select>
-                            <small style="color: red;">*Hanya untuk Pembayaran Kredit</small>
+                            <small style="color: red;">*Pilih Periode kredit</small>
                         </div>
                         <div class="form-group total_field">
                             {{-- <label>Total:</label> --}}
@@ -352,7 +352,7 @@
                         <div class="form-check credit_period">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
-                                Semua informasi dalam formulir ini adalah lengka dan benar. Dengan mengisi formulir ini, Saya memnerikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua dat dengan cara bagaimanapun yang layak menurut BALI ARTHA JAYA.
+                                Semua informasi dalam formulir ini adalah lengka dan benar. Dengan mengisi formulir ini, Saya memnerikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua data dengan cara bagaimanapun yang layak menurut BALI ARTHA JAYA.
                             </label>
                         </div>
                         <button type="submit" class="btn btn-block btn-success" id="btn-submit">Kirim</button>

@@ -244,7 +244,7 @@
                                 <option value=4000000 {{ $submission->extra_income == 4000000 ? 'selected' : '' }}>3 - 4 juta</option>
                                 <option value=5000000 {{ $submission->extra_income == 5000000 ? 'selected' : '' }}>5 juta</option>
                             </select>
-                            <small style="color: red;">*Isi jika ada penghasilan tambahan</small>
+                            <small style="color: red;">*Isi jika memiliki penghasilan tambahan</small>
                         </div>
                         <div class="form-group credit_period">
                             <label for="spending" class="form-label">Pengeluaran</label>

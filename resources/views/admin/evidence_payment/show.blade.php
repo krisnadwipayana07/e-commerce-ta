@@ -57,7 +57,7 @@
 </div>
 @endif
 @if ($data->category_payment->name == "Kredit" || $data->category_payment->name == "Credit")
-<h2 class="pt-5 fw-bold">Detail User Kredit</h2>
+<h4 class="pt-5 fw-bold">Detail Data Pelanggan Kredit</h4>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Nama Lengkap</h6>{{ $submission->full_name }}
 </div>
@@ -198,11 +198,11 @@
     <input type="hidden" id="longitude" name="lng" value="{{ $data->longitude ?: '' }}">
 </div>
 <div class="form-group py-3">
-    <label>Pesan Notifikasi ke User <small><em>(opsional)</em></small></label>
+    <label>Pesan Notifikasi ke Pengguna <small><em>(opsional)</em></small></label>
     <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST" class="d-flex">
         @csrf
-        <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika transaksi di reject)">
-        <button type="submit" class="btn btn-primary">Kirim Notifikasi</button>
+        <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika data pelanggan tidak sesuai)">
+        <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
     </form>
 </div>
 <div class="row">
@@ -221,7 +221,7 @@
             @method('PUT')
             <input type="hidden" name="status" value="{{ $stt }}">
             <div class="border-bottom py-3">
-                <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Approve</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
             </div>
         </form>
         @endif
@@ -232,7 +232,7 @@
             @csrf
             @method('DELETE')
             <div class="border-bottom py-3">
-                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Reject</button>
+                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
             </div>
         </form>
         @endif

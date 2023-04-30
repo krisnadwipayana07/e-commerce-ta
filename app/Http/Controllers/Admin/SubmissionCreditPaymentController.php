@@ -88,7 +88,7 @@ class SubmissionCreditPaymentController extends Controller
             $submission_credit_payment->update([
                 "status" => "reject"
             ]);
-
+            
             DB::commit();
 
             return redirect()->route('admin.submission.credit.payment')->with("result", ["success", "Success approve payment"]);

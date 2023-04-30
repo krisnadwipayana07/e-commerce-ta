@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
+use App\Models\Property;
 use App\Models\SubmissionTransferPayment;
 use App\Models\Transaction;
 use Exception;
@@ -88,14 +89,15 @@ class SubmissionTransferPaymentController extends Controller
                 "status" => "reject"
             ]);
 
+            restore_property_stocks($submission_transfer_payment->transaction_id);
             Delivery::make($submission_transfer_payment->customer_id, $submission_transfer_payment->transaction_id, Delivery::STATUS_REJECTED);
 
             DB::commit();
 
-            return redirect()->route('admin.submission.transfer.payment')->with("result", ["success", "Success approve payment"]);
+            return redirect()->route('admin.submission.transfer.payment.index')->with("result", ["success", "Success approve payment"]);
         } catch(Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.submission.transfer.payment')->with("result", ["error", "Failed approve payment"]);
+            return redirect()->route('admin.submission.transfer.payment.index')->with("result", ["error", "Failed approve payment"]);
         }
     }
 }

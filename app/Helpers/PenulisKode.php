@@ -6,6 +6,8 @@
 // use App\Models\Page;
 
 use App\Models\Notification;
+use App\Models\Property;
+use App\Models\TransactionDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -468,4 +470,13 @@ function store_notif($user_id, $message, $type, $transaction_id = null)
     ]);
 
     return $data;
+}
+
+function restore_property_stocks($transactionId)
+{
+    $trxDetail = TransactionDetail::find($transactionId);
+    $property = Property::find($trxDetail->property_id);
+    $property->update([
+        'stock' => $property->stock + $trxDetail->qty
+    ]);
 }

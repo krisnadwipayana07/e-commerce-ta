@@ -281,6 +281,7 @@ class TransactionController extends Controller
                 $message = $request->has('message') ? $request->message : "Your Credit Payment Submission has been Rejected! Please review your submission!";
                 store_notif($transaction->customer_id, $message, "Transaction");
             }
+            restore_property_stocks($transaction->id);
             Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_REJECTED);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index');

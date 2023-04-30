@@ -5,7 +5,20 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
+<div class="container">
+    <div class="d-flex align-items-center my-3">
+        <div class="font-weight-bold">
+            Status : 
+        </div>
+        <div class="gap-5">
+        <button class="btn btn-outline-primary rounded-pill ml-1">Semua</button>
+        <button class="btn btn-outline-primary rounded-pill ">Pembayaran</button>
+        <button class="btn btn-outline-primary rounded-pill ">Lunas</button>
+        <button class="btn btn-outline-primary rounded-pill ">Ditolak</button>
+        <button class="btn btn-outline-primary rounded-pill ">Diproses Pengiriman</button>
+        <button class="btn btn-outline-primary rounded-pill ">Sampai Ditujan</button>
+        </div>
+    </div>
     @foreach ($transactions as $transaction)
     <div class="row mb-5">
         <div class="col-12">

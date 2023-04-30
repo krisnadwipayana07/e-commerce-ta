@@ -199,10 +199,21 @@
 </div>
 <div class="form-group py-3">
     <label>Pesan Notifikasi ke Pengguna <small><em>(opsional)</em></small></label>
-    <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST" class="d-flex">
+    <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST">
         @csrf
-        <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika data pelanggan tidak sesuai)">
-        <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
+        <div class="pb-1 w-25">
+            <select class="form-select" aria-label="Default select example" name="type">
+                <option selected>Pilih tipe pesan</option>
+                @if ($data->status === "pending")
+                <option value="Transaction - Warning">Perbaikan</option>
+                @endif
+                <option value="Transaction - Notification">Notifikasi Transaksi</option>
+            </select>
+        </div>
+        <div class="d-flex">
+            <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika data pelanggan tidak sesuai)">
+            <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
+        </div>
     </form>
 </div>
 <div class="row">

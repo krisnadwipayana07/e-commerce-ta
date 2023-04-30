@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CategoryPayment;
 use App\Models\CategoryProperty;
 use App\Models\Customer;
+use App\Models\Delivery;
 use App\Models\Property;
 use App\Models\SubmissionCreditTransaction;
 use App\Models\Transaction;
@@ -255,6 +256,7 @@ class TransactionController extends Controller
                     'stock' => $property->stock - $transactionDetail->qty
                 ]);
             }
+            Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_IN_TRANSIT);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index')->with('result', ['success', 'Approve transaction']);
         } catch (Exception $ex) {
@@ -279,6 +281,7 @@ class TransactionController extends Controller
                 $message = $request->has('message') ? $request->message : "Your Credit Payment Submission has been Rejected! Please review your submission!";
                 store_notif($transaction->customer_id, $message, "Transaction");
             }
+            Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_REJECTED);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index');
         } catch (Exception $ex) {

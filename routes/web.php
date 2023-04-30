@@ -156,6 +156,10 @@ Route::namespace('Customer')->prefix('customer/')->name('customer.')->group(func
         Route::post('/down/payment/{transaction}', 'NotificationController@dp_payment_store')->name('dp.payment.store');
         Route::get('/transfer/payment/{transaction}', 'NotificationController@transfer_payment_index')->name('transfer.payment.index');
         Route::post('/transfer/payment/{transaction}', 'NotificationController@transfer_payment_store')->name('transfer.payment.store');
+
+        Route::get('delivery', 'DeliveryController@index')->name('delivery.index');
+        Route::get('delivery/{delivery}', 'DeliveryController@show')->name('delivery.show');
+        Route::get('delivery/accept/{deliveryId}', 'DeliveryController@accept_delivery')->name('delivery.accept_delivery');
     });
 });
 

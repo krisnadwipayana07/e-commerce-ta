@@ -31,4 +31,9 @@ class Transaction extends Model
     {
         return $this->hasMany('App\Models\SubmissionCreditPayment');
     }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class);
+    }
 }

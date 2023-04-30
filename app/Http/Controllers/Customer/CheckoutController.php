@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\CategoryPayment;
 use App\Models\CategoryProperty;
+use App\Models\Delivery;
 use App\Models\Property;
 use App\Models\SubmissionCreditTransaction;
 use App\Models\Transaction;
@@ -495,6 +496,7 @@ class CheckoutController extends Controller
             $property->update([
                 'stock' => $property->stock - $request->quantity_property
             ]);
+            Delivery::make(Auth::guard('customer')->user()->id, $trx->id, Delivery::STATUS_ORDER_RECEIVED);
             DB::commit();
 
             return $redirect;

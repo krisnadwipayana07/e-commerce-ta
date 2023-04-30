@@ -207,7 +207,10 @@ class TransactionController extends Controller
     public function evidence_payment_index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Transaction::whereIn('transactions.status', ['pending', 'in_progress'])->orderBy('transactions.created_at', 'ASC')->get();
+            $data = Transaction::join('category_payments as cp', 'transactions.category_payment_id', '=', 'cp.id')
+                ->select('transactions.code', 'transactions.id', 'transactions.account_number', 'transactions.recipient_name', 'cp.name', 'transactions.status')
+                ->whereIn('transactions.status', ['pending', 'in_progress'])
+                ->orderBy('transactions.created_at', 'ASC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

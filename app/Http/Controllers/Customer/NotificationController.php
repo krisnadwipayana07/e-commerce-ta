@@ -104,12 +104,25 @@ class NotificationController extends Controller
             $isCredit = $item->category_payment->name == "Credit" || $item->category_payment->name == "Kredit" ? true : false;
             $isTransfer = str_contains(strtoupper($item->category_payment->name), 'TRANSFER');
             $submission_credit_payment = new SubmissionCreditPayment();
+            $notifications = new Notification();
+            $notif = [];
             $count_submission_credit_payment = 0;
             if ($isCredit) {
                 $submission_credit_payment = SubmissionCreditPayment::where("transaction_id", $item->id)->where("status", "accept");
                 $count_submission_credit_payment = $submission_credit_payment->count();
                 $submission_credit_payment = $submission_credit_payment->get();
             }
+
+            if ($item->status == "pending") {
+                $notifications = Notification::where("transaction_id", $item->id)->get();
+                foreach ($notifications as $data) {
+                    $notif[] = [
+                        'message' => $data->message
+                    ];
+                }
+                // dd($notifications);
+            }
+
             $transaction_detail = [];
             foreach ($detail_transactions as $detail) {
                 $transaction_detail[] = [
@@ -140,13 +153,14 @@ class NotificationController extends Controller
                 "routeDP" => route('customer.dp.payment.index', ['transaction' => $item->id]),
                 "isTransfer" => $isTransfer,
                 "due_date" => $item->due_date,
+                "message" => $notif,
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];
         }
         $header_category = $this->category_product;
 
         $payments = CategoryPayment::all();
-        return view('customer.notifications.transaction.index', compact('header_category', 'transactions', 'payments'));
+        return view('customer.notifications.transaction.index', compact('header_category', 'transactions', 'payments', 'notifications'));
     }
 
     public function transaction_show(Request $request, Transaction $transaction)

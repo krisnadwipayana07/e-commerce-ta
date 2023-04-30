@@ -40,6 +40,8 @@
                         <th>Code</th>
                         <th>Phone Number</th>
                         <th>Name</th>
+                        <th>Payment</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </thead>
                 </table>
@@ -74,6 +76,14 @@
                 {
                     data: 'recipient_name',
                     name: 'recipient_name'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
                 },
                 {
                     data: 'action',

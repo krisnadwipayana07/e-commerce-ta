@@ -202,7 +202,7 @@
     <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST">
         @csrf
         <div class="pb-1 w-25">
-            <select class="form-select" aria-label="Default select example" name="type">
+            <select class="form-select" aria-label="Default select example" name="type" required>
                 <option selected>Pilih tipe pesan</option>
                 @if ($data->status === "pending")
                 <option value="Transaction - Warning">Perbaikan</option>

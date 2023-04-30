@@ -68,7 +68,7 @@
     <h6 class="font-weight-bold">Nama Ibu Kandung</h6>{{ $submission->mother_name }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Nama Ibu Kandung</h6>{{ $submission->post_code }}
+    <h6 class="font-weight-bold">Kode Pos</h6>{{ $submission->post_code }}
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Tempat Lahir</h6>{{ $submission->birth_place }}

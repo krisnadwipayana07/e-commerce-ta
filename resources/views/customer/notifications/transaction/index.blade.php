@@ -118,28 +118,29 @@
                                 <h5>Status Transaksi</h5>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-{{ $transaction['button'] }} btn-block">{{ $transaction['status'] }}</button>
+                                <button type="button" class="btn btn-{{ $transaction['button']  }} {{$transaction['button'] === "success" && "text-white"}} btn-block text-uppercase" style=" font-weight: 600">{{$transaction['isDP'] && $transaction['remaining_instalment'] > 0 ? "BAYAR CICILAN PERBULAN": $transaction['status']}} </button>
                             </div>
                         </div>
                     </div>
                     
-                    @if ($transaction['isCredit'])
+                    @if ($transaction['isCredit'] && $transaction['remaining_instalment'] > 0)
                     <div class="row mt-2">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-8 pb-1">
-                            <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-secondary">UBAH DATA</a>
-                        </div>
                         @if ($transaction['isDP'])
-                        <div class="col-md-12 mt-1">
-                            <a href="javascript:;" onclick="penuliskode_modal('Pay a Credit', '{{ $transaction["route"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar</a>
+                        <div class="col-md-4 mt-1"></div>
+                        <div class="col-md-8 mt-1">
+                            <a href="javascript:;" onclick="penuliskode_modal('Pay a Credit', '{{ $transaction["route"] }}')" class="btn btn-block btn-success">Bayar Cicilan</a>
                         </div>
                         @else
-                            @if ($transaction['status'] == "REJECTED" || $transaction['status'] == "PENDING")
-                            <div class="col-md-4"></div>
+                            @if ($transaction['statuses'] == "in_progress")
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8 ">
+                                    <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar DP</a>
+                                </div>
                             @else
-                            <div class="col-md-12 mt-1">
-                                <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar DP</a>
-                            </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8 pb-1">
+                                    <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-secondary">UBAH DATA</a>
+                                </div>
                             @endif
                         @endif
                     </div>

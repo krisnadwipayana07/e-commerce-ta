@@ -29,15 +29,15 @@ class NotificationController extends Controller
 {
     protected $category_product;
     protected $statuses = [
-        'paid' => 'PAID',
-        'in_progress' => 'IN PROGRESS',
-        'pending' => 'PENDING',
+        'paid' => 'LUNAS',
+        'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
+        'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
         'reject' => 'REJECTED'
     ];
     protected $buttons = [
         'paid' => 'success',
         'in_progress' => 'warning',
-        'pending' => 'info',
+        'pending' => 'warning',
         'reject' => 'danger'
     ];
 
@@ -127,6 +127,7 @@ class NotificationController extends Controller
                 "remaining_instalment" => $isCredit ? ($item->credit_period - $item->total_phase) : null,
                 "down_payment" => $isCredit ? format_rupiah($item->down_payment) : null,
                 "isDP" => $item->is_dp_paid,
+                "statuses" => $item->status,
                 "status" => $this->statuses[$item->status],
                 "button" => $this->buttons[$item->status],
                 "isCredit" => $isCredit,

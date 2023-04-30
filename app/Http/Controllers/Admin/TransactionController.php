@@ -287,7 +287,7 @@ class TransactionController extends Controller
     public function evidence_payment_notify_user(Transaction $transaction, Request $request)
     {
         try {
-            store_notif($transaction->customer_id, $request->message ?: "Something wrong in your transactions! Please check your transactions", $request->type);
+            store_notif($transaction->customer_id, $request->message ?: "Something wrong in your transactions! Please check your transactions", $request->type, $request->transaction_id);
             return redirect()->back()->with('result', ['success', 'Notifications has been sent!']);
         } catch (Exception $ex) {
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);

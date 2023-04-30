@@ -457,13 +457,14 @@ if (!function_exists('set_active')) {
     }
 }
 
-function store_notif($user_id, $message, $type)
+function store_notif($user_id, $message, $type, $transaction_id = null)
 {
     $data = Notification::create([
         'customer_id' => $user_id,
         'type' => $type,
         'message' => $message,
-        'is_read' => false
+        'is_read' => false,
+        'transaction_id' => $transaction_id
     ]);
 
     return $data;

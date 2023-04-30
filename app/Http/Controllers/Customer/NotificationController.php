@@ -49,7 +49,12 @@ class NotificationController extends Controller
     public function index()
     {
         $header_category = $this->category_product;
-        $notifications = Notification::where("customer_id", Auth::guard("customer")->user()->id)->orderBy('created_at', 'desc')->get();
+        $notifications = Notification::leftJoin('transactions', 'transactions.id', '=', 'notifications.transaction_id')
+            ->select('notifications.id', 'notifications.type', 'notifications.message', 'notifications.is_read', 'notifications.transaction_id', 'transactions.status', 'notifications.created_at')
+            ->where("notifications.customer_id", Auth::guard("customer")->user()->id)
+            ->orderBy('notifications.created_at', 'desc')
+            ->get();
+        // dd($notifications);
         return view('customer.notifications.index', compact('header_category', 'notifications'));
     }
 

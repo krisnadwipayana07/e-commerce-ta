@@ -201,6 +201,7 @@
     <label>Pesan Notifikasi ke Pengguna <small><em>(opsional)</em></small></label>
     <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST">
         @csrf
+        <input type="hidden" name="transaction_id" value="{{ $data->id }}">
         <div class="pb-1 w-25">
             <select class="form-select" aria-label="Default select example" name="type" required>
                 <option selected>Pilih tipe pesan</option>

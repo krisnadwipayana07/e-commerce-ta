@@ -256,7 +256,7 @@ class TransactionController extends Controller
                     'stock' => $property->stock - $transactionDetail->qty
                 ]);
             }
-            Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_IN_TRANSIT);
+            // Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_IN_TRANSIT);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index')->with('result', ['success', 'Approve transaction']);
         } catch (Exception $ex) {

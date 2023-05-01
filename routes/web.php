@@ -71,6 +71,7 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         // Route::resource('transaction_detail', 'TransactionDetailController');
         Route::get('delivery', 'DeliveryController@index')->name('delivery.index');
         Route::get('delivery/{transaction}', 'DeliveryController@show')->name('delivery.show');
+        Route::post('delivery/{transaction}', 'DeliveryController@store')->name('delivery.change_status');
         Route::get('evidence_payment', 'TransactionController@evidence_payment_index')->name('evidence_payment.index');
         Route::get('evidence_payment/{transaction}', 'TransactionController@evidence_payment_show')->name('evidence_payment.show');
         Route::put('evidence_payment/{transaction}', 'TransactionController@evidence_payment_approve')->name('evidence_payment.approve');

@@ -39,57 +39,25 @@
 
 <div class="form-group py-3">
     <label>Status Pengiriman</label>
-    <form action="{{ route('admin.evidence_payment.notify_user', $data->id) }}" method="POST">
+    {{-- {{$data->customer_id}} --}}
+    <form action="{{ route('admin.delivery.change_status', $data->id) }}" method="POST">
         @csrf
         <input type="hidden" name="transaction_id" value="{{ $data->id }}">
-        <div class="pb-1 w-25">
-            <select class="form-select" aria-label="Default select example" name="type" required>
-                <option selected>Pilih tipe pesan</option>
-                @if ($data->status === "pending")
-                <option value="Transaction - Warning">Perbaikan</option>
-                @endif
-                <option value="Transaction - Notification">Notifikasi Transaksi</option>
+        <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
+        <div class="pb-1">
+            <select class="form-select" aria-label="Default select example" name="status" required>
+                <option selected>Pilih Status Pengiriman</option>
+                <option value="Order Received">Order Received</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Delivered">Delivered</option>
             </select>
         </div>
-        <div class="d-flex">
-            <input type="text" name="message" class="form-control" placeholder="Pesan (isi jika data pelanggan tidak sesuai)">
-            <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
+        <div class="border-bottom py-3">
+            <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
         </div>
     </form>
 </div>
-<div class="row">
-    <div class="col-md-2">
-        @php
-        $stt = 'paid';
-        @endphp
-        @if ($data->category_payment->name == 'Kredit' || $data->category_payment->name == 'Credit')
-        @php
-        $stt = 'in_progress';
-        @endphp
-        @endif
-        @if ($data->status === "pending")
-        <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="status" value="{{ $stt }}">
-            <div class="border-bottom py-3">
-                <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
-            </div>
-        </form>
-        @endif
-    </div>
-    <div class="col-md-2">
-        @if ($data->status === "pending")
-        <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
-            @csrf
-            @method('DELETE')
-            <div class="border-bottom py-3">
-                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
-            </div>
-        </form>
-        @endif
-    </div>
-</div>
+
 <script>
     
     $(document).ready(function() {

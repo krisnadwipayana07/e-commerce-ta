@@ -32,7 +32,7 @@ class NotificationController extends Controller
     protected $status_transaction = [
         'paid' => 'LUNAS',
         'in_progress' => 'Sudah Diterima dan Dalam proses',
-        'pending' => 'Sedang Dicheck',
+        'pending' => 'Sedang Diproses',
         'reject' => 'Ditolak'
     ];
     protected $statuses = [

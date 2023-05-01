@@ -16,21 +16,21 @@ class SubmissionTransferPaymentController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->ajax()){
-            $data = SubmissionTransferPayment::with(['transaction', 'customer'])->get();
+        if ($request->ajax()) {
+            $data = SubmissionTransferPayment::with(['transaction', 'customer'])->orderBy('created_at', 'DESC')->get();
             return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('customer_name', function($data) {
-                        return $data->customer->name;
-                    })
-                    ->editColumn('status', function($data) {
-                        return ucwords($data->status);
-                    })
-                    ->addColumn('action', function($data){
-                        return onlyShowBtn('Submission Transfer Payment', route('admin.submission.transfer.payment.show', $data->id)) . onlyDeleteBtn('Submission Transfer Payment', route('admin.submission.transfer.payment.delete', $data->id), route('admin.submission.transfer.payment.index'));
-                    })
-                    ->rawColumns(['customer_name', 'action'])
-                    ->make(true);
+                ->addIndexColumn()
+                ->addColumn('customer_name', function ($data) {
+                    return $data->customer->name;
+                })
+                ->editColumn('status', function ($data) {
+                    return ucwords($data->status);
+                })
+                ->addColumn('action', function ($data) {
+                    return onlyShowBtn('Submission Transfer Payment', route('admin.submission.transfer.payment.show', $data->id)) . onlyDeleteBtn('Submission Transfer Payment', route('admin.submission.transfer.payment.delete', $data->id), route('admin.submission.transfer.payment.index'));
+                })
+                ->rawColumns(['customer_name', 'action'])
+                ->make(true);
         }
         return view('admin.submission_transfer_payment.index');
     }
@@ -40,7 +40,7 @@ class SubmissionTransferPaymentController extends Controller
         $submission_transfer_payment = SubmissionTransferPayment::with(['transaction', 'customer'])->find($submission_transfer_payment->id);
         return view('admin.submission_transfer_payment.show', ["data" => $submission_transfer_payment]);
     }
-    
+
     public function destroy(Request $request, SubmissionTransferPayment $submission_transfer_payment)
     {
         DB::beginTransaction();
@@ -50,7 +50,7 @@ class SubmissionTransferPaymentController extends Controller
             $result = 'Data Deleted Successfully.';
             $request->session()->flash('result', ['success', $result]);
             return response()->json(['status' => 1, 'text' => $result]);
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             DB::rollBack();
             return response()->json(['status' => 0, 'text' => 'Error Occur.', 'error' => strval($ex)]);
         }
@@ -75,12 +75,12 @@ class SubmissionTransferPaymentController extends Controller
             DB::commit();
 
             return redirect()->route('admin.submission.transfer.payment.index')->with("result", ["success", "Success approve payment"]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.submission.transfer.payment.index')->with("result", ["error", "Failed approve payment"]);
         }
     }
-    
+
     public function reject(Request $request, SubmissionTransferPayment $submission_transfer_payment)
     {
         DB::beginTransaction();
@@ -95,7 +95,7 @@ class SubmissionTransferPaymentController extends Controller
             DB::commit();
 
             return redirect()->route('admin.submission.transfer.payment.index')->with("result", ["success", "Success approve payment"]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.submission.transfer.payment.index')->with("result", ["error", "Failed approve payment"]);
         }

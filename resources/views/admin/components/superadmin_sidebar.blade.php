@@ -63,25 +63,30 @@
                 <i class="ri-wallet-line"></i><span>Approved Payment Customer</span>
             </a>
         </li>
-        <li class="nav-heading">Submission Down Payment</li>
+        <li class="nav-heading">Submission</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.dp.payment.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.submission.dp.payment.index') }}">
                 <i class="ri-wallet-line"></i><span>Submission Down Payment</span>
             </a>
         </li>
-        <li class="nav-heading">Submission Credit Payment</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.credit.payment.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.submission.credit.payment.index') }}">
                 <i class="ri-wallet-line"></i><span>Submission Credit Payment</span>
             </a>
         </li>
-        <li class="nav-heading">Submission Transfer Payment</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.transfer.payment.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.submission.transfer.payment.index') }}">
                 <i class="ri-wallet-line"></i><span>Submission Transfer Payment</span>
+            </a>
+        </li>
+        <li class="nav-heading">Delivery</li>
+        <li class="nav-item">
+            <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.index' ? '' : 'collapsed' }}"
+                href="{{ route('admin.delivery.index') }}">
+                <i class="ri-wallet-line"></i><span>Delivery</span>
             </a>
         </li>
         <li class="nav-heading">Sales Report</li>

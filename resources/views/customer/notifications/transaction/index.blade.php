@@ -127,11 +127,14 @@
                     <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
+                            @if ($transaction['delivery'])
+                                <h5>Status Pengiriman - {{$transaction['delivery']}} </h5>
+                            @endif
                             @if ($transaction["message"])
-                            <h5> Note : </h5>
-                            @foreach ($transaction["message"] as $item)
-                            <p class="text-danger"> * {{$item['message']}} </p>
-                            @endforeach
+                                <h5> Note : </h5>
+                                    @foreach ($transaction["message"] as $item)
+                                        <p class="text-danger"> * {{$item['message']}} </p>
+                                    @endforeach
                             @endif
                             <div class="text-center">
                                 <h5>Status Transaksi</h5>

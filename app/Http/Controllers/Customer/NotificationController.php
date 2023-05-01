@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\CategoryPayment;
 use App\Models\CategoryProperty;
+use App\Models\Delivery;
 use App\Models\Notification;
 use App\Models\Property;
 use App\Models\SubmissionCreditPayment;
@@ -111,6 +112,8 @@ class NotificationController extends Controller
             $isTransfer = str_contains(strtoupper($item->category_payment->name), 'TRANSFER');
             $submission_credit_payment = new SubmissionCreditPayment();
             $notifications = new Notification();
+            $delivery = new Delivery();
+            $delivery_status = "";
             $notif = [];
             $count_submission_credit_payment = 0;
             if ($isCredit) {
@@ -137,6 +140,10 @@ class NotificationController extends Controller
                     "price" => format_rupiah($detail->property->price)
                 ];
             }
+            $delivery = Delivery::where("transaction_id", $item->id)->orderBy('created_at', 'DESC')->first();
+            if ($delivery !== null) {
+                $delivery_status = $delivery->status;
+            }
             $remaining_payment = $item->total_payment - ($item->down_payment + $item->payment_credit * $count_submission_credit_payment);
             $remaining_payment = $remaining_payment < 0 ? 0 : $remaining_payment;
             $transactions[] = [
@@ -160,6 +167,7 @@ class NotificationController extends Controller
                 "isTransfer" => $isTransfer,
                 "due_date" => $item->due_date,
                 "message" => $notif,
+                'delivery' => $delivery_status,
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];
         }

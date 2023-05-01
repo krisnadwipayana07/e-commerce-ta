@@ -59,7 +59,7 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         // DASHBOARD
         Route::get('/', 'AdminController@index');
         Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
-        Route::resource('admin', 'AdminController');//index, show, edit, update, create, store, destroy
+        Route::resource('admin', 'AdminController'); //index, show, edit, update, create, store, destroy
         Route::resource('customer', 'CustomerController');
         Route::resource('category_property', 'CategoryPropertyController');
         Route::resource('sub_category_property', 'SubCategoryPropertyController');
@@ -69,12 +69,14 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::resource('category_payment', 'CategoryPaymentController');
         Route::resource('transaction', 'TransactionController');
         // Route::resource('transaction_detail', 'TransactionDetailController');
+        Route::get('delivery', 'DeliveryController@index')->name('delivery.index');
+        Route::get('delivery/{transaction}', 'DeliveryController@show')->name('delivery.show');
         Route::get('evidence_payment', 'TransactionController@evidence_payment_index')->name('evidence_payment.index');
         Route::get('evidence_payment/{transaction}', 'TransactionController@evidence_payment_show')->name('evidence_payment.show');
         Route::put('evidence_payment/{transaction}', 'TransactionController@evidence_payment_approve')->name('evidence_payment.approve');
         Route::delete('evidence_payment/{transaction}', 'TransactionController@evidence_payment_reject')->name('evidence_payment.reject');
         Route::post('evidence_payment/{transaction}', 'TransactionController@evidence_payment_notify_user')->name('evidence_payment.notify_user');
-        
+
         Route::get('submission_premium', 'SubmissionPremiumController@submission_premium_index')->name('submission_premium.index');
         Route::get('submission_premium/{submission_premium_customer}', 'SubmissionPremiumController@submission_premium_show')->name('submission_premium.show');
         Route::put('submission_premium/{submission_premium_customer}', 'SubmissionPremiumController@submission_premium_approve')->name('submission_premium.approve');
@@ -85,13 +87,13 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::put("submission/credit/payment/approve/{submission_credit_payment}", "SubmissionCreditPaymentController@approve")->name("submission.credit.payment.approve");
         Route::put("submission/credit/payment/reject/{submission_credit_payment}", "SubmissionCreditPaymentController@reject")->name("submission.credit.payment.reject");
         Route::delete("submission/credit/payment/{submission_credit_payment}", "SubmissionCreditPaymentController@destroy")->name("submission.credit.payment.delete");
-        
+
         Route::get("submission/down/payment", 'SubmissionDownPaymentController@index')->name('submission.dp.payment.index');
         Route::get("submission/down/payment/{submission_down_payment}", "SubmissionDownPaymentController@show")->name("submission.dp.payment.show");
         Route::put("submission/down/payment/approve/{submission_down_payment}", "SubmissionDownPaymentController@approve")->name("submission.dp.payment.approve");
         Route::put("submission/down/payment/reject/{submission_down_payment}", "SubmissionDownPaymentController@reject")->name("submission.dp.payment.reject");
         Route::delete("submission/down/payment/{submission_down_payment}", "SubmissionDownPaymentController@destroy")->name("submission.dp.payment.delete");
-        
+
         Route::get("transfer/payment", 'TransferPaymentController@index')->name('transfer.payment.index');
         Route::delete("transfer/payment/{transaction}", "TransferPaymentController@destroy")->name("transfer.payment.delete");
 
@@ -102,7 +104,7 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::delete("submission/transfer/payment/{submission_transfer_payment}", "SubmissionTransferPaymentController@destroy")->name("submission.transfer.payment.delete");
 
         Route::get('sales/report', 'SalesReportController@index')->name('sales.report.index');
-        Route::get('sales/report/print', array('as'=>'sales.report.print','uses'=>'SalesReportController@print'));
+        Route::get('sales/report/print', array('as' => 'sales.report.print', 'uses' => 'SalesReportController@print'));
 
         // IMPORT DATA
         Route::prefix('import')->name('import.')->group(function () {

@@ -11,12 +11,12 @@
             Status : 
         </div>
         <div class="gap-5">
-        <button class="btn btn-outline-primary rounded-pill ml-1">Semua</button>
-        <button class="btn btn-outline-primary rounded-pill ">Pembayaran</button>
-        <button class="btn btn-outline-primary rounded-pill ">Lunas</button>
-        <button class="btn btn-outline-primary rounded-pill ">Ditolak</button>
-        <button class="btn btn-outline-primary rounded-pill ">Diproses Pengiriman</button>
-        <button class="btn btn-outline-primary rounded-pill ">Sampai Ditujan</button>
+        <a href="{{ route('customer.notification.transaction.index') }}" class="btn btn-{{ request()->get('filter') === null ? 'primary' : 'outline-primary' }} rounded-pill ml-1">Semua</a>
+        <a href="{{ route('customer.notification.transaction.index', ['filter' => 'payment']) }}" class="btn btn-{{ request()->get('filter') === "payment" ? 'primary' : 'outline-primary' }} rounded-pill ">Pembayaran</a>
+        <a href="{{ route('customer.notification.transaction.index', ['filter' => 'paid']) }}" class="btn btn-{{ request()->get('filter') === "paid" ? 'primary' : 'outline-primary' }} rounded-pill ">Lunas</a>
+        <a href="{{ route('customer.notification.transaction.index', ['filter' => 'rejected']) }}" class="btn btn-{{ request()->get('filter') === "rejected" ? 'primary' : 'outline-primary' }} rounded-pill ">Ditolak</a>
+        <a href="{{ route('customer.notification.transaction.index', ['filter' => 'in_transit']) }}" class="btn btn-{{ request()->get('filter') === "in_transit" ? 'primary' : 'outline-primary' }} rounded-pill ">Diproses Pengiriman</a>
+        <a href="{{ route('customer.notification.transaction.index', ['filter' => 'delivered']) }}" class="btn btn-{{ request()->get('filter') === "delivered" ? 'primary' : 'outline-primary' }} rounded-pill ">Sampai Ditujan</a>
         </div>
     </div>
     @foreach ($transactions as $transaction)

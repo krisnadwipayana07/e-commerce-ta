@@ -100,11 +100,36 @@ class NotificationController extends Controller
         // }
         $customer = Auth::guard('customer')->user();
         $status = ['paid', 'in_progress', 'pending', 'reject'];
+        $delivery_status = Delivery::statusList();
+        if ($request->filter) {
+            switch ($request->filter) {
+                case 'payment':
+                    $status = ['in_progress'];
+                    break;
+                case 'paid':
+                    $status = ['paid'];
+                    break;
+                case 'rejected':
+                    $status = ['reject'];
+                    break;
+                case 'in_transit':
+                    $delivery_status = [Delivery::STATUS_IN_TRANSIT];
+                    break;
+                case 'delivered':
+                    $delivery_status = [Delivery::STATUS_DELIVERED];
+                    break;
+            }
+        }
+        DB::statement("SET SQL_MODE=''");
         $data = Transaction::with(['category_payment'])
-            ->where('customer_id', $customer->id)
-            ->whereIn('status', $status)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+            ->join('deliveries', 'deliveries.transaction_id', '=', 'transactions.id')
+            ->where('transactions.customer_id', $customer->id)
+            ->whereIn('transactions.status', $status)
+            ->whereIn('deliveries.status', $delivery_status)
+            ->orderBy('transactions.created_at', 'DESC')
+            ->orderBy('deliveries.created_at', 'desc')
+            ->groupBy('transactions.id')
+            ->get(['transactions.*']);
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();
@@ -174,7 +199,7 @@ class NotificationController extends Controller
         $header_category = $this->category_product;
 
         $payments = CategoryPayment::all();
-        return view('customer.notifications.transaction.index', compact('header_category', 'transactions', 'payments', 'notifications'));
+        return view('customer.notifications.transaction.index', compact('header_category', 'transactions', 'payments', isset($notifications) ? 'notifications' : null));
     }
 
     public function transaction_show(Request $request, Transaction $transaction)

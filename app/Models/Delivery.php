@@ -26,6 +26,16 @@ class Delivery extends Model
         ]);
     }
 
+    public static function statusList(): array
+    {
+        return [
+            Delivery::STATUS_ORDER_RECEIVED, 
+            Delivery::STATUS_IN_TRANSIT, 
+            Delivery::STATUS_DELIVERED, 
+            Delivery::STATUS_REJECTED
+        ];
+    }
+
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);

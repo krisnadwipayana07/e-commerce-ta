@@ -11,7 +11,11 @@
     <h6 class="font-weight-bold">Nomber Telepon</h6>{{ $data->account_number }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Detail Transaksi</h6>
+    <h5 class="fw-bold text-center">Detail Transaksi</h6>
+    <div class="border-bottom py-3">
+        <h6 class="font-weight-bold">Jenis Pembayaran</h6>{{ $data->category_payment->name }}
+    </div>
+    <h6 class="font-weight-bold my-3">Product</h6>
     <table class="table table-borderless">
         <tbody>
             @foreach ($data->transaction_detail as $item)

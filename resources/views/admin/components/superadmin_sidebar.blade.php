@@ -86,7 +86,7 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.delivery.index') }}">
-                <i class="ri-wallet-line"></i><span>Delivery</span>
+                <i class="ri-truck-line"></i><span>Delivery</span>
             </a>
         </li>
         <li class="nav-heading">Sales Report</li>

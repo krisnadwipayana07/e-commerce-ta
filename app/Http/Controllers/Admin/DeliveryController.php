@@ -22,7 +22,7 @@ class DeliveryController extends Controller
     {
         if ($request->ajax()) {
             $data = [];
-            $transaction = Transaction::where('status', 'paid')->get();
+            $transaction = Transaction::whereIn('status', ['paid', 'in_progress'])->get();
             // $delivery = Delivery::join('transactions as trx', 'deliveries.transaction_id', '=', 'trx.id')
             //     ->select('trx.code', 'deliveries.transaction_id')
             //     ->groupBy('deliveries.transaction_id')
@@ -30,16 +30,34 @@ class DeliveryController extends Controller
             foreach ($transaction as $temp) {
                 $status = '';
 
+                $isCredit = $temp->category_payment->name == "Credit" || $temp->category_payment->name == "Kredit" ? true : false;
+                $isTransfer = str_contains(strtoupper($temp->category_payment->name), 'TRANSFER');
                 $temp_status = Delivery::where('deliveries.transaction_id', $temp->id)->orderBy('created_at', 'DESC')->first();
                 if ($temp_status) {
                     $status = $temp_status->status;
                 }
 
-                $data[] = [
-                    'id' => $temp->id,
-                    'code' => $temp->code,
-                    'status' => $status,
-                ];
+                if (($isCredit && $temp->is_dp_paid) || ($isTransfer && $temp->status == "paid")) {
+                    $data[] = [
+                        'id' => $temp->id,
+                        'code' => $temp->code,
+                        'status' => $status,
+                    ];
+                }
+                // if ($isCredit && $temp->is_dp_paid) {
+                //     $data[] = [
+                //         'id' => $temp->id,
+                //         'code' => $temp->code,
+                //         'status' => $status,
+                //     ];
+                // }
+                // if ($isTransfer && $temp->status == "paid") {
+                //     $data[] = [
+                //         'id' => $temp->id,
+                //         'code' => $temp->code,
+                //         'status' => $status,
+                //     ];
+                // }
             }
             return DataTables::of($data)
                 ->addIndexColumn()

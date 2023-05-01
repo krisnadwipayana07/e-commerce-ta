@@ -28,11 +28,17 @@ use Yajra\DataTables\Facades\DataTables;
 class NotificationController extends Controller
 {
     protected $category_product;
+    protected $status_transaction = [
+        'paid' => 'LUNAS',
+        'in_progress' => 'Sudah Diterima dan Dalam proses',
+        'pending' => 'Sedang Dicheck',
+        'reject' => 'Ditolak'
+    ];
     protected $statuses = [
         'paid' => 'LUNAS',
         'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
         'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
-        'reject' => 'REJECTED'
+        'reject' => 'Ditolak'
     ];
     protected $buttons = [
         'paid' => 'success',
@@ -146,7 +152,7 @@ class NotificationController extends Controller
                 "down_payment" => $isCredit ? format_rupiah($item->down_payment) : null,
                 "isDP" => $item->is_dp_paid,
                 "statuses" => $item->status,
-                "status" => $this->statuses[$item->status],
+                "status" => $isCredit ? $this->statuses[$item->status] : $this->status_transaction[$item->status],
                 "button" => $this->buttons[$item->status],
                 "isCredit" => $isCredit,
                 "route" => route('customer.credit.payment.index', ['transaction' => $item->id]),

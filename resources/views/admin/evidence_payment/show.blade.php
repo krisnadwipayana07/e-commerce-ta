@@ -107,16 +107,36 @@
     <h6 class="font-weight-bold">Lama Bekerja</h6>{{ $submission->length_of_work }} {{$submission->year_or_month_work}}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Jumlah Penghasilan</h6> @currency($submission->income_amount)
+    <h6 class="font-weight-bold">Jumlah Penghasilan</h6>
+    @if (@isset($payment_value[$submission->income_amount]))
+    {{$payment_value[$submission->income_amount]}}
+    @else
+    {{$submission->income_amount}}
+    @endif 
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Penghasilan Tambahan</h6> @currency($submission->extra_income)
+    <h6 class="font-weight-bold">Penghasilan Tambahan</h6>
+    @if (@isset($payment_value[$submission->extra_income]))
+    {{$payment_value[$submission->extra_income]}}
+    @else
+    {{$submission->extra_income}}
+    @endif 
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Pengeluaran</h6>@currency($submission->spending)
+    <h6 class="font-weight-bold">Pengeluaran</h6>
+    @if (@isset($payment_value[$submission->spending]))
+    {{$payment_value[$submission->spending]}}
+    @else
+    {{$submission->spending}}
+    @endif
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Sisa Penghasilan</h6>@currency($submission->residual_income)
+    <h6 class="font-weight-bold">Sisa Penghasilan</h6>
+    @if (@isset($payment_value[$submission->residual_income]))
+    {{$payment_value[$submission->residual_income]}}
+    @else
+    {{$submission->residual_income}}
+    @endif
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Jenis Kendaraan</h6>{{ $submission->transportation_type }}

@@ -225,11 +225,17 @@ class TransactionController extends Controller
 
     public function evidence_payment_show(Transaction $transaction)
     {
+        $payment_value = [
+            500000 => "< 500 Ribu",
+            2000000 => "1 - 2 juta",
+            4000000 => "3 - 4 juta",
+            5000000 => "5 juta"
+        ];
         $submission_credit_transactions = null;
         if ($transaction->credit_period != null && $transaction->credit_period > 0) {
             $submission_credit_transactions = SubmissionCreditTransaction::where('transaction_id', $transaction->id)->first();
         }
-        return view('admin.evidence_payment.show', ['data' => $transaction, 'submission' => $submission_credit_transactions]);
+        return view('admin.evidence_payment.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'payment_value' => $payment_value]);
     }
 
     public function evidence_payment_approve(Request $request, Transaction $transaction)

@@ -34,6 +34,6 @@ class Transaction extends Model
 
     public function delivery()
     {
-        return $this->hasOne(Delivery::class);
+        return $this->hasMany(Delivery::class);
     }
 }

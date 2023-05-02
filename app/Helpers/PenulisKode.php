@@ -474,7 +474,7 @@ function store_notif($user_id, $message, $type, $transaction_id = null)
 
 function restore_property_stocks($transactionId)
 {
-    $trxDetail = TransactionDetail::find($transactionId);
+    $trxDetail = TransactionDetail::where('transaction_id', '=', $transactionId)->get()->first();
     $property = Property::find($trxDetail->property_id);
     $property->update([
         'stock' => $property->stock + $trxDetail->qty

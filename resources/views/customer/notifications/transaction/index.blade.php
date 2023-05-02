@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex align-items-center my-3">
+    {{-- <div class="d-flex align-items-center my-3">
         <div class="font-weight-bold">
             Status : 
         </div>
@@ -18,7 +18,7 @@
         <button class="btn btn-outline-primary rounded-pill ">Diproses Pengiriman</button>
         <button class="btn btn-outline-primary rounded-pill ">Sampai Ditujan</button>
         </div>
-    </div>
+    </div> --}}
     @foreach ($transactions as $transaction)
     <div class="row mb-5">
         <div class="col-12">

@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    {{-- <div class="d-flex align-items-center my-3">
+    <div class="d-flex align-items-center my-3">
         <div class="font-weight-bold">
             Status : 
         </div>
@@ -18,7 +18,7 @@
         <a href="{{ route('customer.notification.transaction.index', ['filter' => 'in_transit']) }}" class="btn btn-{{ request()->get('filter') === "in_transit" ? 'primary' : 'outline-primary' }} rounded-pill ">Diproses Pengiriman</a>
         <a href="{{ route('customer.notification.transaction.index', ['filter' => 'delivered']) }}" class="btn btn-{{ request()->get('filter') === "delivered" ? 'primary' : 'outline-primary' }} rounded-pill ">Sampai Ditujan</a>
         </div>
-    </div> --}}
+    </div>
     @foreach ($transactions as $transaction)
     <div class="row mb-5">
         <div class="col-12">

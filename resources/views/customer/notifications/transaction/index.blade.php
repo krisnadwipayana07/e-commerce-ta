@@ -158,7 +158,7 @@
                                 <div class="col-md-8 ">
                                     <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar DP</a>
                                 </div>
-                            @else
+                            @elseif ($transaction['statuses'] != "reject")
                                 <div class="col-md-4"></div>
                                 <div class="col-md-8 pb-1">
                                     <a href="{{ route('customer.notification.transaction.edit', $transaction['id']) }}" class="btn btn-block btn-secondary">UBAH DATA</a>

@@ -38,7 +38,7 @@ class NotificationController extends Controller
     protected $statuses = [
         'paid' => 'LUNAS',
         'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
-        'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
+        'pending' => 'Data Pengajuan Kredit Sedang Diperiksa',
         'reject' => 'Ditolak'
     ];
     protected $buttons = [

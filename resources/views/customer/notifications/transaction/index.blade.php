@@ -88,17 +88,17 @@
                                     </div>
                                     @if($transaction['isTransfer'])
                                     <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">Tenggat Transfer</label>
+                                        <label for="disabledTextInput" class="form-label">Batas Waktu Pembayaran</label>
                                         <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['due_date'] }}">
                                     </div>
                                     @endif
                                     @if ($transaction['isCredit'])
                                     <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">Jumlah Kredit per Bulan</label>
+                                        <label for="disabledTextInput" class="form-label">Jumlah Kredit</label>
                                         <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['credit_period'] }}">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">DP</label>
+                                        <label for="disabledTextInput" class="form-label">DP (Uang Muka)</label>
                                         <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['down_payment'] }}">
                                     </div>
                                     <div class="mb-3">
@@ -114,7 +114,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="disabledTextInput" class="form-label">Sisa Bulan yang Belum Dibayar</label>
+                                                <label for="disabledTextInput" class="form-label">Sisa Cicilan</label>
                                                 <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['remaining_instalment']  }}x">
                                             </div>
                                         </div>

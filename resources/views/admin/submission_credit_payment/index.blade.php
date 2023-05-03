@@ -38,6 +38,8 @@
                     <thead>
                         <th>#</th>
                         <th>Customer</th>
+                        <th>Transaction</th>
+                        <th>Remaining Instalment</th>
                         <th>Status</th>
                         <th>Action</th>
                     </thead>
@@ -61,6 +63,14 @@
                 {
                     data: 'customer_name',
                     name: 'customer_name'
+                },
+                {
+                    data: 'transaction_code',
+                    name: 'transaction_code'
+                },
+                {
+                    data: 'total_payment',
+                    name: 'total_payment'
                 },
                 {
                     data: 'status',

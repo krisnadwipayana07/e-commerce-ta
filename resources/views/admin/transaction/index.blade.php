@@ -13,7 +13,7 @@
 @endsection
 
 @section('page-action-button')
-    <a href="{{ route("admin.transaction.create") }}" class="btn btn-sm btn-success"><i class="ri-add-circle-line"></i> Add Data</a>
+    {{-- <a href="{{ route("admin.transaction.create") }}" class="btn btn-sm btn-success"><i class="ri-add-circle-line"></i> Add Data</a> --}}
 @endsection
 
 @section('page-content-title')

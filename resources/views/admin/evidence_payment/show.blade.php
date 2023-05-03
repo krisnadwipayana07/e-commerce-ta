@@ -50,12 +50,12 @@
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Tanggal Transaksi</h6>{{ $data->created_at }}
 </div>
-@if($data->category_payment->name != "Cash" && $data->category_payment->name != "Cash On Delivery" && $data->category_payment->name != "Kredit" && $data->category_payment->name != "Credit")
+{{-- @if($data->category_payment->name != "Cash" && $data->category_payment->name != "Cash On Delivery" && $data->category_payment->name != "Kredit" && $data->category_payment->name != "Credit")
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Image</h6>
     <img id="preview-myimg" src="{{ ($data->img) ? url('/upload/evidence_payment/', $data->img) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
-@endif
+@endif --}}
 @if ($data->category_payment->name == "Kredit" || $data->category_payment->name == "Credit")
 <h4 class="pt-5 fw-bold">Detail Data Pelanggan Kredit</h4>
 <div class="border-bottom py-3">
@@ -257,17 +257,17 @@
             </div>
         </form>
         @endif
-    </div>
-    <div class="col-md-2">
-        @if ($data->status === "pending")
-        <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
-            @csrf
-            @method('DELETE')
-            <div class="border-bottom py-3">
-                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
-            </div>
-        </form>
-        @endif
+        <div class="col-md-2">
+            @if ($data->status === "pending" || ($data->category_payment->name != "Cash" && $data->category_payment->name != "Cash On Delivery" && $data->category_payment->name != "Kredit" && $data->category_payment->name != "Credit"))
+            <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+                @csrf
+                @method('DELETE')
+                <div class="border-bottom py-3">
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
+                </div>
+            </form>
+            @endif
+        </div>
     </div>
 </div>
 <script>

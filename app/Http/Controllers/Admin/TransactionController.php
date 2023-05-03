@@ -210,7 +210,7 @@ class TransactionController extends Controller
         if ($request->ajax()) {
             $data = Transaction::join('category_payments as cp', 'transactions.category_payment_id', '=', 'cp.id')
                 ->select('transactions.code', 'transactions.id', 'transactions.account_number', 'transactions.recipient_name', 'cp.name', 'transactions.status')
-                ->whereIn('transactions.status', ['pending', 'in_progress'])
+                ->whereIn('transactions.status', ['pending', 'in_progress', 'reject'])
                 ->orderBy('transactions.created_at', 'ASC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -287,7 +287,9 @@ class TransactionController extends Controller
                 $message = $request->has('message') ? $request->message : "Your Credit Payment Submission has been Rejected! Please review your submission!";
                 store_notif($transaction->customer_id, $message, "Transaction");
             }
-            restore_property_stocks($transaction->id);
+            if ($transaction->category_payment->name !== 'Credit' && $transaction->category_payment->name !== 'Kredit') {
+                restore_property_stocks($transaction->id);
+            }
             Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_REJECTED);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index');

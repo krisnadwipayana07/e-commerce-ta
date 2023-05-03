@@ -23,6 +23,9 @@ class SubmissionTransferPaymentController extends Controller
                 ->addColumn('customer_name', function ($data) {
                     return $data->customer->name;
                 })
+                ->addColumn('transaction_date', function ($data) {
+                    return $data->transaction->created_at;
+                })
                 ->editColumn('status', function ($data) {
                     return ucwords($data->status);
                 })

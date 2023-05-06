@@ -13,6 +13,29 @@
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Tanggal Pengiriman</h6>{{ $data->updated_at }}
 </div>
+<div>
+    <h5 class="text-center mt-3">Detail Transaksi</h5>
+    <table class="table table-borderless">
+        <tbody>
+            @foreach ($data->transaction->transaction_detail as $item)
+                <tr>
+                    <td>
+                        {{ $item->property->name }}
+                    </td>
+                    <td>
+                        {{ format_rupiah($item->price) }}
+                    </td>
+                    <td> 
+                        x {{ $item->qty }}
+                    </td>
+                    <td>
+                        = {{ format_rupiah($item->total_price) }}
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 {{-- <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Credit Periode</h6>{{ $data->transaction->credit_period }}
 </div>

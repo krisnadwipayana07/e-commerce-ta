@@ -38,6 +38,9 @@
                     <thead>
                         <th>#</th>
                         <th>Customer</th>
+                        <th>Transaction</th>
+                        <th>Tanggal transaksi|</th>
+                        <th>Remaining Installment</th>
                         <th>Status</th>
                         <th>Action</th>
                     </thead>
@@ -61,6 +64,18 @@
                 {
                     data: 'customer_name',
                     name: 'customer_name'
+                },
+                {
+                    data: 'transaction',
+                    name: 'transaction'
+                },
+                {
+                    data: 'date',
+                    name: 'date'
+                },
+                {
+                    data: 'remaining_installment',
+                    name: 'remaining_installment'
                 },
                 {
                     data: 'status',

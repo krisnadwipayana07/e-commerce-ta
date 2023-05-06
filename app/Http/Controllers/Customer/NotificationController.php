@@ -133,7 +133,7 @@ class NotificationController extends Controller
             ->whereIn('transactions.status', $status)
             ->whereIn('deliveries.status', $delivery_status)
             ->orderBy('transactions.created_at', 'DESC')
-            ->orderBy('deliveries.created_at', 'desc')
+            ->orderBy('deliveries.created_at', 'DESC')
             ->groupBy('transactions.id')
             ->get(['transactions.*']);
         $transactions = [];

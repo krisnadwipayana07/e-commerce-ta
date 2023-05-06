@@ -240,13 +240,8 @@
 <div class="row">
     <div class="col-md-2">
         @php
-        $stt = 'paid';
-        @endphp
-        @if ($data->category_payment->name == 'Kredit' || $data->category_payment->name == 'Credit')
-        @php
         $stt = 'in_progress';
         @endphp
-        @endif
         @if ($data->status === "pending")
         <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
             @csrf
@@ -257,17 +252,17 @@
             </div>
         </form>
         @endif
-        <div class="col-md-2">
-            @if ($data->status === "pending" || ($data->category_payment->name != "Cash" && $data->category_payment->name != "Cash On Delivery" && $data->category_payment->name != "Kredit" && $data->category_payment->name != "Credit"))
-            <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
-                @csrf
-                @method('DELETE')
-                <div class="border-bottom py-3">
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
-                </div>
-            </form>
-            @endif
-        </div>
+    </div>
+    <div class="col-md-2">
+        @if ($data->status === "pending")
+        <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="border-bottom py-3">
+                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
+            </div>
+        </form>
+        @endif
     </div>
 </div>
 <script>

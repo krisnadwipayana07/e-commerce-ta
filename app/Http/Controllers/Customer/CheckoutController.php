@@ -234,7 +234,7 @@ class CheckoutController extends Controller
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
-                    'status' => "in_progress",
+                    'status' => "pending",
                     'due_date' => $due_date,
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
@@ -475,7 +475,7 @@ class CheckoutController extends Controller
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
-                    'status' => "in_progress",
+                    'status' => "pending",
                     'due_date' => $due_date,
                     "latitude" => $request->lat,
                     "longitude" => $request->lng

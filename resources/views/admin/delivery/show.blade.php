@@ -51,9 +51,9 @@
         <div class="pb-1">
             <select class="form-select" aria-label="Default select example" name="status" required>
                 <option value="" >Pilih Status Pengiriman</option>
-                <option value="Order Received" {{$status == 'Order Received' ? 'selected':''}}>Order Received</option>
-                <option value="In Transit" {{$status == 'In Transit' ? 'selected':''}}>In Transit</option>
-                <option value="Delivered" {{$status == 'Delivered' ? 'selected':''}}>Delivered</option>
+                <option value="Order Received" {{$status == 'Order Received' ? 'selected':''}}>Orderan Diterima</option>
+                <option value="In Transit" {{$status == 'In Transit' ? 'selected':''}}>Sedang Transit</option>
+                <option value="Delivered" {{$status == 'Delivered' ? 'selected':''}}>Dikirim</option>
             </select>
         </div>
         <div class="border-bottom py-3">

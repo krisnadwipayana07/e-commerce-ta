@@ -18,6 +18,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DeliveryController extends Controller
 {
+    protected $delivery_status = [
+        'Order Received' => 'Orderan Diterima',
+        'In Transit' => 'Sedang Transit',
+        'Delivered' => 'Diterima',
+        'Rejected' => 'Ditolak'
+    ];
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -36,7 +43,7 @@ class DeliveryController extends Controller
                 $isTransfer = str_contains(strtoupper($temp->category_payment->name), 'TRANSFER');
                 $temp_status = Delivery::where('deliveries.transaction_id', $temp->id)->orderBy('created_at', 'DESC')->first();
                 if ($temp_status) {
-                    $status = $temp_status->status;
+                    $status = $this->delivery_status[$temp_status->status];
                 }
 
                 if (($isCredit && $temp->is_dp_paid) || ($isTransfer && $temp->status == "paid")) {

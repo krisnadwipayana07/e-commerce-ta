@@ -40,6 +40,9 @@ class TransactionController extends Controller
                 ->addColumn('phone', function ($data) {
                     return $data->account_number;
                 })
+                ->addColumn('created_at', function ($data) {
+                    return $data->created_at;
+                })
                 ->addColumn('action', function ($data) {
                     return onlyShowBtn('Transaction', route('admin.transaction.show', $data->id)) . onlyDeleteBtn('Transaction', route('admin.transaction.destroy', $data->id), route('admin.transaction.index'));
                 })

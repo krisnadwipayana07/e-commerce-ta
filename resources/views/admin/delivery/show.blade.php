@@ -50,10 +50,10 @@
         <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
         <div class="pb-1">
             <select class="form-select" aria-label="Default select example" name="status" required>
-                <option selected>Pilih Status Pengiriman</option>
-                <option value="Order Received">Order Received</option>
-                <option value="In Transit">In Transit</option>
-                <option value="Delivered">Delivered</option>
+                <option value="" >Pilih Status Pengiriman</option>
+                <option value="Order Received" {{$status == 'Order Received' ? 'selected':''}}>Order Received</option>
+                <option value="In Transit" {{$status == 'In Transit' ? 'selected':''}}>In Transit</option>
+                <option value="Delivered" {{$status == 'Delivered' ? 'selected':''}}>Delivered</option>
             </select>
         </div>
         <div class="border-bottom py-3">

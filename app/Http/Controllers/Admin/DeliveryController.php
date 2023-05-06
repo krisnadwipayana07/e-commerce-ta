@@ -22,7 +22,9 @@ class DeliveryController extends Controller
     {
         if ($request->ajax()) {
             $data = [];
-            $transaction = Transaction::whereIn('status', ['paid', 'in_progress'])->get();
+            $transaction = Transaction::whereIn('status', ['paid', 'in_progress'])
+                ->orderBy('updated_at')
+                ->get();
             // $delivery = Delivery::join('transactions as trx', 'deliveries.transaction_id', '=', 'trx.id')
             //     ->select('trx.code', 'deliveries.transaction_id')
             //     ->groupBy('deliveries.transaction_id')
@@ -72,12 +74,16 @@ class DeliveryController extends Controller
 
     public function show(Transaction $transaction)
     {
-
+        $status = '';
+        $delivery = Delivery::where('deliveries.transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
+        if ($delivery != null) {
+            $status = $delivery->status;
+        }
         $submission_credit_transactions = null;
         if ($transaction->credit_period != null && $transaction->credit_period > 0) {
             $submission_credit_transactions = SubmissionCreditTransaction::where('transaction_id', $transaction->id)->first();
         }
-        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions]);
+        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'status' => $status]);
     }
 
     public function store(Request $request)

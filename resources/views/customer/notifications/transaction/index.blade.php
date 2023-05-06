@@ -168,7 +168,8 @@
                     </div>
                     @elseif ($transaction['isTransfer'] && $transaction['statuses'] !== "paid" && $transaction['statuses'] !== "reject")
                     <div class="row mt-2">
-                        <div class="col-md-12">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
                             <a href="javascript:;" onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction["routeTransfer"] }}')" class="btn btn-block btn-success @if($transaction['status'] == 'PAID') disabled @endif">Transfer</a>
                         </div>
                     </div>

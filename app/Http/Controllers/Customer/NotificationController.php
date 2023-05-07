@@ -31,14 +31,14 @@ class NotificationController extends Controller
     protected $category_product;
     protected $status_transaction = [
         'paid' => 'LUNAS',
-        'in_progress' => 'Menunggu Pembayaran',
+        'in_progress' => 'Sudah Diterima dan Dalam proses',
         'pending' => 'Sedang Diproses',
         'reject' => 'Ditolak'
     ];
     protected $statuses = [
         'paid' => 'LUNAS',
         'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
-        'pending' => 'Data Pengajuan Kredit Sedang Diperiksa',
+        'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
         'reject' => 'Ditolak'
     ];
     protected $buttons = [

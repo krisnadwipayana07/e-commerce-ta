@@ -27,9 +27,9 @@ class SubmissionCreditPaymentController extends Controller
                 ->addColumn('date', function ($data) {
                     return $data->transaction->created_at;
                 })
-                ->addColumn('remaining_installment', function ($data) {
-                    return $data->transaction->credit_period - $data->transaction->total_phase;
-                })
+                // ->addColumn('remaining_installment', function ($data) {
+                //     return $data->transaction->credit_period - $data->transaction->total_phase;
+                // })
                 ->editColumn('status', function ($data) {
                     return ucwords($data->status);
                 })

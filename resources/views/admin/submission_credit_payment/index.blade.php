@@ -39,9 +39,7 @@
                         <th>#</th>
                         <th>Customer</th>
                         <th>Transaction</th>
-                        <th>Remaining Instalment</th>
                         <th>Tanggal transaksi</th>
-                        <th>Remaining Installment</th>
                         <th>Status</th>
                         <th>Action</th>
                     </thead>
@@ -74,10 +72,10 @@
                     data: 'date',
                     name: 'date'
                 },
-                {
-                    data: 'remaining_installment',
-                    name: 'remaining_installment'
-                },
+                // {
+                //     data: 'remaining_installment',
+                //     name: 'remaining_installment'
+                // },
                 {
                     data: 'status',
                     name: 'status'

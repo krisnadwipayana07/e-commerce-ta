@@ -19,6 +19,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class TransactionController extends Controller
 {
+    protected $showed_status = [
+        "in_progress" => "approved",
+        "reject" => "reject",
+        "pending" => "pending",
+    ];
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -39,6 +44,9 @@ class TransactionController extends Controller
                 })
                 ->addColumn('phone', function ($data) {
                     return $data->account_number;
+                })
+                ->addColumn('created_at', function ($data) {
+                    return $data->created_at;
                 })
                 ->addColumn('action', function ($data) {
                     return onlyShowBtn('Transaction', route('admin.transaction.show', $data->id)) . onlyDeleteBtn('Transaction', route('admin.transaction.destroy', $data->id), route('admin.transaction.index'));
@@ -208,12 +216,16 @@ class TransactionController extends Controller
     public function evidence_payment_index(Request $request)
     {
         if ($request->ajax()) {
+
             $data = Transaction::join('category_payments as cp', 'transactions.category_payment_id', '=', 'cp.id')
                 ->select('transactions.code', 'transactions.id', 'transactions.account_number', 'transactions.recipient_name', 'cp.name', 'transactions.status')
                 ->whereIn('transactions.status', ['pending', 'in_progress', 'reject'])
                 ->orderBy('transactions.created_at', 'ASC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->editColumn('status', function ($data) {
+                    return $this->showed_status[$data->status];
+                })
                 ->addColumn('action', function ($data) {
                     return onlyShowBtn('Approved Payment Customer', route('admin.evidence_payment.show', $data->id));
                 })

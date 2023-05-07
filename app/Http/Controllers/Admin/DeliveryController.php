@@ -18,11 +18,20 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DeliveryController extends Controller
 {
+    protected $delivery_status = [
+        'Order Received' => 'Orderan Diterima',
+        'In Transit' => 'Sedang Transit',
+        'Delivered' => 'Diterima',
+        'Rejected' => 'Ditolak'
+    ];
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = [];
-            $transaction = Transaction::whereIn('status', ['paid', 'in_progress'])->get();
+            $transaction = Transaction::whereIn('status', ['paid', 'in_progress'])
+                ->orderBy('updated_at')
+                ->get();
             // $delivery = Delivery::join('transactions as trx', 'deliveries.transaction_id', '=', 'trx.id')
             //     ->select('trx.code', 'deliveries.transaction_id')
             //     ->groupBy('deliveries.transaction_id')
@@ -34,7 +43,7 @@ class DeliveryController extends Controller
                 $isTransfer = str_contains(strtoupper($temp->category_payment->name), 'TRANSFER');
                 $temp_status = Delivery::where('deliveries.transaction_id', $temp->id)->orderBy('created_at', 'DESC')->first();
                 if ($temp_status) {
-                    $status = $temp_status->status;
+                    $status = $this->delivery_status[$temp_status->status];
                 }
 
                 if (($isCredit && $temp->is_dp_paid) || ($isTransfer && $temp->status == "paid")) {
@@ -72,12 +81,16 @@ class DeliveryController extends Controller
 
     public function show(Transaction $transaction)
     {
-
+        $status = '';
+        $delivery = Delivery::where('deliveries.transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
+        if ($delivery != null) {
+            $status = $delivery->status;
+        }
         $submission_credit_transactions = null;
         if ($transaction->credit_period != null && $transaction->credit_period > 0) {
             $submission_credit_transactions = SubmissionCreditTransaction::where('transaction_id', $transaction->id)->first();
         }
-        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions]);
+        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'status' => $status]);
     }
 
     public function store(Request $request)

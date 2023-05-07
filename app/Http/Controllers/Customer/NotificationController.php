@@ -47,6 +47,12 @@ class NotificationController extends Controller
         'pending' => 'warning',
         'reject' => 'danger'
     ];
+    protected $delivery_status = [
+        'Order Received' => 'Orderan Diterima',
+        'In Transit' => 'Sedang Transit',
+        'Delivered' => 'Diterima',
+        'Rejected' => 'Ditolak'
+    ];
 
     public function __construct()
     {
@@ -127,7 +133,7 @@ class NotificationController extends Controller
             ->whereIn('transactions.status', $status)
             ->whereIn('deliveries.status', $delivery_status)
             ->orderBy('transactions.created_at', 'DESC')
-            ->orderBy('deliveries.created_at', 'desc')
+            ->orderBy('deliveries.created_at', 'DESC')
             ->groupBy('transactions.id')
             ->get(['transactions.*']);
         $transactions = [];
@@ -167,7 +173,7 @@ class NotificationController extends Controller
             }
             $delivery = Delivery::where("transaction_id", $item->id)->orderBy('created_at', 'DESC')->first();
             if ($delivery !== null) {
-                $delivery_status = $delivery->status;
+                $delivery_status = $this->delivery_status[$delivery->status];
             }
             $remaining_payment = $item->total_payment - ($item->down_payment + $item->payment_credit * $count_submission_credit_payment);
             $remaining_payment = $remaining_payment < 0 ? 0 : $remaining_payment;

@@ -67,7 +67,6 @@ class NotificationController extends Controller
             ->where("notifications.customer_id", Auth::guard("customer")->user()->id)
             ->orderBy('notifications.created_at', 'desc')
             ->get();
-        // dd($notifications);
         return view('customer.notifications.index', compact('header_category', 'notifications'));
     }
 
@@ -105,37 +104,29 @@ class NotificationController extends Controller
         //             ->make(true);
         // }
         $customer = Auth::guard('customer')->user();
-        $status = ['paid', 'in_progress', 'pending', 'reject'];
-        $delivery_status = Delivery::statusList();
-        if ($request->filter) {
-            switch ($request->filter) {
-                case 'payment':
-                    $status = ['in_progress', 'pending'];
-                    break;
-                case 'paid':
-                    $status = ['paid'];
-                    break;
-                case 'rejected':
-                    $status = ['reject'];
-                    break;
-                case 'in_transit':
-                    $delivery_status = [Delivery::STATUS_IN_TRANSIT];
-                    break;
-                case 'delivered':
-                    $delivery_status = [Delivery::STATUS_DELIVERED];
-                    break;
-            }
-        }
         DB::statement("SET SQL_MODE=''");
         $data = Transaction::with(['category_payment'])
             ->join('deliveries', 'deliveries.transaction_id', '=', 'transactions.id')
             ->where('transactions.customer_id', $customer->id)
-            ->whereIn('transactions.status', $status)
-            ->whereIn('deliveries.status', $delivery_status)
+            ->when($request->filter === 'payment', function ($query) {
+                return $query->whereIn('transactions.status', ['in_progress', 'pending']);
+            })
+            ->when($request->filter === 'paid', function ($query) {
+                return $query->whereIn('transactions.status', ['paid']);
+            })
+            ->when($request->filter === 'rejected', function ($query) {
+                return $query->whereIn('transactions.status', ['reject']);
+            })
+            ->when($request->filter === 'in_transit', function ($query) {
+                return $query->whereIn('deliveries.status', [Delivery::STATUS_IN_TRANSIT]);
+            })
+            ->when($request->filter === 'delivered', function ($query) {
+                return $query->whereIn('deliveries.status', [Delivery::STATUS_DELIVERED]);
+            })        
             ->orderBy('transactions.created_at', 'DESC')
             ->orderBy('deliveries.created_at', 'DESC')
             ->groupBy('transactions.id')
-            ->get(['transactions.*']);
+            ->get(['transactions.*', 'deliveries.status as delivery_status']);
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();
@@ -144,7 +135,6 @@ class NotificationController extends Controller
             $submission_credit_payment = new SubmissionCreditPayment();
             $notifications = new Notification();
             $delivery = new Delivery();
-            $delivery_status = "";
             $notif = [];
             $count_submission_credit_payment = 0;
             if ($isCredit) {
@@ -160,7 +150,6 @@ class NotificationController extends Controller
                         'message' => $data->message
                     ];
                 }
-                // dd($notifications);
             }
 
             $transaction_detail = [];
@@ -171,10 +160,7 @@ class NotificationController extends Controller
                     "price" => format_rupiah($detail->property->price)
                 ];
             }
-            $delivery = Delivery::where("transaction_id", $item->id)->orderBy('created_at', 'DESC')->first();
-            if ($delivery !== null) {
-                $delivery_status = $this->delivery_status[$delivery->status];
-            }
+
             $remaining_payment = $item->total_payment - ($item->down_payment + $item->payment_credit * $count_submission_credit_payment);
             $remaining_payment = $remaining_payment < 0 ? 0 : $remaining_payment;
             $transactions[] = [
@@ -198,7 +184,7 @@ class NotificationController extends Controller
                 "isTransfer" => $isTransfer,
                 "due_date" => $item->due_date,
                 "message" => $notif,
-                'delivery' => $delivery_status,
+                'delivery' => $this->delivery_status[$item->delivery_status],
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];
         }
@@ -264,11 +250,9 @@ class NotificationController extends Controller
                 'total' => 'Total'
             ]
         );
-        // dd($request, $transactionId);
         DB::beginTransaction();
         try {
             $transaction = Transaction::where('id', $transactionId)->get()->first();
-            // dd($transaction);
             $customer = Auth::guard('customer')->user();
             $payment = CategoryPayment::where('id', $request->category_payment_id)->first();
             if ($payment->name == "Cash" || $payment->name == "Cash On Delivery") {

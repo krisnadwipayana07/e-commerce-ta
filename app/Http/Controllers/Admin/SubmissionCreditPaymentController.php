@@ -15,23 +15,11 @@ class SubmissionCreditPaymentController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('submission_credit_payments')
-                ->selectRaw('MAX(submission_credit_payments.id) AS id, transactions.code AS transaction_code, customers.name AS customer_name, transactions.credit_period, transactions.total_phase, submission_credit_payments.status')
-                ->join('transactions', 'transactions.id', '=', 'submission_credit_payments.transaction_id')
-                ->join('customers', 'customers.id', '=', 'submission_credit_payments.customer_id')
-                ->groupBy('transactions.code')
-                ->orderBy('submission_credit_payments.created_at', 'DESC')
-                ->get();
+            $data = SubmissionCreditPayment::with(['transaction', 'customer'])->orderBy('created_at', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('transaction_code', function ($data) {
-                    return $data->transaction_code;
-                })
                 ->addColumn('customer_name', function ($data) {
-                    return $data->customer_name;
-                })
-                ->addColumn('total_payment', function ($data) {
-                    return $data->credit_period - $data->total_phase;
+                    return $data->customer->name;
                 })
                 ->addColumn('transaction', function ($data) {
                     return $data->transaction->code;
@@ -48,7 +36,7 @@ class SubmissionCreditPaymentController extends Controller
                 ->addColumn('action', function ($data) {
                     return onlyShowBtn('Submission Credit Payment', route('admin.submission.credit.payment.show', $data->id)) . onlyDeleteBtn('Submission Credit Payment', route('admin.submission.credit.payment.delete', $data->id), route('admin.submission.credit.payment.index'));
                 })
-                ->rawColumns(['transaction_code', 'customer_name', 'total_payment', 'action'])
+                ->rawColumns(['customer_name', 'action'])
                 ->make(true);
         }
         return view('admin.submission_credit_payment.index');

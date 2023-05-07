@@ -39,7 +39,12 @@
                         <th>#</th>
                         <th>Customer</th>
                         <th>Transaction</th>
+<<<<<<< HEAD
                         <th>Remaining Instalment</th>
+=======
+                        <th>Tanggal transaksi|</th>
+                        <th>Remaining Installment</th>
+>>>>>>> a714cd9261645b865a38054fafb956dd13480b6b
                         <th>Status</th>
                         <th>Action</th>
                     </thead>
@@ -65,12 +70,25 @@
                     name: 'customer_name'
                 },
                 {
+<<<<<<< HEAD
                     data: 'transaction_code',
                     name: 'transaction_code'
                 },
                 {
                     data: 'total_payment',
                     name: 'total_payment'
+=======
+                    data: 'transaction',
+                    name: 'transaction'
+                },
+                {
+                    data: 'date',
+                    name: 'date'
+                },
+                {
+                    data: 'remaining_installment',
+                    name: 'remaining_installment'
+>>>>>>> a714cd9261645b865a38054fafb956dd13480b6b
                 },
                 {
                     data: 'status',

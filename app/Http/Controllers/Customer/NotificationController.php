@@ -31,7 +31,7 @@ class NotificationController extends Controller
     protected $category_product;
     protected $status_transaction = [
         'paid' => 'LUNAS',
-        'in_progress' => 'Sudah Diterima dan Dalam proses',
+        'in_progress' => 'Menunggu Pembayaran',
         'pending' => 'Sedang Diproses',
         'reject' => 'Ditolak'
     ];

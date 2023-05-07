@@ -28,6 +28,7 @@
                     <thead>
                         <th>#</th>
                         <th>Customer</th>
+                        <th>Tanggal Transaksi</th>
                         <th>Status</th>
                         <th>Action</th>
                     </thead>
@@ -51,6 +52,10 @@
                 {
                     data: 'customer_name',
                     name: 'customer_name'
+                },
+                {
+                    data: 'transaction_date',
+                    name: 'transaction_date'
                 },
                 {
                     data: 'status',

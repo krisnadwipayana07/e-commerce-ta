@@ -5,7 +5,7 @@
     <h6 class="font-weight-bold">Customer Name</h6>{{ $data->customer->name }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Credit Periode</h6>{{ $data->transaction->credit_period }}
+    <h6 class="font-weight-bold">Credit Periode</h6>{{ $data->transaction->credit_period }} Bulan
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Payment Per Month</h6>{{ format_rupiah($data->transaction->payment_credit) }}

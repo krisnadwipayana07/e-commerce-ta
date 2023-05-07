@@ -215,6 +215,7 @@ class CheckoutController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
 
+
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
                 $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
@@ -245,6 +246,7 @@ class CheckoutController extends Controller
                 $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['Berhasil', 'Silakan Lakukan pembayaran']);
             }
             $carts = Cart::where('user_id', $customer->id)->get();
+            Delivery::make(Auth::guard('customer')->user()->id, $trx->id, Delivery::STATUS_ORDER_RECEIVED);
             foreach ($carts as $cart) {
                 $property = Property::where('id', $cart->property->id)->first();
                 TransactionDetail::create([

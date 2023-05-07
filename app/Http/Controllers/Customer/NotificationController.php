@@ -110,7 +110,7 @@ class NotificationController extends Controller
         if ($request->filter) {
             switch ($request->filter) {
                 case 'payment':
-                    $status = ['in_progress'];
+                    $status = ['in_progress', 'pending'];
                     break;
                 case 'paid':
                     $status = ['paid'];

@@ -48,10 +48,10 @@ class NotificationController extends Controller
         'reject' => 'danger'
     ];
     protected $delivery_status = [
-        'Order Received' => 'Orderan Diterima',
-        'In Transit' => 'Sedang Transit',
-        'Delivered' => 'Diterima',
-        'Rejected' => 'Ditolak'
+        Delivery::STATUS_ORDER_RECEIVED => 'Orderan Diterima',
+        Delivery::STATUS_IN_TRANSIT => 'Sedang Transit',
+        Delivery::STATUS_DELIVERED => 'Diterima',
+        Delivery::STATUS_REJECTED => 'Ditolak'
     ];
 
     public function __construct()
@@ -188,7 +188,7 @@ class NotificationController extends Controller
                 "isTransfer" => $isTransfer,
                 "due_date" => $item->due_date,
                 "message" => $notif,
-                'delivery' => $this->delivery_status[$item->delivery_status],
+                'delivery' => array_key_exists($item->delivery_status, $this->delivery_status) ? $this->delivery_status[$item->delivery_status] : "Tidak Ditemukan",
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];
         }

@@ -139,9 +139,16 @@
                             <div class="text-center">
                                 <h5>Status Transaksi</h5>
                             </div>
+                            {{-- {{$transaction['delivery']}} --}}
+                            @if ($transaction['isCOD'] && $transaction['delivery'] == "Diterima")
                             <div>
-                                <button type="button" class="btn btn-{{ $transaction['button']  }} {{$transaction['button'] === "success" && "text-white"}} btn-block text-uppercase" style=" font-weight: 600">{{$transaction['isDP'] && $transaction['remaining_instalment'] > 0 ? "BAYAR CICILAN PERBULAN": $transaction['status']}} </button>
+                                <button type="button" class="btn btn-success text-white btn-block text-uppercase" style=" font-weight: 600"> SUDAH DIKIRIM </button>
                             </div>
+                            @else
+                                <div>
+                                    <button type="button" class="btn btn-{{ $transaction['button']  }} {{$transaction['button'] === "success" && "text-white"}} btn-block text-uppercase" style=" font-weight: 600">{{$transaction['isDP'] && $transaction['remaining_instalment'] > 0 ? "BAYAR CICILAN PERBULAN": $transaction['status']}} </button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     

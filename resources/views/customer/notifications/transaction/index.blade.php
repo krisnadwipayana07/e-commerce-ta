@@ -170,7 +170,7 @@
                     <div class="row mt-2">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <a href="javascript:;" onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction["routeTransfer"] }}')" class="btn btn-block btn-success @if($transaction['status'] == 'PAID') disabled @endif">Transfer</a>
+                            <a href="javascript:;" onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction["routeTransfer"] }}')" class="btn btn-block btn-success @if($transaction['status'] == 'PAID') disabled @endif">Bayar</a>
                         </div>
                     </div>
                     @endif   

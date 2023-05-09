@@ -106,7 +106,7 @@ class NotificationController extends Controller
         $customer = Auth::guard('customer')->user();
         DB::statement("SET SQL_MODE=''");
         $data = Transaction::with(['category_payment'])
-            ->leftJoin(DB::raw('(SELECT transaction_id, status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function($join) {
+            ->leftJoin(DB::raw('(SELECT transaction_id, status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
                 $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
             })
             ->where('transactions.customer_id', $customer->id)
@@ -124,7 +124,7 @@ class NotificationController extends Controller
             })
             ->when($request->filter === 'delivered', function ($query) {
                 return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_DELIVERED]);
-            })        
+            })
             ->orderBy('transactions.created_at', 'DESC')
             ->groupBy('transactions.id')
             ->get(['transactions.*', 'latest_deliveries.status as delivery_status']);
@@ -132,6 +132,7 @@ class NotificationController extends Controller
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();
             $isCredit = $item->category_payment->name == "Credit" || $item->category_payment->name == "Kredit" ? true : false;
+            $isCOD = $item->category_payment->name == "Cash On Delivery" ? true : false;
             $isTransfer = str_contains(strtoupper($item->category_payment->name), 'TRANSFER');
             $submission_credit_payment = new SubmissionCreditPayment();
             $notifications = new Notification();
@@ -180,6 +181,7 @@ class NotificationController extends Controller
                 "status" => $isCredit ? $this->statuses[$item->status] : $this->status_transaction[$item->status],
                 "button" => $this->buttons[$item->status],
                 "isCredit" => $isCredit,
+                "isCOD" => $isCOD,
                 "route" => route('customer.credit.payment.index', ['transaction' => $item->id]),
                 "routeDP" => route('customer.dp.payment.index', ['transaction' => $item->id]),
                 "isTransfer" => $isTransfer,

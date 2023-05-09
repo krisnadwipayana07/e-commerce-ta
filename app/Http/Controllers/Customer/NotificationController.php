@@ -106,7 +106,7 @@ class NotificationController extends Controller
         $customer = Auth::guard('customer')->user();
         DB::statement("SET SQL_MODE=''");
         $data = Transaction::with(['category_payment'])
-            ->leftJoin(DB::raw('(SELECT MAX(created_at) AS max_date, transaction_id, status FROM deliveries GROUP BY transaction_id) AS latest_deliveries'), function($join) {
+            ->leftJoin(DB::raw('(SELECT transaction_id, status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function($join) {
                 $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
             })
             ->where('transactions.customer_id', $customer->id)

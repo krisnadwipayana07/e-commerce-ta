@@ -40,13 +40,14 @@ class DeliveryController extends Controller
                 $status = '';
 
                 $isCredit = $temp->category_payment->name == "Credit" || $temp->category_payment->name == "Kredit" ? true : false;
+                $isCOD = $temp->category_payment->name == "Cash On Delivery" ? true : false;
                 $isTransfer = str_contains(strtoupper($temp->category_payment->name), 'TRANSFER');
                 $temp_status = Delivery::where('deliveries.transaction_id', $temp->id)->orderBy('created_at', 'DESC')->first();
                 if ($temp_status) {
                     $status = $this->delivery_status[$temp_status->status];
                 }
 
-                if (($isCredit && $temp->is_dp_paid) || ($isTransfer && $temp->status == "paid")) {
+                if (($isCredit && $temp->is_dp_paid) || ($isTransfer && $temp->status == "paid") || ($isCOD)) {
                     $data[] = [
                         'id' => $temp->id,
                         'code' => $temp->code,

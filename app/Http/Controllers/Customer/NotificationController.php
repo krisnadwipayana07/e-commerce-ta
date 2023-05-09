@@ -105,27 +105,6 @@ class NotificationController extends Controller
         // }
         $customer = Auth::guard('customer')->user();
         DB::statement("SET SQL_MODE=''");
-        $status = ['paid', 'in_progress', 'pending', 'reject'];
-        $delivery_status = Delivery::statusList();
-        if ($request->filter) {
-            switch ($request->filter) {
-                case 'payment':
-                    $status = ['in_progress'];
-                    break;
-                case 'paid':
-                    $status = ['paid'];
-                    break;
-                case 'rejected':
-                    $status = ['reject'];
-                    break;
-                case 'in_transit':
-                    $delivery_status = [Delivery::STATUS_IN_TRANSIT];
-                    break;
-                case 'delivered':
-                    $delivery_status = [Delivery::STATUS_DELIVERED];
-                    break;
-            }
-        }
         $data = Transaction::with(['category_payment'])
             ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at,": ",status)),22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
                 $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
@@ -147,9 +126,9 @@ class NotificationController extends Controller
                 return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_DELIVERED]);
             })
             ->orderBy('transactions.created_at', 'DESC')
-            ->orderBy('deliveries.created_at', 'desc')
+            ->orderBy('latest_deliveries.created_at', 'desc')
             ->groupBy('transactions.id')
-            ->get(['transactions.*', 'deliveries.status as delivery_status']);
+            ->get(['transactions.*', 'latest_deliveries.status as delivery_status']);
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();

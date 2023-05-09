@@ -48,10 +48,10 @@ class NotificationController extends Controller
         'reject' => 'danger'
     ];
     protected $delivery_status = [
-        'Order Received' => 'Orderan Diterima',
-        'In Transit' => 'Sedang Transit',
-        'Delivered' => 'Diterima',
-        'Rejected' => 'Ditolak'
+        Delivery::STATUS_ORDER_RECEIVED => 'Orderan Diterima',
+        Delivery::STATUS_IN_TRANSIT => 'Sedang Transit',
+        Delivery::STATUS_DELIVERED => 'Diterima',
+        Delivery::STATUS_REJECTED => 'Ditolak'
     ];
 
     public function __construct()
@@ -105,36 +105,30 @@ class NotificationController extends Controller
         // }
         $customer = Auth::guard('customer')->user();
         DB::statement("SET SQL_MODE=''");
-        $status = ['paid', 'in_progress', 'pending', 'reject'];
-        $delivery_status = Delivery::statusList();
-        if ($request->filter) {
-            switch ($request->filter) {
-                case 'payment':
-                    $status = ['in_progress'];
-                    break;
-                case 'paid':
-                    $status = ['paid'];
-                    break;
-                case 'rejected':
-                    $status = ['reject'];
-                    break;
-                case 'in_transit':
-                    $delivery_status = [Delivery::STATUS_IN_TRANSIT];
-                    break;
-                case 'delivered':
-                    $delivery_status = [Delivery::STATUS_DELIVERED];
-                    break;
-            }
-        }
         $data = Transaction::with(['category_payment'])
-            ->join('deliveries', 'deliveries.transaction_id', '=', 'transactions.id')
+            ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at,": ",status)),22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
+                $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
+            })
             ->where('transactions.customer_id', $customer->id)
-            ->whereIn('transactions.status', $status)
-            ->whereIn('deliveries.status', $delivery_status)
+            ->when($request->filter === 'payment', function ($query) {
+                return $query->whereIn('transactions.status', ['in_progress', 'pending']);
+            })
+            ->when($request->filter === 'paid', function ($query) {
+                return $query->whereIn('transactions.status', ['paid']);
+            })
+            ->when($request->filter === 'rejected', function ($query) {
+                return $query->whereIn('transactions.status', ['reject']);
+            })
+            ->when($request->filter === 'in_transit', function ($query) {
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_TRANSIT]);
+            })
+            ->when($request->filter === 'delivered', function ($query) {
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_DELIVERED]);
+            })
             ->orderBy('transactions.created_at', 'DESC')
-            ->orderBy('deliveries.created_at', 'desc')
+            ->orderBy('latest_deliveries.created_at', 'desc')
             ->groupBy('transactions.id')
-            ->get(['transactions.*', 'deliveries.status as delivery_status']);
+            ->get(['transactions.*', 'latest_deliveries.status as delivery_status']);
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();
@@ -194,7 +188,7 @@ class NotificationController extends Controller
                 "isTransfer" => $isTransfer,
                 "due_date" => $item->due_date,
                 "message" => $notif,
-                'delivery' => $this->delivery_status[$item->delivery_status],
+                'delivery' => array_key_exists($item->delivery_status, $this->delivery_status) ? $this->delivery_status[$item->delivery_status] : "Tidak Ditemukan",
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];
         }

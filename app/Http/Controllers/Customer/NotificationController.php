@@ -127,10 +127,25 @@ class NotificationController extends Controller
             }
         }
         $data = Transaction::with(['category_payment'])
-            ->join('deliveries', 'deliveries.transaction_id', '=', 'transactions.id')
+            ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at,": ",status)),22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
+                $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
+            })
             ->where('transactions.customer_id', $customer->id)
-            ->whereIn('transactions.status', $status)
-            ->whereIn('deliveries.status', $delivery_status)
+            ->when($request->filter === 'payment', function ($query) {
+                return $query->whereIn('transactions.status', ['in_progress', 'pending']);
+            })
+            ->when($request->filter === 'paid', function ($query) {
+                return $query->whereIn('transactions.status', ['paid']);
+            })
+            ->when($request->filter === 'rejected', function ($query) {
+                return $query->whereIn('transactions.status', ['reject']);
+            })
+            ->when($request->filter === 'in_transit', function ($query) {
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_TRANSIT]);
+            })
+            ->when($request->filter === 'delivered', function ($query) {
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_DELIVERED]);
+            })
             ->orderBy('transactions.created_at', 'DESC')
             ->orderBy('deliveries.created_at', 'desc')
             ->groupBy('transactions.id')

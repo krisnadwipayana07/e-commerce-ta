@@ -106,7 +106,9 @@ class NotificationController extends Controller
         $customer = Auth::guard('customer')->user();
         DB::statement("SET SQL_MODE=''");
         $data = Transaction::with(['category_payment'])
-            ->join('deliveries', 'deliveries.transaction_id', '=', 'transactions.id')
+            ->leftJoin(DB::raw('(SELECT MAX(created_at) AS max_date, transaction_id, status FROM deliveries GROUP BY transaction_id) AS latest_deliveries'), function($join) {
+                $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
+            })
             ->where('transactions.customer_id', $customer->id)
             ->when($request->filter === 'payment', function ($query) {
                 return $query->whereIn('transactions.status', ['in_progress', 'pending']);
@@ -118,15 +120,14 @@ class NotificationController extends Controller
                 return $query->whereIn('transactions.status', ['reject']);
             })
             ->when($request->filter === 'in_transit', function ($query) {
-                return $query->whereIn('deliveries.status', [Delivery::STATUS_IN_TRANSIT]);
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_TRANSIT]);
             })
             ->when($request->filter === 'delivered', function ($query) {
-                return $query->whereIn('deliveries.status', [Delivery::STATUS_DELIVERED]);
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_DELIVERED]);
             })        
             ->orderBy('transactions.created_at', 'DESC')
-            ->orderBy('deliveries.created_at', 'DESC')
             ->groupBy('transactions.id')
-            ->get(['transactions.*', 'deliveries.status as delivery_status']);
+            ->get(['transactions.*', 'latest_deliveries.status as delivery_status']);
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();

@@ -105,29 +105,36 @@ class NotificationController extends Controller
         // }
         $customer = Auth::guard('customer')->user();
         DB::statement("SET SQL_MODE=''");
+        $status = ['paid', 'in_progress', 'pending', 'reject'];
+        $delivery_status = Delivery::statusList();
+        if ($request->filter) {
+            switch ($request->filter) {
+                case 'payment':
+                    $status = ['in_progress'];
+                    break;
+                case 'paid':
+                    $status = ['paid'];
+                    break;
+                case 'rejected':
+                    $status = ['reject'];
+                    break;
+                case 'in_transit':
+                    $delivery_status = [Delivery::STATUS_IN_TRANSIT];
+                    break;
+                case 'delivered':
+                    $delivery_status = [Delivery::STATUS_DELIVERED];
+                    break;
+            }
+        }
         $data = Transaction::with(['category_payment'])
-            ->leftJoin(DB::raw('(SELECT transaction_id, status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
-                $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
-            })
+            ->join('deliveries', 'deliveries.transaction_id', '=', 'transactions.id')
             ->where('transactions.customer_id', $customer->id)
-            ->when($request->filter === 'payment', function ($query) {
-                return $query->whereIn('transactions.status', ['in_progress', 'pending']);
-            })
-            ->when($request->filter === 'paid', function ($query) {
-                return $query->whereIn('transactions.status', ['paid']);
-            })
-            ->when($request->filter === 'rejected', function ($query) {
-                return $query->whereIn('transactions.status', ['reject']);
-            })
-            ->when($request->filter === 'in_transit', function ($query) {
-                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_TRANSIT]);
-            })
-            ->when($request->filter === 'delivered', function ($query) {
-                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_DELIVERED]);
-            })
+            ->whereIn('transactions.status', $status)
+            ->whereIn('deliveries.status', $delivery_status)
             ->orderBy('transactions.created_at', 'DESC')
+            ->orderBy('deliveries.created_at', 'desc')
             ->groupBy('transactions.id')
-            ->get(['transactions.*', 'latest_deliveries.status as delivery_status']);
+            ->get(['transactions.*', 'deliveries.status as delivery_status']);
         $transactions = [];
         foreach ($data as $item) {
             $detail_transactions = TransactionDetail::with(['property'])->where('transaction_id', $item->id)->get();

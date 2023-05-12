@@ -38,7 +38,7 @@
     <h6 class="font-weight-bold">Credit Periode</h6>{{ format_rupiah($data->total_payment / $data->credit_period) }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Payment Per Month</h6>{{ format_rupiah($data->payment_credit) }}
+    <h6 class="font-weight-bold">Bayaran Perbulan</h6>{{ format_rupiah($data->payment_credit) }}
 </div>
 @endif
 <div class="border-bottom py-3">

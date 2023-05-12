@@ -19,9 +19,9 @@ use Yajra\DataTables\Facades\DataTables;
 class DeliveryController extends Controller
 {
     protected $delivery_status = [
-        'Order Received' => 'Orderan Diterima',
-        'In Transit' => 'Sedang Transit',
-        'Delivered' => 'Diterima',
+        'Order Received' => 'Pesanan Dibuat',
+        'In Transit' => 'Pesanan Dalam Pengiriman',
+        'Delivered' => 'Pesanan Telah Diterima',
         'Rejected' => 'Ditolak'
     ];
 

@@ -48,9 +48,9 @@ class NotificationController extends Controller
         'reject' => 'danger'
     ];
     protected $delivery_status = [
-        Delivery::STATUS_ORDER_RECEIVED => 'Orderan Diterima',
-        Delivery::STATUS_IN_TRANSIT => 'Sedang Transit',
-        Delivery::STATUS_DELIVERED => 'Diterima',
+        Delivery::STATUS_ORDER_RECEIVED => 'Pesanan Dibuat',
+        Delivery::STATUS_IN_TRANSIT => 'Pesanan Dalam Pengiriman',
+        Delivery::STATUS_DELIVERED => 'Pesanan Telah Diterima',
         Delivery::STATUS_REJECTED => 'Ditolak'
     ];
 

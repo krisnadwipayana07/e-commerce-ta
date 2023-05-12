@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Delivery;
 use App\Models\Property;
 use App\Models\SubmissionCreditTransaction;
+use App\Models\SubmissionDeliveryPayment;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Exception;
@@ -105,6 +106,73 @@ class DeliveryController extends Controller
                 ]);
             }
             return redirect()->back()->with('result', ['success', 'Status has been save!']);
+        } catch (Exception $ex) {
+            return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
+        }
+    }
+
+    public function delivery_evidence_index(Request $request)
+    {
+        // $data = Transaction::with(['category_payment'])
+        //     ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at, ": ", status)), 22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
+        //         $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
+        //     })
+        //     ->where('latest_deliveries.status', Delivery::STATUS_IN_TRANSIT)
+        //     ->orderBy('transactions.created_at', 'DESC')
+        //     ->orderBy('latest_deliveries.created_at', 'desc')
+        //     ->groupBy('transactions.id')
+        //     ->get(['transactions.id', 'transactions.code', 'transactions.recipient_name', 'transactions.deliver_to', 'latest_deliveries.status as delivery_status']);
+        // dd($data);
+        if ($request->ajax()) {
+            $data = Transaction::with(['category_payment'])
+                ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at, ": ", status)), 22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
+                    $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
+                })
+                ->where('latest_deliveries.status', Delivery::STATUS_IN_TRANSIT)
+                ->orderBy('transactions.created_at', 'DESC')
+                ->orderBy('latest_deliveries.created_at', 'desc')
+                ->groupBy('transactions.id')
+                ->get(['transactions.id', 'transactions.code', 'transactions.recipient_name', 'transactions.deliver_to', 'latest_deliveries.status as delivery_status']);
+            
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return onlyShowBtn('Delivery Show', route('admin.delivery.evidence.show', $data->id));
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('admin.delivery.evidence.index');
+    }
+
+    public function delivery_evidence_show(Transaction $transaction)
+    {
+        $evidence = null;
+        $deliveryPayment = SubmissionDeliveryPayment::where('transaction_id', $transaction->id)
+            ->limit(1)
+            ->get();
+        if ($deliveryPayment->isNotEmpty()) {
+            $evidence = $deliveryPayment->first();
+        }
+        dd($transaction, $evidence);
+        return view('admin.delivery.evidence.show', compact('transaction', 'evidence'));
+    }
+
+    public function delivery_evidence_store(Request $request, Transaction $transaction)
+    {
+        try {
+            if ($request->hasFile('product_evidence')) {
+                $productFile = updateImg('upload/admin/delivery/', 'Product-' . $transaction->id);
+            }
+            if ($request->hasFile('signature_evidence')) {
+                $signatureFile = updateImg('upload/admin/delivery/', 'Signature-' . $transaction->id);
+            }
+            SubmissionDeliveryPayment::create([
+                'transaction_id' => $transaction->id,
+                'product_evidence' => $productFile,
+                'signature_evidence' => $signatureFile
+            ]);
+            return redirect()->back()->with('result', ['success', 'New delivery data has been save!']);
         } catch (Exception $ex) {
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
         }

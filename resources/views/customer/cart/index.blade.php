@@ -58,6 +58,11 @@
                 </div>
             </div>
             <div class="row">
+                @if (count($carts)===0)
+                
+                <div class="text-center fw-bold py-4">Keranjang anda kosong, mohon isi terlebih dahulu </div>
+                @else
+                    
                 <div class="col-md-2"></div>
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
@@ -66,6 +71,7 @@
                 <div class="col-md-4">
                     <a href="{{ route('customer.checkout.index') }}" class="btn btn-block btn-success">Checkout</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>

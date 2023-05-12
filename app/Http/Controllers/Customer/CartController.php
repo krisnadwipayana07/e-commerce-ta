@@ -53,7 +53,8 @@ class CartController extends Controller
             [
                 'property_id' => 'required|exists:properties,id',
                 'quantity' => 'required'
-            ], [],
+            ],
+            [],
             [
                 'property_id' => 'Property',
                 'quantity' => 'Quantity'
@@ -68,7 +69,7 @@ class CartController extends Controller
             ]);
             DB::commit();
             return redirect()->route('landing.index')->with('result', ['success', 'Success add property to cart']);
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
             return redirect()->back()->with('result', ['error', 'Add property to cart failed']);
@@ -110,7 +111,8 @@ class CartController extends Controller
         $request->validate(
             [
                 'quantity' => 'required'
-            ], [],
+            ],
+            [],
             [
                 'quantity' => 'Quantity'
             ]
@@ -123,7 +125,7 @@ class CartController extends Controller
             DB::commit();
 
             return redirect()->route('customer.cart.index');
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();
             return redirect()->back();

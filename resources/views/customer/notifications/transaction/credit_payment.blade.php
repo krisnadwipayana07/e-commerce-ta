@@ -6,6 +6,14 @@
     <div class="border-bottom py-3">
         <h6 class="font-weight-bold">Bayar Perbulan</h6>{{ format_rupiah($transaction->payment_credit) }}
     </div>
+    @if ($overPrice != 0)
+    <div class="border-bottom py-3">
+        <h6 class="font-weight-bold">Denda</h6>{{ format_rupiah($overPrice) }}
+    </div>
+    <div class="border-bottom py-3">
+        <h6 class="font-weight-bold">Total</h6>{{ format_rupiah($transaction->payment_credit + $overPrice) }}
+    </div>
+    @endif
     <div class="row mb-3">
         <div class="col-md">
             <div class="form-group">

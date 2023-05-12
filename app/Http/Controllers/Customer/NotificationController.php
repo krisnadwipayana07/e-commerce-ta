@@ -164,6 +164,13 @@ class NotificationController extends Controller
                 ];
             }
 
+            $overPrice = 0;
+            $currentDate = Carbon::now();
+            if ($currentDate->gt($item->due_date) && $isCredit && $item->is_dp_paid == 1) {
+                $overdate = $currentDate->diffInDays($item->due_date);
+                $overPrice = ($overdate + 1) * ($item->total_payment * 0.02);
+            }
+
             $remaining_payment = $item->total_payment - ($item->down_payment + $item->payment_credit * $count_submission_credit_payment);
             $remaining_payment = $remaining_payment < 0 ? 0 : $remaining_payment;
             $transactions[] = [
@@ -188,6 +195,7 @@ class NotificationController extends Controller
                 "isTransfer" => $isTransfer,
                 "due_date" => $item->due_date,
                 "message" => $notif,
+                "overprice" => format_rupiah($overPrice),
                 'delivery' => array_key_exists($item->delivery_status, $this->delivery_status) ? $this->delivery_status[$item->delivery_status] : "Tidak Ditemukan",
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];
@@ -431,7 +439,13 @@ class NotificationController extends Controller
 
     public function credit_payment_index(Transaction $transaction)
     {
-        return view("customer.notifications.transaction.credit_payment", compact("transaction"));
+        $overPrice = null;
+        $currentDate = Carbon::now();
+        if ($currentDate->gt($transaction->due_date) && $transaction->is_dp_paid == 1) {
+            $overdate = $currentDate->diffInDays($transaction->due_date);
+            $overPrice = ($overdate + 1) * ($transaction->total_payment * 0.02);
+        }
+        return view("customer.notifications.transaction.credit_payment", compact("transaction", "overPrice"));
     }
 
     public function dp_payment_index(Transaction $transaction)

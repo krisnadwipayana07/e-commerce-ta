@@ -11,9 +11,17 @@
     <h6 class="font-weight-bold">Bayaran Perbulan</h6>{{ format_rupiah($data->transaction->payment_credit) }}
 </div>
 @if ($data->status != "accept")
-<div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Tenggat Bulan Ini</h6>{{ $data->transaction->due_date }}
-</div>
+    <div class="border-bottom py-3">
+        <h6 class="font-weight-bold">Tenggat Bulan Ini</h6>{{ $data->transaction->due_date }}
+    </div>
+    @if ($overPrice)
+        <div class="border-bottom py-3">
+            <h6 class="font-weight-bold">Denda</h6>{{ format_rupiah($overPrice) }}
+        </div>
+        <div class="border-bottom py-3">
+            <h6 class="font-weight-bold">Total dengan Denda</h6>{{ format_rupiah($overPrice + $data->transaction->payment_credit) }}
+        </div>
+    @endif
 @endif
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Phone Number</h6>{{ $data->transaction->account_number }}

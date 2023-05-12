@@ -93,39 +93,46 @@
                                     </div>
                                     @endif
                                     @if ($transaction['isCredit'])
-                                    <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">Jumlah Kredit</label>
-                                        <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['credit_period'] }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">DP (Uang Muka)</label>
-                                        <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['down_payment'] }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">Pembayaran Per Bulan</label>
-                                        <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['credit_payment'] }}">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="disabledTextInput" class="form-label">Sisa Pembayaran</label>
-                                                <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['remaining_payment']  }}">
+                                        <div class="mb-3">
+                                            <label for="disabledTextInput" class="form-label">Jumlah Kredit</label>
+                                            <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['credit_period'] }}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="disabledTextInput" class="form-label">DP (Uang Muka)</label>
+                                            <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['down_payment'] }}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="disabledTextInput" class="form-label">Pembayaran Per Bulan</label>
+                                            <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['credit_payment'] }}">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="disabledTextInput" class="form-label">Sisa Pembayaran</label>
+                                                    <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['remaining_payment']  }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="disabledTextInput" class="form-label">Sisa Cicilan</label>
+                                                    <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['remaining_instalment']  }}x">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="disabledTextInput" class="form-label">Sisa Cicilan</label>
-                                                <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['remaining_instalment']  }}x">
-                                            </div>
+                                        @if ($transaction['statuses'] == "in_progress")
+                                        <div class="mb-3">
+                                            <label for="disabledTextInput" class="form-label">Batas Pembayaran {{$transaction['isDP'] == "0"? "Uang Muka" : "Cicilan" }}</label>
+                                            <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['due_date'] }}">
                                         </div>
-                                    </div>
-                                    @if ($transaction['statuses'] == "in_progress")
-                                    <div class="mb-3">
-                                        <label for="disabledTextInput" class="form-label">Batas Pembayaran {{$transaction['isDP'] == "0"? "Uang Muka" : "Cicilan" }}</label>
-                                        <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['due_date'] }}">
-                                    </div>
+                                        @if ($transaction['isDP'])
+                                        <div class="mb-3">
+                                            <label for="disabledTextInput" class="form-label">Denda (melebihi tenggat bayar cililan, terhitung 2% dari total)</label>
+                                            <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['overprice'] }}">
+                                        </div>
+                                        @endif
+                                        @endif
                                     @endif
-                                    @endif
+
                                 </fieldset>
                             </form>
                         </div>

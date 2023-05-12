@@ -46,7 +46,13 @@ class SubmissionCreditPaymentController extends Controller
     public function show(SubmissionCreditPayment $submission_credit_payment)
     {
         $submission_credit_payment = SubmissionCreditPayment::with(['transaction', 'customer'])->find($submission_credit_payment->id);
-        return view('admin.submission_credit_payment.show', ["data" => $submission_credit_payment]);
+        $overPrice = null;
+        $currentDate = Carbon::now();
+        if ($currentDate->gt($submission_credit_payment->transaction->due_date)) {
+            $overdate = $currentDate->diffInDays($submission_credit_payment->transaction->due_date);
+            $overPrice = ($overdate + 1) * ($submission_credit_payment->transaction->total_payment * 0.02);
+        }
+        return view('admin.submission_credit_payment.show', ["data" => $submission_credit_payment, "overPrice" => $overPrice]);
     }
 
     public function destroy(Request $request, SubmissionCreditPayment $submission_credit_payment)

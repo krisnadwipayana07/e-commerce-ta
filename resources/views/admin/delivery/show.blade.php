@@ -51,13 +51,13 @@
         <div class="pb-1">
             <select class="form-select" aria-label="Default select example" name="status" required>
                 <option value="" >Pilih Status Pengiriman</option>
-                <option value="Order Received" {{$status == 'Order Received' ? 'selected':''}}>Orderan Diterima</option>
-                <option value="In Transit" {{$status == 'In Transit' ? 'selected':''}}>Sedang Transit</option>
-                <option value="Delivered" {{$status == 'Delivered' ? 'selected':''}}>Dikirim</option>
+                <option value="Order Received" {{$status == 'Order Received' ? 'selected':''}}>Pesanan Dibuat</option>
+                <option value="In Transit" {{$status == 'In Transit' ? 'selected':''}}>Pesananan Dalam Pengiriman</option>
+                <option value="Delivered" {{$status == 'Delivered' ? 'selected':''}}>Pesanan Telah Diterima</option>
             </select>
         </div>
         <div class="border-bottom py-3">
-            <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
+            <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Kirim</button>
         </div>
     </form>
 </div>

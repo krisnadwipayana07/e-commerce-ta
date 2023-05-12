@@ -40,7 +40,7 @@
     <h6 class="font-weight-bold">Credit Periode</h6>{{ $data->transaction->credit_period }}
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Payment Per Month</h6>{{ format_rupiah($data->transaction->payment_credit) }}
+    <h6 class="font-weight-bold">Bayaran Perbulan</h6>{{ format_rupiah($data->transaction->payment_credit) }}
 </div>
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Remaining Instalment</h6>{{ ($data->transaction->credit_period - $data->transaction->total_phase) }}x

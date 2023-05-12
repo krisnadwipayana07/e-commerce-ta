@@ -1,7 +1,7 @@
 <form method="POST" action="{{ route('customer.transfer.payment.store', $transaction->id) }}" enctype="multipart/form-data">
     @csrf
     <div class="border-bottom py-3">
-        <h6 class="font-weight-bold">Code</h6>{{ $transaction->code }}
+        <h6 class="font-weight-bold">Kode Transaksi</h6>{{ $transaction->code }}
     </div>
     <div  class="border-bottom py-3">
         <h6 class="font-weight-bold">{{$transaction->category_payment->name !== "Kredit" ? "Total Pembayaran":"Pembayaran Per Bulan"}}</h6>{{ $transaction->category_payment->name !== "Kredit" ? IDRConvert($transaction->total_payment):IDRConvert($transaction->payment_credit) }}

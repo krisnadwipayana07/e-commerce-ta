@@ -157,13 +157,13 @@
                         @if ($transaction['isDP'])
                         <div class="col-md-4 mt-1"></div>
                         <div class="col-md-8 mt-1">
-                            <a href="javascript:;" onclick="penuliskode_modal('Pay a Credit', '{{ $transaction["route"] }}')" class="btn btn-block btn-success">Bayar Cicilan</a>
+                            <a href="javascript:;" onclick="penuliskode_modal('Pembayaran Kredit', '{{ $transaction["route"] }}')" class="btn btn-block btn-success">Bayar Cicilan</a>
                         </div>
                         @else
                             @if ($transaction['statuses'] == "in_progress")
                                 <div class="col-md-4"></div>
                                 <div class="col-md-8 ">
-                                    <a href="javascript:;" onclick="penuliskode_modal('Pay a Down Payment', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar DP</a>
+                                    <a href="javascript:;" onclick="penuliskode_modal('Bayar Uang Muka', '{{ $transaction["routeDP"] }}')" class="btn btn-block btn-success @if($transaction['remaining_instalment'] == 0) disabled @endif">Bayar Uang Muka</a>
                                 </div>
                             @elseif ($transaction['statuses'] != "reject")
                                 <div class="col-md-4"></div>
@@ -177,7 +177,7 @@
                     <div class="row mt-2">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <a href="javascript:;" onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction["routeTransfer"] }}')" class="btn btn-block btn-success @if($transaction['status'] == 'PAID') disabled @endif">Transfer</a>
+                            <a href="javascript:;" onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction["routeTransfer"] }}')" class="btn btn-block btn-success @if($transaction['status'] == 'PAID') disabled @endif">Bayar</a>
                         </div>
                     </div>
                     @endif   

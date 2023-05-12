@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SubmissionCreditPayment;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,8 +69,10 @@ class SubmissionCreditPaymentController extends Controller
         DB::beginTransaction();
         try {
             $transaction = Transaction::find($submission_credit_payment->transaction_id);
+            $due_date = Carbon::now()->addDay(30);
             $updated = [
-                "total_phase" => $submission_credit_payment->payment_phase
+                "total_phase" => $submission_credit_payment->payment_phase,
+                "due_date" => $due_date
             ];
 
             if ($submission_credit_payment->payment_phase == $transaction->credit_period) {

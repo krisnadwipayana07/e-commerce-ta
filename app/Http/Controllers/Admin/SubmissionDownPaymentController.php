@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SubmissionDownPayment;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,8 +63,10 @@ class SubmissionDownPaymentController extends Controller
         DB::beginTransaction();
         try {
             $transaction = Transaction::find($submission_down_payment->transaction_id);
+            $due_date = Carbon::now()->addDay(30);
             $updated = [
                 "is_dp_paid" => true,
+                "due_date" => $due_date
             ];
 
             $transaction->update($updated);

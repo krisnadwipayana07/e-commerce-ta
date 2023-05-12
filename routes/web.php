@@ -107,6 +107,10 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::get('sales/report', 'SalesReportController@index')->name('sales.report.index');
         Route::get('sales/report/print', array('as' => 'sales.report.print', 'uses' => 'SalesReportController@print'));
 
+        Route::get('delivery_evidence', 'DeliveryController@delivery_evidence_index')->name('delivery.evidence.index');
+        Route::get('delivery_evidence/{transaction}', 'DeliveryController@delivery_evidence_show')->name('delivery.evidence.show');
+        Route::post('delivery_evidence/add/{transaction}', 'DeliveryController@delivery_evidence_store')->name('delivery.evidence.store');
+
         // IMPORT DATA
         Route::prefix('import')->name('import.')->group(function () {
             // admin
@@ -123,10 +127,6 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
             Route::get('/', 'StockController@index')->name('index');
             Route::get('/{id}', 'StockController@edit')->name('edit');
         });
-        
-        Route::get('delivery_evidence', 'DeliveryController@delivery_evidence_index')->name('delivery.evidence.index');
-        Route::get('delivery_evidence/{transaction}', 'DeliveryController@delivery_evidence_show')->name('delivery.evidence.show');
-        Route::post('delivery_evidence/add/{transaction}', 'DeliveryController@delivery_evidence_store')->name('delivery.evidence.store');
     });
 });
 

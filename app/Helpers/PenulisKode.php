@@ -181,6 +181,35 @@ function updateImg($upload_path, $data_name)
     }
     return $image_name;
 }
+function updateImage($upload_path, $data_name, $name_image)
+{
+    $image_name = '';
+    $request = request();
+    $path = public_path($upload_path);
+    if ($request->hasFile($name_image)) {
+        if (!File::isDirectory($path)) {
+            File::makeDirectory($path, 0777, true, true);
+        }
+        if ($request->file($name_image)->isValid()) {
+            $image = $request->file($name_image);
+            $image_name = time() . '.' . $image->extension();
+
+            $img = Image::make($image->path());
+            // $img->resize(500, 500, function ($const) {
+            //     $const->aspectRatio();
+            // })->save($path.''.$image_name);
+            $img->save($path . '' . $image_name);
+
+            if ($data_name != ''  && $data_name != null) {
+                $file_old = $path . $data_name;
+                if (file_exists($file_old)) {
+                    unlink($file_old);
+                }
+            }
+        }
+    }
+    return $image_name;
+}
 
 
 function deleteImg($upload_path, $data_name)

@@ -30,7 +30,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
-                                    Name
+                                    Nama
                                 </div>
                                 <div class="col-9">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -53,7 +53,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
-                                    Phone Number
+                                    Nomor Telepon
                                 </div>
                                 <div class="col-9">
                                     <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
@@ -66,7 +66,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end">
-                                    <label>Address</label>
+                                    <label>Alamat</label>
                                 </div>
                                 <div class="col-9">
                                     <textarea name="address" id="" rows="3" class="form-control  @error('address') is-invalid @enderror">{{ old('address', $customer->address) }}</textarea>
@@ -76,11 +76,9 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
-                                    Password
+                                    Kata Sandi
                                 </div>
                                 <div class="col-9">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
@@ -92,7 +90,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
-                                    New Password
+                                    Kata Sandi Baru
                                 </div>
                                 <div class="col-9">
                                     <input type="password"

@@ -89,6 +89,12 @@
                 <i class="ri-truck-line"></i><span>Delivery</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.evidence.index' ? '' : 'collapsed' }}"
+                href="{{ route('admin.delivery.evidence.index') }}">
+                <i class="ri-truck-line"></i><span>Submission Delivery Arrived</span>
+            </a>
+        </li>
         <li class="nav-heading">Sales Report</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.sales.report.index' ? '' : 'collapsed' }}"

@@ -85,6 +85,7 @@ class DeliveryController extends Controller
     {
         $status = '';
         $delivery = Delivery::where('deliveries.transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
+        $evidence = SubmissionDeliveryPayment::where('transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
         if ($delivery != null) {
             $status = $delivery->status;
         }
@@ -92,7 +93,7 @@ class DeliveryController extends Controller
         if ($transaction->credit_period != null && $transaction->credit_period > 0) {
             $submission_credit_transactions = SubmissionCreditTransaction::where('transaction_id', $transaction->id)->first();
         }
-        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'status' => $status]);
+        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'status' => $status, 'evidence' => $evidence]);
     }
 
     public function store(Request $request)
@@ -133,9 +134,15 @@ class DeliveryController extends Controller
                 ->orderBy('latest_deliveries.created_at', 'desc')
                 ->groupBy('transactions.id')
                 ->get(['transactions.id', 'transactions.code', 'transactions.recipient_name', 'transactions.deliver_to', 'latest_deliveries.status as delivery_status']);
-            
+
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->editColumn('customer_name', function ($data) {
+                    return $data->recipient_name;
+                })
+                ->editColumn('address', function ($data) {
+                    return $data->deliver_to;
+                })
                 ->addColumn('action', function ($data) {
                     return onlyShowBtn('Delivery Show', route('admin.delivery.evidence.show', $data->id));
                 })
@@ -147,14 +154,7 @@ class DeliveryController extends Controller
 
     public function delivery_evidence_show(Transaction $transaction)
     {
-        $evidence = null;
-        $deliveryPayment = SubmissionDeliveryPayment::where('transaction_id', $transaction->id)
-            ->limit(1)
-            ->get();
-        if ($deliveryPayment->isNotEmpty()) {
-            $evidence = $deliveryPayment->first();
-        }
-        dd($transaction, $evidence);
+        $evidence = SubmissionDeliveryPayment::where('transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
         return view('admin.delivery.evidence.show', compact('transaction', 'evidence'));
     }
 
@@ -162,10 +162,11 @@ class DeliveryController extends Controller
     {
         try {
             if ($request->hasFile('product_evidence')) {
-                $productFile = updateImg('upload/admin/delivery/', 'Product-' . $transaction->id);
+                $productFile = updateImage('upload/admin/delivery/product/', $transaction->id, 'product_evidence');
             }
+            // dd($productFile);
             if ($request->hasFile('signature_evidence')) {
-                $signatureFile = updateImg('upload/admin/delivery/', 'Signature-' . $transaction->id);
+                $signatureFile = updateImage('upload/admin/delivery/signature/', $transaction->id, 'signature_evidence');
             }
             SubmissionDeliveryPayment::create([
                 'transaction_id' => $transaction->id,

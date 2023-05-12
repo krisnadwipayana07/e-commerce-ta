@@ -14,7 +14,7 @@
                         <li><a href="#"><img src="images/shopping.png" alt="#" /></a> </li>
                         </ul>
                     </div>
-                    @if(!auth()->guard('customer')->user())
+                    @if (!auth()->guard('customer')->user())
                     <div class="col-md-2">
                         <a href="{{ route('auth.register.register_customer') }}" class="order ">Register</a>
                     </div>
@@ -101,60 +101,69 @@
                                 </div>
                             </div>
                             @if (auth()->guard('customer')->check())
-                            <div class="col-md-2">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="icon-cus">
-                                            <a href="{{ route('customer.cart.index') }}" class="text-white py-0"><i class="fa fa-fw fa-shopping-cart"></i></a>
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="icon-cus">
+                                                <a href="{{ route('customer.cart.index') }}" class="text-white py-0"><i
+                                                        class="fa fa-fw fa-shopping-cart"></i></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="icon-cus">
-                                            <a href="{{ route('customer.notification.index') }}" class="text-white py-0"><i class="fa fa-regular fa-bell"></i></a>
+                                        <div class="col-md-6">
+                                            <div class="icon-cus">
+                                                <a href="{{ route('customer.notification.index') }}"
+                                                    class="text-white py-0"><i class="fa fa-regular fa-bell"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2 profile-cus">
-                                <ul class="d-flex align-items-center">
-                                    <li class="nav-item dropdown pe-3">
-                                        <a class="nav-link nav-profile d-flex align-items-center pe-0 text-white" href="#"
-                                            data-bs-toggle="dropdown">
-                                            <img src="{{ url('admin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle" style="max-width: 40px;">
-                                            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->guard('customer')->user()->username }}</span>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                                            <li>
-                                                <a class="dropdown-item d-flex align-items-center" href="{{ route('customer.profile.index') }}">
-                                                    <i class="bi bi-box-arrow-right"></i>
-                                                    <span>Profile</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout.customer') }}">
-                                                    <i class="bi bi-box-arrow-right"></i>
-                                                    <span>Sign Out</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+                                <div class="col-md-2 profile-cus">
+                                    <ul class="d-flex align-items-center">
+                                        <li class="nav-item dropdown pe-3">
+                                            <a class="nav-link nav-profile d-flex align-items-center pe-0 text-white"
+                                                href="#" data-bs-toggle="dropdown">
+                                                <img src="{{ auth()->guard('customer')->user()->img? url('/upload/admin/customer/',auth()->guard('customer')->user()->img): url('admin/assets/img/profile-img.jpg') }}"
+                                                    alt="Profile" class="rounded-circle" style="max-width: 40px;">
+                                                {{-- <img src="{{ url('admin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle" style="max-width: 40px;"> --}}
+                                                <span
+                                                    class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->guard('customer')->user()->username }}</span>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center"
+                                                        href="{{ route('customer.profile.index') }}">
+                                                        <i class="bi bi-box-arrow-right"></i>
+                                                        <span>Profile</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center"
+                                                        href="{{ route('auth.logout.customer') }}">
+                                                        <i class="bi bi-box-arrow-right"></i>
+                                                        <span>Sign Out</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             @else
-                            <div class="col-md-4 align-center">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="auth-button">
-                                            <a href="{{ route('auth.register.register_customer') }}" class="btn btn-outline-light btn-block">Sign Up</a>
+                                <div class="col-md-4 align-center">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="auth-button">
+                                                <a href="{{ route('auth.register.register_customer') }}"
+                                                    class="btn btn-outline-light btn-block">Sign Up</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="auth-button">
-                                            <a href="{{ route('auth.login.login_customer') }}" class="btn btn-warning text-primary-emphasis btn-block">Sign In</a>
+                                        <div class="col-md-6">
+                                            <div class="auth-button">
+                                                <a href="{{ route('auth.login.login_customer') }}"
+                                                    class="btn btn-warning text-primary-emphasis btn-block">Sign In</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endif
                         </div>
                     </div>

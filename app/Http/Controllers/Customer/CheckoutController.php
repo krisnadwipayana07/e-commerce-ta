@@ -91,7 +91,7 @@ class CheckoutController extends Controller
                     'admin_id' => $admin[0]->id,
                     'status' => "pending",
                     "latitude" => $request->lat,
-                    "longitude" => $request->lng
+                    "longitude" => $request->lng,
                 ]);
                 $notif = store_notif($customer->id, "Pembelian barang sukses. Lakukan pembayaran saat barang sudah sampai", "Transaction");
                 $redirect = redirect()->route('landing.index')->with('result', ['success', 'Success melakukan pembelian barang']);

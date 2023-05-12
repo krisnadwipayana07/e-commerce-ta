@@ -11,6 +11,7 @@ use App\Models\Property;
 use App\Models\SubmissionCreditTransaction;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -264,8 +265,13 @@ class TransactionController extends Controller
 
         DB::beginTransaction();
         try {
+            $due_date = null;
+            if ($transaction->category_payment->name === 'Credit' || $transaction->category_payment->name === 'Kredit') {
+                $due_date = Carbon::now()->addDay(1);
+            }
             $transaction->update([
-                'status' => $request->status
+                'status' => $request->status,
+                'due_date' => $due_date
             ]);
             $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
             foreach ($transactionDetails as $transactionDetail) {

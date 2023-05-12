@@ -91,8 +91,8 @@
                             <label>Alamat</label>
                             <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control" placeholder="Jawaban Anda">{{ auth()->guard('customer')->user()->address }}</textarea>
                             <div id="map" class="my-3" style="height: 280px;"></div>
-                            <input type="hidden" id="latitude" name="lat">
-                            <input type="hidden" id="longitude" name="lng">
+                            <input type="hidden" id="latitude" name="lat" required>
+                            <input type="hidden" id="longitude" name="lng" required>
                         </div>
                         <div class="form-group">
                             <label>Nomor Telepon</label>

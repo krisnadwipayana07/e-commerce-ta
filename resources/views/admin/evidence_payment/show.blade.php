@@ -50,6 +50,13 @@
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Tanggal Transaksi</h6>{{ $data->created_at }}
 </div>
+@if ($data->category_payment->name == "Kredit" || $data->category_payment->name == "Credit")
+ @if ($data->is_dp_paid == 0 && $data->status == "in_progress")    
+ <div class="border-bottom py-3">
+     <h6 class="font-weight-bold">Batas Pembayaran DP</h6>{{ $data->due_date }}
+ </div>
+ @endif
+@endif
 {{-- @if($data->category_payment->name != "Cash" && $data->category_payment->name != "Cash On Delivery" && $data->category_payment->name != "Kredit" && $data->category_payment->name != "Credit")
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Image</h6>
@@ -238,11 +245,13 @@
     </form>
 </div>
 <div class="row">
+    @if ($data->status != "reject")
+    @if ($data->status === "pending")
     <div class="col-md-2">
         @php
         $stt = 'in_progress';
         @endphp
-        @if ($data->status === "pending")
+        
         <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
             @csrf
             @method('PUT')
@@ -251,10 +260,8 @@
                 <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
             </div>
         </form>
-        @endif
     </div>
     <div class="col-md-2">
-        @if ($data->status === "pending")
         <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
             @csrf
             @method('DELETE')
@@ -262,8 +269,19 @@
                 <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
             </div>
         </form>
-        @endif
     </div>
+    @elseif ($data->category_payment->name == "Kredit" || $data->category_payment->name == "Credit" && $data->is_dp_paid == 0 && $data->status === "is_progress")
+    <div class="col-md-2">
+        <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="border-bottom py-3">
+                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
+            </div>
+        </form>
+    </div>
+    @endif
+    @endif
 </div>
 <script>
     

@@ -119,6 +119,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($transaction['statuses'] == "in_progress")
+                                    <div class="mb-3">
+                                        <label for="disabledTextInput" class="form-label">Batas Pembayaran @if ($transaction['isDP'] == "0") UANG MUKA @endif</label>
+                                        <input type="text" id="disabledTextInput" class="form-control" value="{{ $transaction['due_date'] }}">
+                                    </div>
+                                    @endif
                                     @endif
                                 </fieldset>
                             </form>

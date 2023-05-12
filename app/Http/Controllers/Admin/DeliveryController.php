@@ -98,6 +98,12 @@ class DeliveryController extends Controller
     {
         try {
             Delivery::make($request->customer_id, $request->transaction_id, $request->status);
+            if ($request->payment_type == "Cash On Delivery" && $request->status == "Delivered") {
+                $transaction = Transaction::where('id', $request->transaction_id)->get()->first();
+                $transaction->update([
+                    'status' => 'paid',
+                ]);
+            }
             return redirect()->back()->with('result', ['success', 'Status has been save!']);
         } catch (Exception $ex) {
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);

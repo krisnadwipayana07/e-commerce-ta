@@ -48,6 +48,7 @@
         @csrf
         <input type="hidden" name="transaction_id" value="{{ $data->id }}">
         <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
+        <input type="hidden" name="payment_type" value="{{ $data->category_payment->name }}">
         <div class="pb-1">
             <select class="form-select" aria-label="Default select example" name="status" required>
                 <option value="" >Pilih Status Pengiriman</option>

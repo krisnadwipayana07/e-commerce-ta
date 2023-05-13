@@ -1,4 +1,4 @@
-a@extends('landing.landing')
+@extends('landing.landing')
 
 @section('inject-head')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"

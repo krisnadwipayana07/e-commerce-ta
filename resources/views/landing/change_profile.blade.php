@@ -18,7 +18,7 @@
                         <div class="row col-12">
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
-                                    Username
+                                    Nama Pengguna
                                 </div>
                                 <div class="col-9">
                                     <input type="text" class="form-control @error('username') is-invalid @enderror"
@@ -143,4 +143,18 @@
         </div>
     </div>
     </div>
+@endsection
+@section('page-js')
+    <script>
+        $(document).ready(function() {
+            // for display myimg
+            $('#myimg').change(function() {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#preview-myimg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
 @endsection

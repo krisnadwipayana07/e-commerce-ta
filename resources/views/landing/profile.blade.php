@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                     <img id="preview-myimg"
                         src="{{ $user->img ? url('/upload/admin/customer/', $user->img) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}"
-                        alt="preview image" style="height: 100px; width: 100px; object-fit:cover">
+                        alt="preview image" style="height: 300px; width: 300px; object-fit:cover">
                 </div>
                 <div class="col-md-8">
                     <label>Nama:</label>

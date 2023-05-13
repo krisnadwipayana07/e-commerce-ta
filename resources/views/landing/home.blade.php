@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage product">
-                        <h2>Featured Products</h2>
+                        <h2>List Produk</h2>
                     </div>
                 </div>
             </div>
@@ -41,9 +41,9 @@
                                 <a href="{{ route('landing.detail', $item->id) }}">{{ $item->name }}</a>
                                 <br><b style="color:brown">{{ format_rupiah($item->price) }}</b>
                                 @if ($item->stock < 1)
-                                <br><b style="color:red">(Habis)</b>
+                                    <br><b style="color:red">(Habis)</b>
                                 @else
-                                <br><b style="color:black">Stock {{ $item->stock }}</b>
+                                    <br><b style="color:black">Stock {{ $item->stock }}</b>
                                 @endif
                             </h3>
 

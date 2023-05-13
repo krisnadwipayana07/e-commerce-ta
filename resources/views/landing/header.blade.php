@@ -67,14 +67,14 @@
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item {{ set_active('landing.index') }}">
-                                        <a class="nav-link" href="{{ route('landing.index') }}">Home</a>
+                                        <a class="nav-link" href="{{ route('landing.index') }}">Beranda</a>
                                     </li>
                                     <li class="nav-item {{ set_active('landing.product', 0) }}">
                                         {{-- <a class="nav-link" href="{{ route('landing.product') }}">Category Products</a> --}}
                                         {{-- ! --}}
                                         <div class="nav-item dropdown">
                                             <a href="#" class="nav-link dropdown-toggle"
-                                                data-bs-toggle="dropdown">Category Product</a>
+                                                data-bs-toggle="dropdown">Kategori Produk</a>
                                             <div class="dropdown-menu m-0">
                                                 @foreach ($header_category as $item)
                                                     <a href="{{ route('landing.product', $item->id) }}"
@@ -84,7 +84,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://wa.me/6282145105606">Contact Us</a>
+                                        <a class="nav-link" href="https://wa.me/6282145105606">Hubungi Kami</a>
                                     </li>
                                 </ul>
                             </div>
@@ -95,7 +95,8 @@
                             <div class="col-md-8">
                                 <div class="search">
                                     <form action="{{ url()->current() }}">
-                                        <input class="form_sea" type="text" placeholder="Search" name="keyword">
+                                        <input class="form_sea" type="text" placeholder="Cari produk.."
+                                            name="keyword">
                                         <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
                                     </form>
                                 </div>
@@ -140,7 +141,7 @@
                                                     <a class="dropdown-item d-flex align-items-center"
                                                         href="{{ route('auth.logout.customer') }}">
                                                         <i class="bi bi-box-arrow-right"></i>
-                                                        <span>Sign Out</span>
+                                                        <span>Keluar</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -153,13 +154,13 @@
                                         <div class="col-md-6">
                                             <div class="auth-button">
                                                 <a href="{{ route('auth.register.register_customer') }}"
-                                                    class="btn btn-outline-light btn-block">Sign Up</a>
+                                                    class="btn btn-outline-light btn-block">Daftar</a>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="auth-button">
                                                 <a href="{{ route('auth.login.login_customer') }}"
-                                                    class="btn btn-warning text-primary-emphasis btn-block">Sign In</a>
+                                                    class="btn btn-warning text-primary-emphasis btn-block">Masuk</a>
                                             </div>
                                         </div>
                                     </div>

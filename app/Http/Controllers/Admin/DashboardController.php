@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $totalSubCategory = SubCategoryProperty::where('status', 'active')->count();
         $totalProperty = Property::where('status', 'active')->count();
         $totalCustomer = Customer::count();
-        $totalTransaction = Transaction::where('status', '!=', 'cancel')->count();
+        $totalTransaction = Transaction::where('status', '=', 'paid')->count();
         return view('admin.dashboard.index', compact('totalCategory', 'totalSubCategory', 'totalCustomer', 'totalProperty', 'totalTransaction', 'totalCategoryPayment'));
     }
 }

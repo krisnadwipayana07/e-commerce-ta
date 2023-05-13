@@ -140,9 +140,14 @@ class NotificationController extends Controller
             $delivery = new Delivery();
             $notif = [];
             $count_submission_credit_payment = 0;
+            $approve_latest_payment = "";
             if ($isCredit) {
-                $submission_credit_payment = SubmissionCreditPayment::where("transaction_id", $item->id)->where("status", "accept");
-                $count_submission_credit_payment = $submission_credit_payment->count();
+                $submission_credit_payment = SubmissionCreditPayment::where("transaction_id", $item->id)->orderBy('created_at', 'DESC');
+                $latest_payment = $submission_credit_payment->get()->first();
+                if ($latest_payment) {
+                    $approve_latest_payment = $latest_payment->status;
+                }
+                $count_submission_credit_payment = $submission_credit_payment->where("status", "accept")->count();
                 $submission_credit_payment = $submission_credit_payment->get();
             }
 
@@ -196,6 +201,7 @@ class NotificationController extends Controller
                 "due_date" => $item->due_date,
                 "message" => $notif,
                 "overprice" => format_rupiah($overPrice),
+                "latestPayment" => $approve_latest_payment,
                 'delivery' => array_key_exists($item->delivery_status, $this->delivery_status) ? $this->delivery_status[$item->delivery_status] : "Tidak Ditemukan",
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];

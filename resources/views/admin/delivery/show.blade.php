@@ -44,14 +44,14 @@
     <p>Foto Penerimaan Produk</p>
     <img id="preview-product_evidence"
         src="{{ $evidence ? url('/upload/admin/delivery/product/', $evidence->product_evidence) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}"
-        alt="preview image" style="height: 100%;">
+        alt="preview image" style="height: 50vh;">
 
 </div>
 <div class="my-5">
     <p>Foto TTD penerimaan Produk</p>
     <img id="preview-signature_evidence"
         src="{{ $evidence ? url('/upload/admin/delivery/signature/', $evidence->signature_evidence) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}"
-        alt="preview image" style="height: 100%;">
+        alt="preview image" style="height: 50vh;">
 </div>
 <div class="form-group py-3">
     <label>Status Pengiriman</label>

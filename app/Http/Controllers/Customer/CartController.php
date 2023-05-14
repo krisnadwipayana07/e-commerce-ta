@@ -68,7 +68,7 @@ class CartController extends Controller
                 'quantity' => $request->quantity
             ]);
             DB::commit();
-            return redirect()->route('landing.index')->with('result', ['success', 'Success add property to cart']);
+            return redirect()->route('landing.index')->with('result', ['success', 'Berhasil Menambahkan Barang Pada Keranjang Belanja']);
         } catch (Exception $ex) {
             Log::debug($ex);
             DB::rollback();

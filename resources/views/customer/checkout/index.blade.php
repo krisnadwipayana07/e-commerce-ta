@@ -1,4 +1,4 @@
-a@extends('landing.landing')
+@extends('landing.landing')
 
 @section('inject-head')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -42,9 +42,9 @@ a@extends('landing.landing')
                                         $total += $cart->property->price * $cart->quantity;
                                     @endphp
                                     <b>{{ $cart->property->name }}</b>
-                                    <br><b style="color:black">Banyak: {{ $cart->quantity }}x</b>
-                                    <br><b style="color:brown">Jumlah:
-                                        {{ format_rupiah($cart->property->price * $cart->quantity) }}</b>
+                                    <br><b style="color:black">Jumlah&emsp;: {{ $cart->quantity }}x</b>
+                                    <br><b style="color:black">Harga&emsp; : {{ format_rupiah($cart->property->price) }}</b>
+                                    <br><h5><b style="color:brown">Total&emsp;: {{ format_rupiah($cart->property->price * $cart->quantity) }}</h5></b>
                                     <div class="row">
                                         <div class="col-md-1">
                                             <form class="mt-2">
@@ -71,7 +71,7 @@ a@extends('landing.landing')
                     <form action="{{ route('customer.checkout.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label>Jenis Pembayaran:</label>
+                            <label>Jenis Pembayaran</label>
                             <select name="category_payment_id"
                                 class="select-picker form-control @error('category_payment_id') is-invalid @enderror"
                                 style="width:100%;" id="payment">>

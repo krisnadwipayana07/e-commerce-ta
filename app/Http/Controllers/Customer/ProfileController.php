@@ -133,7 +133,7 @@ class ProfileController extends Controller
 
             $notif = store_notif(auth()->guard('customer')->user()->id, "Pengajuan Anda ke akun premium telah dikirim", "Submission Premium Customer");
             DB::commit();
-            return redirect()->route('customer.profile.index')->with('result', ['Berhasil', "Penyerahan Akun Premium Terkirim"]);
+            return redirect()->route('customer.profile.index')->with('result', ['Suucess', "Penyerahan Akun Premium Terkirim"]);
         } catch (Exception $err) {
             DB::rollBack();
             Log::debug($err);

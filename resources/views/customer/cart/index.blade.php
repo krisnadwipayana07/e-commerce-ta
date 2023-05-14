@@ -34,9 +34,9 @@
                                 $total += $cart->property->price * $cart->quantity;
                                 @endphp
                                 <b>{{ $cart->property->name }}</b>
-                                <br><b style="color:black">Quantity: {{ $cart->quantity }}x</b>
-                                <br><b style="color:black">Price: {{ format_rupiah($cart->property->price) }}</b>
-                                <br><b style="color:brown">Subtotal: {{ format_rupiah($cart->property->price * $cart->quantity) }}</b>
+                                <br><b style="color:black">Jumlah&emsp;: {{ $cart->quantity }}x</b>
+                                <br><b style="color:black">Harga&emsp; : {{ format_rupiah($cart->property->price) }}</b>
+                                <br><h5><b style="color:brown">Total&emsp;: {{ format_rupiah($cart->property->price * $cart->quantity) }}</h5></b>
                                 <div class="row">
                                     <div class="col-md-1">
                                         <form action="{{ route('customer.cart.destroy', ['cart' => $cart->id]) }}" method="POST" class="mt-2">
@@ -66,7 +66,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
-                    <b>Total: {{ format_rupiah($total) }}</b>
+                    <!-- <b>Total: {{ format_rupiah($total) }}</b> -->
                 </div>
                 <div class="col-md-4">
                     <a href="{{ route('customer.checkout.index') }}" class="btn btn-block btn-success">Checkout</a>

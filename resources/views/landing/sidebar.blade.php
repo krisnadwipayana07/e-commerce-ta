@@ -3,10 +3,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customer.notification.index') }}">Notification</a>
+                    <a class="nav-link" href="{{ route('customer.notification.index') }}"><b>Notifikasi</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('customer.notification.transaction.index') }}">Transaction</a>
+                    <a class="nav-link" href="{{ route('customer.notification.transaction.index') }}"> <b>|&emsp;Riwayat Transaksi</b></a>
                 </li>
             </ul>
         </div>

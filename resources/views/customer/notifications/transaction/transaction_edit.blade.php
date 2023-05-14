@@ -39,7 +39,7 @@
                                 @endphp
                                 <b>{{ $property->name }}</b>
                                 <br><b style="color:black">Banyak: {{ $quantity }}x</b>
-                                <br><b style="color:brown">Jumlah: {{ format_rupiah($property->price * $quantity) }}</b>
+                                <br><h5><b style="color:brown">{{ format_rupiah($property->price * $quantity) }}</h5></b>
                                 <div class="row">
                                     <div class="col-md-1">
                                         <form class="mt-2">
@@ -68,7 +68,7 @@
                         <input type="hidden" name="status" value="{{ $transaction->status }}">
                         @csrf
                         <div class="form-group">
-                            <label>Jenis Pembayaran:</label>
+                            <label>Jenis Pembayaran</label>
                             <select disabled class="select-picker form-control style="width:100%;" id="payment">
                                 <option value="">-Pilih-</option>
                                 @foreach ($payments as $payment)

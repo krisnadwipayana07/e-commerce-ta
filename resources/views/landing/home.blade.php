@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage product">
-                        <h2>List Produk</h2>
+                        <h2>Daftar Produk</h2>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                                 @if ($item->stock < 1)
                                     <br><b style="color:red">(Habis)</b>
                                 @else
-                                    <br><b style="color:black">Stock {{ $item->stock }}</b>
+                                    <br><b style="color:black">Stok {{ $item->stock }}</b>
                                 @endif
                             </h3>
 

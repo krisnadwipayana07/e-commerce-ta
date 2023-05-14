@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('page-content-title')
-    Daftar menjadi Pelanggan
+    <b>Daftar Akun</b>
 @endsection
 @section('page-content-body')
     <form method="POST" action="{{ route('auth.register.register_customer') }}" enctype="multipart/form-data">
@@ -57,8 +57,9 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>Jenis Kelamin</label>
-                    <div class="form-check form-check-inline">
+                    <label>Jenis Kelamin</label><br>
+                    <n>
+                    <div class="form-check form-check-inline"> </n>
                         <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Male">
                         <label class="form-check-label" for="maleRadio">Laki-Laki</label>
                     </div>
@@ -84,7 +85,7 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>Nama Pengguna</label>
+                    <label>Username</label>
                     <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
                         value="{{ old('username') }}">
                     @error('username')
@@ -96,7 +97,7 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>Kata Sandi</label>
+                    <label>Password</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
                         value="{{ old('password') }}">
                     @error('password')
@@ -108,7 +109,7 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>Konfirmasi Kata Sandi</label>
+                    <label>Konfirmasi Password</label>
                     <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                         name="password_confirmation" value="{{ old('password_confirmation') }}">
                     @error('password_confirmation')
@@ -120,7 +121,7 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>Gambar Profile</label>
+                    <label>Foto Profil</label>
                     <input type="file" class="form-control @error('myimg') is-invalid @enderror" name="myimg"
                         value="{{ old('myimg') }}" id="myimg">
                     @error('myimg')
@@ -134,10 +135,10 @@
             </div>
         </div>
         <div class="text-end my-3">
-            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-fw fa-undo me-1"></i>Setel
+            <button type="reset" class="btn w-40 btn-sm btn-danger"><i class="fa fa-fw fa-undo me-1"></i>Atur
                 Ulang</button>
-            <button type="submit" class="btn btn-sm btn-success"><i
-                    class="fa fa-fw fa-paper-plane me-1"></i>Simpan</button>
+            <button type="submit" class="btn w-50 btn-sm btn-success"><i
+                    class="fa fa-fw fa-paper-plane me-1"></i>Daftar</button>
         </div>
     </form>
 @endsection

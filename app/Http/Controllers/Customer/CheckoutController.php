@@ -218,7 +218,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['Success', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
                 // if (!$request->hasFile('myimg')) {
                 //     return redirect()->back()->with('result', ['error', 'File payment must be upload first in this payment type.']);
@@ -243,7 +243,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Pembayaran melalui transfer bank menunggu konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['Berhasil', 'Silakan Lakukan pembayaran']);
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Silakan Lakukan pembayaran']);
             }
             $carts = Cart::where('user_id', $customer->id)->get();
             Delivery::make(Auth::guard('customer')->user()->id, $trx->id, Delivery::STATUS_ORDER_RECEIVED);
@@ -338,7 +338,7 @@ class CheckoutController extends Controller
                     "longitude" => $request->lng
                 ]);
                 $notif = store_notif($customer->id, "Pembelian tunai yang sukses. Lakukan pembayaran saat barang sudah sampai", "Transaction");
-                $redirect = redirect()->route('landing.index')->with('result', ['Berhasil', 'Lakukan pembayaran saat barang sudah sampai']);
+                $redirect = redirect()->route('landing.index')->with('result', ['Success', 'Lakukan pembayaran saat barang sudah sampai']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
                 $transactionOnProgress = Transaction::where("customer_id", $customer->id)->where("status", "on_progress")->get();
@@ -460,7 +460,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['Berhasil', 'Berhasil mengirimkan pengajuan kredit']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['Success', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
                 // if (!$request->hasFile('myimg')) {
                 //     return redirect()->back()->with('result', ['error', 'File payment must be upload first in this payment type.']);
@@ -485,7 +485,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Pembayaran melalui transfer bank menunggu konfirmasi", 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['Berhasil', 'Silakan Lakukan pembayaran']);
+                $redirect = redirect()->route('customer.notification.transaction.index')->with('result', ['success', 'Silakan Lakukan pembayaran']);
             }
             $property = Property::where('id', $request->property_id)->first();
             TransactionDetail::create([

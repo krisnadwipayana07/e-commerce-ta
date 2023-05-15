@@ -111,21 +111,19 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>
+            <h1 class="my-3">
                 @yield('page-title')
             </h1>
-            <nav>
+            {{-- <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">
-                            @yield('page-parent-route')
-                        </a>
+                        @yield('page-parent-route')
                     </li>
                     <li class="breadcrumb-item active">
                         @yield('page-active-route')
                     </li>
                 </ol>
-            </nav>
+            </nav> --}}
             @include('result')
             @yield('page-back-button')
         </div><!-- End Page Title -->

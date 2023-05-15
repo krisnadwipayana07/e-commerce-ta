@@ -59,9 +59,14 @@ class CheckoutController extends Controller
                 'account_number' => 'nullable',
                 'evidence_payment' => 'nullable',
                 'credit_period' => 'nullable',
-                'total' => 'required'
+                'total' => 'required',
+                'lat' => 'required',
+                'lng' => 'required'
             ],
-            [],
+            [
+                'lat.required' => 'Maps Harus Diisi',
+                'lng.required' => 'Maps Harus diisi'
+            ],
             [
                 'category_payment_id' => 'Payment Type',
                 'recipient_name' => 'Recipient Name',
@@ -300,9 +305,14 @@ class CheckoutController extends Controller
                 'account_number' => 'nullable',
                 'evidence_payment' => 'nullable',
                 'credit_period' => 'nullable',
-                'total' => 'required'
+                'total' => 'required',
+                'lat' => 'required',
+                'lng' => 'required'
             ],
-            [],
+            [
+                'lat.required' => 'Maps Harus Diisi',
+                'lng.required' => 'Maps Harus diisi'
+            ],
             [
                 'property_id' => 'Property',
                 'quantity_property' => 'Quantity',
@@ -313,7 +323,7 @@ class CheckoutController extends Controller
                 'evidence_payment' => 'Approved Payment Customer',
                 'credit_period' => 'Credit Periode',
                 'down_payment' => $request->down_payment,
-                'total' => 'Total'
+                'total' => 'Total',
             ]
         );
         DB::beginTransaction();

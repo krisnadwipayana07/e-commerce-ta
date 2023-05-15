@@ -52,41 +52,54 @@ class ProfileController extends Controller
                 'phone_number' => 'required|unique:customers,phone_number,' . $customer->id,
                 'email' => 'required|unique:customers,email,' . $customer->id,
                 'myimg' => 'nullable|mimes:jpeg,png|max:2048',
+                'password' => 'required'
             ],
-            [],
+            [
+                'password.required' => 'Mohon menginputkan kata sandi agar dapat melanjutkan'
+            ],
             [
                 'name' => 'Name',
                 'address' => 'Address',
                 'phone_number' => 'Phone Number',
                 'email' => 'Email',
                 'myimg' => 'Image',
+                'password' => 'Password',
             ]
         );
-        if ($request->password || $request->password_confirmation) {
-            $request->validate(
-                [
-                    'password' => 'required|confirmed',
-                    'password_confirmation' => 'required',
-                ],
-                [],
-                [
-                    'password' => 'Password',
-                    'password_confirmation' => 'Confirm Password',
-                ]
-            );
-        }
+        // if ($request->password || $request->password_confirmation) {
+        //     $request->validate(
+        //         [
+        //             'password' => 'required|confirmed',
+        //             'password_confirmation' => 'required',
+        //         ],
+        //         [],
+        //         [
+        //             'password' => 'Password',
+        //             'password_confirmation' => 'Confirm Password',
+        //         ]
+        //     );
+        // }
 
         DB::beginTransaction();
         try {
+            if (!Hash::check($request->password, $customer->password)) {
+                return redirect()->back()->with('result', ['error', 'kata sandi anda salah!']);
+            }
             if ($request->hasFile('myimg')) {
                 $request['img'] = updateImg('upload/admin/customer/', $customer->img);
             }
 
-            if ($request->password && $request->password_confirmation) {
+            if ($request->password_confirmation) {
+                $request['password'] = $request->password_confirmation;
                 $customer->update($request->all());
             } else {
                 $customer->update($request->except(['password']));
             }
+            // if ($request->password && $request->password_confirmation) {
+            //     $customer->update($request->all());
+            // } else {
+            //     $customer->update($request->except(['password']));
+            // }
             DB::commit();
             return redirect()->back()->with('result', ['success', 'Data #' . $customer->name . ' Updated Successfully.']);
         } catch (Exception $ex) {

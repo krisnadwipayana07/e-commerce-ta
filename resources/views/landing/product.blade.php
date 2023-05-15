@@ -19,15 +19,17 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sub_category" class="form-label"><b>Pilih Sub Kategori</b></label>
-                            <select id="sub_category" name="sub_category" class="form-select">
-                                <option value="">--PILIH--</option>
-                                @foreach ($subCategory as $sc)
-                                    <option value="{{ $sc->id }}">{{ $sc->name }}</option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-primary ml-1">
-                                <i class="ri-search-line"></i>
-                            </button>
+                            <div class="d-flex">
+                                <select id="sub_category" name="sub_category" class="form-select">
+                                    <option value="">--PILIH--</option>
+                                    @foreach ($subCategory as $sc)
+                                        <option value="{{ $sc->id }}">{{ $sc->name }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary ml-1">
+                                    <i class="ri-search-line"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,8 +75,7 @@
                 @endforeach
                 @if ($count == 0)
                     <div class="col-md-12">
-
-                        <h2 class="center"><b>Barang Tidak Ditemukan</b></h2>
+                        <h2 class="text-center"><b>Barang Tidak Ditemukan</b></h2>
                     </div>
                 @endif
             </div>

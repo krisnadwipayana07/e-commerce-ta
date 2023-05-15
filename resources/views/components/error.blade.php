@@ -8,7 +8,7 @@
             </div>
         @elseif(session('result')[0] == 'error')
             <div class="alert alert-danger alert-dismissible fade show rounded-4" role="alert">
-                <b>Whoops!</b> {{ session('result')[1] }}
+                <b>Gagal!</b> {{ session('result')[1] }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>

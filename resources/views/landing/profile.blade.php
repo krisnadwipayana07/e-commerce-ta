@@ -50,7 +50,7 @@
                         <div class="col-3"></div>
                         <div class="col">
                             @if (auth()->guard('customer')->user()->allow_credit)
-                                <br><button type="button" class="btn btn-success px-5">Akun Premium</button>
+                                <br><button type="button" class="btn btn-success px-10">Akun Premium</button>
                             @else
                                 @if ($isPremium)
                                     <br><button type="button" class="btn btn-warning">Sedang Ditinjau</button>

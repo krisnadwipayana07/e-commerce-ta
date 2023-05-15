@@ -137,7 +137,7 @@
                                 <div class="col-9 my-3">
                                     {{-- <button type="reset" class="btn btn-danger mr-2">
                                         <i class="fa fa-fw fa-undo me-1"></i>Reset</button> --}}
-                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </div>

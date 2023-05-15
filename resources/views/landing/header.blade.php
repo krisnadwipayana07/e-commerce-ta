@@ -124,10 +124,11 @@
                                             <a class="nav-link nav-profile d-flex align-items-center pe-0 text-white"
                                                 href="#" data-bs-toggle="dropdown">
                                                 <img src="{{ auth()->guard('customer')->user()->img? url('/upload/admin/customer/',auth()->guard('customer')->user()->img): url('admin/assets/img/profile-img.jpg') }}"
-                                                    alt="Profile" class="rounded-circle" style="max-width: 40px;">
+                                                    alt="Profile" class="rounded-circle"
+                                                    style="width: 40px; height: 40px; object-fit: cover">
                                                 {{-- <img src="{{ url('admin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle" style="max-width: 40px;"> --}}
-                                                <span
-                                                    class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->guard('customer')->user()->username }}</span>
+                                                <span class="d-none d-md-block dropdown-toggle ps-2 "
+                                                    style="font-weight: 600">{{ auth()->guard('customer')->user()->username }}</span>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                                 <li>

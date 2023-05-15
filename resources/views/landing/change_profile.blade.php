@@ -10,7 +10,8 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('customer.profile.update', ['customer' => $customer->id]) }}" method="POST">
+            <form action="{{ route('customer.profile.update', ['customer' => $customer->id]) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -116,7 +117,7 @@
                         <div class='mt-4 d-flex flex-column justify-content-center align-items-center'>
                             <img id="preview-myimg" class="rounded-circle"
                                 src="{{ $customer->img ? url('/upload/admin/customer/', $customer->img) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}"
-                                alt="preview image" style="height: 100px; width: 100px; object-fit:cover">
+                                alt="preview image" style="height: 200px; width: 200px; object-fit:cover">
 
                             <div class="mt-4">
                                 <input type="file" class="form-control @error('myimg') is-invalid @enderror"
@@ -138,7 +139,6 @@
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>

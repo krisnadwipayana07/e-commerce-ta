@@ -1,19 +1,19 @@
 <footer>
     <div class="footer mt-5">
         <div class="container">
-            <div class="row">
+            <div class="row text-left">
                 <div class="col-md-6">
-                    <div class="inror_box">
-                        <h3>INFORMASI </h3>
-                        <p>Tempat Beli Barang Murah Dan Berkualitas Hanya Di BAJ</p>
-                    </div>
+                    <h3>INFORMASI </h3>
+                    <p>Tempat Beli Barang Murah Dan Berkualitas Hanya Di BAJ</p>
                 </div>
                 <div class="col-md-6">
-                    <div class="inror_box">
-                        <h3>HUBUNGI KAMI</h3>
-                        <p>Email: krisna.together0@gmail.com</p>
+                    <h3>HUBUNGI KAMI</h3>
+                    <div class="d-flex flex-column gap-0">
+                        <p class="mb-0"><i class="ri-mail-line"></i> krisna.together0@gmail.com</p>
+                        <p class="mb-0"><i class="ri-whatsapp-line"></i> 0821-4510-5606</p>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="copyright">

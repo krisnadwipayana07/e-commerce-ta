@@ -248,7 +248,8 @@ class TransactionController extends Controller
         if ($transaction->credit_period != null && $transaction->credit_period > 0) {
             $submission_credit_transactions = SubmissionCreditTransaction::where('transaction_id', $transaction->id)->first();
         }
-        return view('admin.evidence_payment.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'payment_value' => $payment_value]);
+        $isTransfer = str_contains(strtoupper($transaction->category_payment->name), 'TRANSFER');
+        return view('admin.evidence_payment.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'payment_value' => $payment_value, 'isTransfer' => $isTransfer]);
     }
 
     public function evidence_payment_approve(Request $request, Transaction $transaction)

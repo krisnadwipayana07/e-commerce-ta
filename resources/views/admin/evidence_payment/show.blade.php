@@ -50,12 +50,18 @@
 <div class="border-bottom py-3">
     <h6 class="font-weight-bold">Tanggal Transaksi</h6>{{ $data->created_at }}
 </div>
-@if ($data->category_payment->name == 'Kredit' || $data->category_payment->name == 'Credit')
+
+@if ($data->category_payment->name == 'Kredit' || ($data->category_payment->name == 'Credit' && $data->due_date))
     @if ($data->is_dp_paid == 0 && $data->status == 'in_progress')
         <div class="border-bottom py-3">
             <h6 class="font-weight-bold">Batas Pembayaran DP</h6>{{ $data->due_date }}
         </div>
     @endif
+@elseif ($isTransfer && $data->due_date)
+    <div class="border-bottom py-3">
+        <h6 class="font-weight-bold">Batas Transfer</h6>{{ $data->due_date }}
+    </div>
+
 @endif
 {{-- @if ($data->category_payment->name != 'Cash' && $data->category_payment->name != 'Cash On Delivery' && $data->category_payment->name != 'Kredit' && $data->category_payment->name != 'Credit')
 <div class="border-bottom py-3">
@@ -251,7 +257,7 @@
         <input type="hidden" name="transaction_id" value="{{ $data->id }}">
         <div class="pb-1 w-25">
             <select class="form-select" aria-label="Default select example" name="type" required>
-                <option selected>Pilih tipe pesan</option>
+                <option value="">Pilih tipe pesan</option>
                 @if ($data->status === 'pending')
                     <option value="Transaction - Warning">Perbaikan</option>
                 @endif

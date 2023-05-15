@@ -62,11 +62,18 @@ class CartController extends Controller
         );
         DB::beginTransaction();
         try {
-            Cart::create([
-                'property_id' => $request->property_id,
-                'user_id' => Auth::guard('customer')->user()->id,
-                'quantity' => $request->quantity
-            ]);
+            $cart = Cart::where('property_id', "=", $request->property_id)->where('user_id', "=", Auth::guard('customer')->user()->id)->first();
+            if ($cart) {
+                $cart->update([
+                    'quantity' => $request->quantity + $cart->quantity,
+                ]);
+            } else {
+                Cart::create([
+                    'property_id' => $request->property_id,
+                    'user_id' => Auth::guard('customer')->user()->id,
+                    'quantity' => $request->quantity
+                ]);
+            }
             DB::commit();
             return redirect()->route('landing.index')->with('result', ['success', 'Berhasil Menambahkan Barang Pada Keranjang Belanja']);
         } catch (Exception $ex) {

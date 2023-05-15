@@ -63,7 +63,7 @@
                 <i class="ri-wallet-line"></i><span>Approved Payment Customer</span>
             </a>
         </li>
-        <li class="nav-heading">Submission</li>
+        <li class="nav-heading">Submission Credit</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.dp.payment.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.submission.dp.payment.index') }}">
@@ -76,6 +76,7 @@
                 <i class="ri-wallet-line"></i><span>Submission Credit Payment</span>
             </a>
         </li>
+        <li class="nav-heading">Submission Transfer</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.transfer.payment.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.submission.transfer.payment.index') }}">

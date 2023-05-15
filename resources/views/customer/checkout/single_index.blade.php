@@ -35,10 +35,12 @@
                                 @php
                                     $total += $property->price * $quantity;
                                 @endphp
-                                <b>{{ $property->name }}</b> 
+                                <b>{{ $property->name }}</b>
                                 <br><b style="color:black">Jumlah&emsp;: {{ $quantity }}x</b>
                                 <br><b style="color:black">Harga&emsp; : {{ format_rupiah($property->price) }}</b>
-                                <br><h5> <b style="color:brown">Total&emsp;: {{ format_rupiah($property->price * $quantity) }}</h5></b>
+                                <br>
+                                <h5> <b style="color:brown">Total&emsp;: {{ format_rupiah($property->price * $quantity) }}
+                                </h5></b>
                                 <div class="row">
                                     <div class="col-md-1">
                                         <form class="mt-2">
@@ -94,8 +96,11 @@
                             <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control"
                                 placeholder="Jawaban Anda">{{ auth()->guard('customer')->user()->address }}</textarea>
                             <div id="map" class="my-3" style="height: 280px;"></div>
-                            <input type="hidden" id="latitude" name="lat">
-                            <input type="hidden" id="longitude" name="lng">
+                            @error('lat')
+                                <small style="color:red;">{{ $message }}</small>
+                            @enderror
+                            <input type="hidden" id="latitude" name="lat" required>
+                            <input type="hidden" id="longitude" name="lng" required>
                         </div>
                         <div class="form-group">
                             <label>Nomor Telepon</label>

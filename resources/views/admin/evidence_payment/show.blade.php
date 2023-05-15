@@ -257,7 +257,7 @@
         <input type="hidden" name="transaction_id" value="{{ $data->id }}">
         <div class="pb-1 w-25">
             <select class="form-select" aria-label="Default select example" name="type" required>
-                <option selected>Pilih tipe pesan</option>
+                <option value="">Pilih tipe pesan</option>
                 @if ($data->status === 'pending')
                     <option value="Transaction - Warning">Perbaikan</option>
                 @endif

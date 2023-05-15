@@ -43,12 +43,16 @@
                     <div class="row my-4">
                         <div class="col-3"></div>
                         <div class="col">
-                            <br><a href="{{ route('customer.profile.edit', ['customer' => $user->id]) }}"
-                                class="btn btn-secondary mb-1">Edit Profil</a>
-                            {{--
-                                    <br><a href="{{ route('customer.profile.change.password.index', ['customer' => $user->id]) }}" class="btn btn-secondary">Change Password</a>
-                                    --}}
-                            <br>
+                            @if (auth()->guard('customer')->user()->allow_credit)
+                                <br><button type="button" class="btn btn-success px-5">Akun Premium</button>
+                            @else
+                                @if ($isPremium)
+                                    <br><button type="button" class="btn btn-warning">Sedang Ditinjau</button>
+                                @else
+                                    <br><a href="{{ route('customer.profile.submission_premium.index') }}"
+                                        class="btn btn-primary ">Upgrade Akun</a>
+                                @endif
+                            @endif
                         </div>
                     </div>
 
@@ -60,16 +64,12 @@
                             alt="preview image" style="height: 200px; width: 200px; object-fit:cover">
                     </div>
                     <div>
-                        @if (auth()->guard('customer')->user()->allow_credit)
-                            <br><button type="button" class="btn btn-success">Akun Premium</button>
-                        @else
-                            @if ($isPremium)
-                                <br><button type="button" class="btn btn-warning">Sedang Ditinjau</button>
-                            @else
-                                <br><a href="{{ route('customer.profile.submission_premium.index') }}"
-                                    class="btn  btn-primary">Upgrade Akun</a>
-                            @endif
-                        @endif
+                        <br><a href="{{ route('customer.profile.edit', ['customer' => $user->id]) }}"
+                            class="btn btn-secondary mb-1">Edit Profil</a>
+                        {{--
+                                <br><a href="{{ route('customer.profile.change.password.index', ['customer' => $user->id]) }}" class="btn btn-secondary">Change Password</a>
+                                --}}
+                        <br>
                     </div>
                 </div>
             </div>

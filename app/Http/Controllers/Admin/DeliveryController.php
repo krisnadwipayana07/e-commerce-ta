@@ -126,7 +126,7 @@ class DeliveryController extends Controller
         // dd($data);
         if ($request->ajax()) {
             $data = Transaction::with(['category_payment'])
-                ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at, ": ", status)), 22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
+                ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at, ": ", status)), 22) as status, created_at, FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
                     $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
                 })
                 ->where('latest_deliveries.status', Delivery::STATUS_IN_TRANSIT)

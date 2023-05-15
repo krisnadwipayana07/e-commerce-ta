@@ -186,7 +186,7 @@ class NotificationController extends Controller
                     }
                 } else if ($currentDate->gt($item->due_date)) {
                     $overdate = $currentDate->diffInDays($item->due_date);
-                    $overPrice = ($overdate + 1) * ($item->total_payment * 0.02);
+                    $overPrice = $overdate * ($item->total_payment * 0.02);
                 }
             }
 

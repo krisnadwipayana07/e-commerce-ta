@@ -150,7 +150,7 @@
                                                             Pembayaran
                                                             {{ $transaction['isDP'] == '0' ? 'Uang Muka' : 'Cicilan' }}</label>
                                                         <input type="text" id="disabledTextInput" class="form-control"
-                                                            value="{{ $transaction['due_date'] }}">
+                                                            value="{{ format_date($transaction['due_date']) }}">
                                                     </div>
                                                     @if ($transaction['isDP'])
                                                         <div class="mb-3">

@@ -130,7 +130,7 @@ class DeliveryController extends Controller
                     $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
                 })
                 ->where('latest_deliveries.status', Delivery::STATUS_IN_TRANSIT)
-                ->orderBy('latest_deliveries.updated_at', 'desc')
+                ->orderBy('latest_deliveries.updated_at', 'ASC')
                 ->groupBy('transactions.id')
                 ->get(['transactions.id', 'transactions.code', 'transactions.recipient_name', 'transactions.deliver_to', 'latest_deliveries.status as delivery_status']);
 

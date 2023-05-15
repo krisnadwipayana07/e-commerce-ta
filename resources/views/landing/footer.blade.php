@@ -9,8 +9,16 @@
                 <div class="col-md-6">
                     <h3>HUBUNGI KAMI</h3>
                     <div class="d-flex flex-column gap-0">
-                        <p class="mb-0"><i class="ri-mail-line"></i> krisna.together0@gmail.com</p>
-                        <p class="mb-0"><i class="ri-whatsapp-line"></i> 0821-4510-5606</p>
+                        <a href="mailto:krisna.together0@gmail.com">
+                            <p class="mb-0"><i class="ri-mail-line"></i> krisna.together0@gmail.com</p>
+                        </a>
+                        <a href="https://wa.me/6282145105606">
+                            <p class="mb-0"><i class="ri-whatsapp-line"></i> 0821-4510-5606</p>
+                        </a>
+                        <a href="https://goo.gl/maps/X6NyUb9q8hJA88wh7?coh=178573&entry=tt">
+                            <p class="mb-0"><i class="ri-map-pin-line"></i> Jl. Raya Samu, Singapadu Kaler, Kec.
+                                Sukawati, Kabupaten Gianyar, Bali 80582</p>
+                        </a>
                     </div>
                 </div>
 

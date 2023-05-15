@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="row my-4">
-                        <div class="col-3 d-flex justify-content-end align-items-center">Nama Pengguna</div>
+                        <div class="col-3 d-flex justify-content-end align-items-center">Username</div>
                         <div class="col"style="font-weight: 600">
                             {{ $user->username }}
                         </div>

@@ -19,7 +19,7 @@
                         <div class="row col-12">
                             <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
-                                    Nama Pengguna
+                                    Username
                                 </div>
                                 <div class="col-9">
                                     <input type="text" class="form-control @error('username') is-invalid @enderror"
@@ -135,7 +135,7 @@
                                 <input type="button" class="btn btn-light mt-2" value="Pilih Gambar"
                                     onclick="document.getElementById('myimg').click();" />
                             </div> --}}
-                            <p class="mt-2">Ukuran gambar: maks 1 MB</p>
+                            <p class="mt-2">Ukuran file maksimal 1 MB</p>
                         </div>
                     </div>
                 </div>

@@ -135,7 +135,7 @@
                                 <input type="button" class="btn btn-light mt-2" value="Pilih Gambar"
                                     onclick="document.getElementById('myimg').click();" />
                             </div> --}}
-                            <p class="mt-2">Ukuran file maksimal 1 MB</p>
+                            <p class="mt-3">Ukuran file maksimal 1 MB</p>
                         </div>
                     </div>
                 </div>

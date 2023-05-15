@@ -40,7 +40,9 @@ class ProfileController extends Controller
     public function edit(Customer $customer)
     {
         $header_category = $this->category_product;
-        return view('landing.change_profile', compact('customer', 'header_category'));
+        $submission_premium = SubmissionPremiumCustomer::where("customer_id", $customer->id)->get()->count();
+        $isPremium = $submission_premium > 0 ? true : false;
+        return view('landing.change_profile', compact('customer', 'header_category', 'isPremium'));
     }
 
     public function update(Request $request, Customer $customer)

@@ -109,10 +109,10 @@ class SubmissionCreditPaymentController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.submission.credit.payment')->with("result", ["success", "Success approve payment"]);
+            return redirect()->route('admin.submission.credit.payment.index')->with("result", ["success", "Success approve payment"]);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.submission.credit.payment')->with("result", ["error", "Failed approve payment"]);
+            return redirect()->route('admin.submission.credit.payment.index')->with("result", ["error", "Failed approve payment"]);
         }
     }
 }

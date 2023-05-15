@@ -69,7 +69,7 @@
                                                     <input type="hidden" name="quantity" value="1"
                                                         id="quantity_checkout">
                                                     <button type="submit"
-                                                        class="btn btn-success @if ($property->stock < 1) disabled @endif"
+                                                        class="btn w-100 btn-success @if ($property->stock < 1) disabled @endif"
                                                         id="single_checkout">Checkout</button>
                                                 </form>
                                             </div>

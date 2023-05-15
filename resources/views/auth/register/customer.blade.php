@@ -135,9 +135,9 @@
             </div>
         </div>
         <div class="text-end my-3">
-            <button type="reset" class="btn w-40 btn-sm btn-danger"><i class="fa fa-fw fa-undo me-1"></i>Atur
-                Ulang</button>
-            <button type="submit" class="btn w-50 btn-sm btn-success"><i
+            <!-- <button type="reset" class="btn w-40 btn-sm btn-danger"><i class="fa fa-fw fa-undo me-1"></i>Atur
+                Ulang</button> -->
+            <button type="submit" class="btn w-100 btn-sm btn-success"><i
                     class="fa fa-fw fa-paper-plane me-1"></i>Daftar</button>
         </div>
     </form>

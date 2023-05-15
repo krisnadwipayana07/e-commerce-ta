@@ -18,9 +18,9 @@
                 <form action="{{ route('landing.product', $thisCategory->id) }}" method="GET">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="sub_category" class="form-label">Select Sub Category To Filter</label>
+                            <label for="sub_category" class="form-label"><b>Pilih Sub Kategori</b></label>
                             <select id="sub_category" name="sub_category" class="form-select">
-                                <option value="">---SELECT---</option>
+                                <option value="">--PILIH--</option>
                                 @foreach ($subCategory as $sc)
                                 <option value="{{ $sc->id }}">{{ $sc->name }}</option>
                                 @endforeach

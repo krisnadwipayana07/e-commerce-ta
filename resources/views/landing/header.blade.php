@@ -95,7 +95,7 @@
                             <div class="col-md-8">
                                 <div class="search">
                                     <form action="{{ url()->current() }}">
-                                        <input class="form_sea" type="text" placeholder="Cari produk.."
+                                        <input class="form_sea" type="text" placeholder="Cari Produk"
                                             name="keyword">
                                         <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
                                     </form>
@@ -135,7 +135,7 @@
                                                     <a class="dropdown-item d-flex align-items-center"
                                                         href="{{ route('customer.profile.index') }}">
                                                         <i class="bi bi-box-arrow-right"></i>
-                                                        <span>Profile</span>
+                                                        <span>Profil</span>
                                                     </a>
                                                 </li>
                                                 <li>

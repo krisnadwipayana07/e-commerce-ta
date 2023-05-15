@@ -35,7 +35,7 @@
                                         <p>
                                             {{ $property->description }}
                                             <br><b style="color:brown">{{ format_rupiah($property->price) }}</b>
-                                            <br><b style="color:black">Stok: {{ $property->stock }}</b>
+                                            <br><b style="color:black">Stok {{ $property->stock }}</b>
                                         </p>
                                     </div>
                                 </div>
@@ -60,8 +60,7 @@
                                                     <input type="hidden" name="property_id" value="{{ $property->id }}">
                                                     <input type="hidden" name="quantity" value="1" id="quantity_cart">
                                                     <button type="submit"
-                                                        class="btn btn-outline-success @if ($property->stock < 1) disabled @endif">Tambah
-                                                        Ke Keranjang</button>
+                                                        class="btn btn-outline-success @if ($property->stock < 1) disabled @endif">Masukkan Keranjang</button>
                                                 </form>
                                             </div>
                                             <div class="col-md-4">

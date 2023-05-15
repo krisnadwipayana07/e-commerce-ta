@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Ubah Profile</h2>
+                        <h2>Ubah Profil</h2>
                     </div>
                 </div>
             </div>

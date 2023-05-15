@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Profile Saya</h2>
+                        <h2>Profil Saya</h2>
                     </div>
                 </div>
             </div>

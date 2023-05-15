@@ -293,7 +293,7 @@
                             if (data.status == 1) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Gotcha!',
+                                    title: 'Berhasil!',
                                     text: data.text
                                 })
                                 window.location.href = refresh;

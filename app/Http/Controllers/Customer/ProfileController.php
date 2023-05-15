@@ -47,7 +47,6 @@ class ProfileController extends Controller
     {
         $request->validate(
             [
-                'username' => 'required|unique:customers,username,' . $customer->id,
                 'name' => 'required|unique:customers,name,' . $customer->id,
                 'address' => 'required',
                 'phone_number' => 'required|unique:customers,phone_number,' . $customer->id,
@@ -56,7 +55,6 @@ class ProfileController extends Controller
             ],
             [],
             [
-                'username' => 'Username',
                 'name' => 'Name',
                 'address' => 'Address',
                 'phone_number' => 'Phone Number',
@@ -90,7 +88,7 @@ class ProfileController extends Controller
                 $customer->update($request->except(['password']));
             }
             DB::commit();
-            return redirect()->route('customer.profile.index')->with('result', ['success', 'Data #' . $customer->name . ' Updated Successfully.']);
+            return redirect()->back()->with('result', ['success', 'Data #' . $customer->name . ' Updated Successfully.']);
         } catch (Exception $ex) {
             DB::rollback();
             return response()->json(['status' => 0, 'text' => 'Error Occur.']);

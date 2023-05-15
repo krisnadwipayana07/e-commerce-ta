@@ -223,7 +223,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['Success', 'Berhasil mengirimkan pengajuan kredit']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
                 // if (!$request->hasFile('myimg')) {
                 //     return redirect()->back()->with('result', ['error', 'File payment must be upload first in this payment type.']);
@@ -470,7 +470,7 @@ class CheckoutController extends Controller
 
                 $notif = store_notif(Auth::guard('customer')->user()->id, "Data kredit telah diterima. dengan detail berikut : Periode Kredit : " . strval($request->credit_period) . "x Dan DP Sebesar : " . strval(IDRConvert($request->down_payment)), 'Transaction');
 
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['Success', 'Berhasil mengirimkan pengajuan kredit']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Berhasil mengirimkan pengajuan kredit']);
             } else {
                 // if (!$request->hasFile('myimg')) {
                 //     return redirect()->back()->with('result', ['error', 'File payment must be upload first in this payment type.']);

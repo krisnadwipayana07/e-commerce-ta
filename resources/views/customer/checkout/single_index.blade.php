@@ -313,7 +313,7 @@
                         </div>
                         <div class="form-group credit_period">
                             <label for="year_of_purchase" class="form-label">Tahun Pembelian</label>
-                            <input type="text" class="form-control credit_period_input" name="year_of_purchase"
+                            <input type="number" class="form-control credit_period_input" name="year_of_purchase"
                                 id="year_of_purchase" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group credit_period">

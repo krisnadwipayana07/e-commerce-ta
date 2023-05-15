@@ -39,7 +39,7 @@
                             <input type="file" class="form-control" name="salary_slip" id="salary_slip">
                         </div>
                         <div class="mb-3">
-                            <label for="photo" class="form-label">Foto Selfi</label>
+                            <label for="photo" class="form-label">Foto Selfie</label>
                             <input type="file" class="form-control" name="photo" id="photo">
                         </div>
                         <button type="submit" class="btn btn-success">Kirim</button>

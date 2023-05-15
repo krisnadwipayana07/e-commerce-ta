@@ -64,8 +64,8 @@ class CheckoutController extends Controller
                 'lng' => 'required'
             ],
             [
-                'lat.required' => 'Maps Harus Diisi',
-                'lng.required' => 'Maps Harus diisi'
+                'lat.required' => 'Pilih Titik Lokasi Anda',
+                'lng.required' => 'Pilih Titik Lokasi Anda'
             ],
             [
                 'category_payment_id' => 'Payment Type',
@@ -310,8 +310,8 @@ class CheckoutController extends Controller
                 'lng' => 'required'
             ],
             [
-                'lat.required' => 'Maps Harus Diisi',
-                'lng.required' => 'Maps Harus diisi'
+                'lat.required' => 'Pilih Titik Lokasi Anda',
+                'lng.required' => 'Pilih Titik Lokasi Anda'
             ],
             [
                 'property_id' => 'Property',

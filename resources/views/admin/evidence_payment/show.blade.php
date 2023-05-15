@@ -208,7 +208,7 @@
         </a>
     </div>
     <div class="border-bottom py-3">
-        <h6 class="font-weight-bold">Foto Selfi</h6>
+        <h6 class="font-weight-bold">Foto Selfie</h6>
         <a target="_blank"
             href="{{ $submission->photo ? url('/upload/transaction/submission_credit/', $submission->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}">
             <img id="preview-photo"

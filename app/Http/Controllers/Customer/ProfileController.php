@@ -101,7 +101,7 @@ class ProfileController extends Controller
             //     $customer->update($request->except(['password']));
             // }
             DB::commit();
-            return redirect()->back()->with('result', ['success', 'Profil ' . ' Telah Berhasil Diubah.']);
+            return redirect()->back()->with('result', ['success', ' Telah ' . 'Berhasil Diubah.']);
         } catch (Exception $ex) {
             DB::rollback();
             return response()->json(['status' => 0, 'text' => 'Error Occur.']);

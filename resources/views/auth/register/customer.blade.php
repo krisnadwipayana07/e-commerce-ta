@@ -33,7 +33,7 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>No Telepon</label>
+                    <label>Nomor Telepon</label>
                     <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
                         name="phone_number" value="{{ old('phone_number') }}">
                     @error('phone_number')

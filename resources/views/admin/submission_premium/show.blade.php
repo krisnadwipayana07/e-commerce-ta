@@ -16,7 +16,7 @@
     <img id="preview-salary_slip" src="{{ ($data->salary_slip) ? url('/upload/customer/submission_premium/', $data->salary_slip) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
 <div class="border-bottom py-3">
-    <h6 class="font-weight-bold">Photo Selfi</h6>
+    <h6 class="font-weight-bold">Photo Selfie</h6>
     <img id="preview-photo" src="{{ ($data->photo) ? url('/upload/customer/submission_premium/', $data->photo) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}" alt="preview image" style="height: 300px;">
 </div>
 <div class="row">

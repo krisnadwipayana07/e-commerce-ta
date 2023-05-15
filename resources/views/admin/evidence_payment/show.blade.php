@@ -266,7 +266,7 @@
         </div>
         <div class="d-flex">
             <input type="text" name="message" class="form-control"
-                placeholder="Pesan (isi jika data pelanggan tidak sesuai)">
+                placeholder="Pesan (isi jika data pelanggan tidak sesuai)">&emsp;
             <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
         </div>
     </form>

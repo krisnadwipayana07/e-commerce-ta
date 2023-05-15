@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="news">
-        <div class="container">
+        <div class="container mb-5">
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
@@ -14,7 +14,7 @@
                 $total = 0;
             @endphp
             <div class="row">
-                <div class="col-md-12 margin_top40">
+                <div class="col-md-12">
                     @foreach ($carts as $cart)
                         <div class="row">
                             <div class="col-md-2">

@@ -298,7 +298,7 @@
                                 console.log(data);
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Whoops!',
+                                    title: 'Gagal!',
                                     text: data.text
                                 })
                             }
@@ -307,7 +307,7 @@
                             console.log(data);
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Whoops!',
+                                title: 'Gagal!',
                                 text: 'Terjadi kesalahan.'
                             })
                         }

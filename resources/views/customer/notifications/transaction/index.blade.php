@@ -202,6 +202,7 @@
                                     @endif
                                 </div>
                             </div>
+                            {{-- {{ $transaction['statusDP'] }} --}}
                             @if ($transaction['isCredit'] && $transaction['remaining_instalment'] > 0)
                                 <div class="row mt-2">
                                     @if ($transaction['isDP'])
@@ -228,8 +229,8 @@
                                             <div class="col-md-8 ">
                                                 <a href="javascript:;"
                                                     onclick="penuliskode_modal('Bayar Uang Muka', '{{ $transaction['routeDP'] }}')"
-                                                    class="btn btn-block btn-success @if ($transaction['remaining_instalment'] == 0) disabled @endif">Bayar
-                                                    Uang Muka</a>
+                                                    class="btn btn-block btn-success @if ($transaction['statusDP'] == 'pending') disabled @endif">
+                                                    {{ $transaction['statusDP'] == 'pending' ? 'Pembayaran DP Sedang diperiksa' : 'Bayar Uang Muka' }}</a>
                                             </div>
                                         @elseif ($transaction['statuses'] != 'reject')
                                             <div class="col-md-4"></div>
@@ -246,7 +247,8 @@
                                     <div class="col-md-8">
                                         <a href="javascript:;"
                                             onclick="penuliskode_modal('Bayar Transfer', '{{ $transaction['routeTransfer'] }}')"
-                                            class="btn btn-block btn-success @if ($transaction['status'] == 'PAID') disabled @endif">Bayar</a>
+                                            class="btn btn-block btn-success @if ($transaction['statusTransfer'] == 'pending') disabled @endif">{{ $transaction['statusTransfer'] == 'pending' ? 'Bukti Pembayaran Sedang diperiksa' : 'Bayar' }}
+                                        </a>
                                     </div>
                                 </div>
                             @endif

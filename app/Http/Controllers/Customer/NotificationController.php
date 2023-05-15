@@ -141,15 +141,9 @@ class NotificationController extends Controller
             $notif = [];
             $count_submission_credit_payment = 0;
             $approve_latest_payment = "";
-            if ($isCredit) {
-                $submission_credit_payment = SubmissionCreditPayment::where("transaction_id", $item->id)->orderBy('created_at', 'DESC');
-                $latest_payment = $submission_credit_payment->get()->first();
-                if ($latest_payment) {
-                    $approve_latest_payment = $latest_payment->status;
-                }
-                $count_submission_credit_payment = $submission_credit_payment->where("status", "accept")->count();
-                $submission_credit_payment = $submission_credit_payment->get();
-            }
+            $approve_latest_DP = "";
+            $approve_latest_transfer = "";
+            $overPrice = 0;
 
             if ($item->status == "pending") {
                 $notifications = Notification::where("transaction_id", $item->id)->get();
@@ -169,12 +163,33 @@ class NotificationController extends Controller
                 ];
             }
 
-            $overPrice = 0;
-            $currentDate = Carbon::now();
-            if ($currentDate->gt($item->due_date) && $isCredit && $item->is_dp_paid == 1) {
-                $overdate = $currentDate->diffInDays($item->due_date);
-                $overPrice = ($overdate + 1) * ($item->total_payment * 0.02);
+            if ($isTransfer) {
+                $latest_submission_transfer = SubmissionTransferPayment::where("transaction_id", $item->id)->orderBy('created_at', 'DESC')->get()->first();
+                if ($latest_submission_transfer) {
+                    $approve_latest_transfer = $latest_submission_transfer->status;
+                }
             }
+
+            if ($isCredit) {
+                $currentDate = Carbon::now();
+                $submission_credit_payment = SubmissionCreditPayment::where("transaction_id", $item->id)->orderBy('created_at', 'DESC');
+                $latest_payment = $submission_credit_payment->get()->first();
+                if ($latest_payment) {
+                    $approve_latest_payment = $latest_payment->status;
+                }
+                $count_submission_credit_payment = $submission_credit_payment->where("status", "accept")->count();
+                $submission_credit_payment = $submission_credit_payment->get();
+                if ($item->is_dp_paid == 0) {
+                    $latest_submission_DP = SubmissionDownPayment::where("transaction_id", $item->id)->orderBy('created_at', 'DESC')->get()->first();
+                    if ($latest_submission_DP) {
+                        $approve_latest_DP = $latest_submission_DP->status;
+                    }
+                } else if ($currentDate->gt($item->due_date)) {
+                    $overdate = $currentDate->diffInDays($item->due_date);
+                    $overPrice = ($overdate + 1) * ($item->total_payment * 0.02);
+                }
+            }
+
 
             $remaining_payment = $item->total_payment - ($item->down_payment + $item->payment_credit * $count_submission_credit_payment);
             $remaining_payment = $remaining_payment < 0 ? 0 : $remaining_payment;
@@ -202,6 +217,8 @@ class NotificationController extends Controller
                 "message" => $notif,
                 "overprice" => format_rupiah($overPrice),
                 "latestPayment" => $approve_latest_payment,
+                "statusDP" => $approve_latest_DP,
+                "statusTransfer" => $approve_latest_transfer,
                 'delivery' => array_key_exists($item->delivery_status, $this->delivery_status) ? $this->delivery_status[$item->delivery_status] : "Tidak Ditemukan",
                 "routeTransfer" => route('customer.transfer.payment.index', ['transaction' => $item->id])
             ];

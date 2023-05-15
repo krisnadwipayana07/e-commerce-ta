@@ -16,19 +16,19 @@
                         @csrf
                         <div class="mb-3">
                             <label for="ktp_name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" name="ktp_name" id="ktp_name">
+                            <input type="text" class="form-control" name="ktp_name" id="ktp_name" placeholder="Jawaban Anda">
                         </div>
                         <div class="mb-3">
                             <label for="ktp_number" class="form-label">Nomor KTP</label>
-                            <input type="text" class="form-control" name="ktp_number" id="ktp_number">
+                            <input type="text" class="form-control" name="ktp_number" id="ktp_number" placeholder="Jawaban Anda">
                         </div>
                         <div class="mb-3">
                             <label for="ktp_address" class="form-label">Alamat Sesuai KTP</label>
-                            <textarea name="ktp_address" id="ktp_address" cols="30" rows="10" placeholder="KTP Address" class="form-control"></textarea>
+                            <textarea name="ktp_address" id="ktp_address" cols="30" rows="10" placeholder="Jawaban Anda" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="salary" class="form-label">Gaji (Pengahasilan)</label>
-                            <input type="number" name="salary" id="salary" class="form-control">
+                            <input type="number" name="salary" id="salary" class="form-control" placeholder="Jawaban Anda">
                         </div>
                         <div class="mb-3">
                             <label for="ktp" class="form-label">Foto KTP</label>

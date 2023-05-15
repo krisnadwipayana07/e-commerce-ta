@@ -44,7 +44,7 @@
                         <div class="col-3"></div>
                         <div class="col">
                             <br><a href="{{ route('customer.profile.edit', ['customer' => $user->id]) }}"
-                                class="btn btn-secondary mb-1">Change Profile</a>
+                                class="btn btn-secondary mb-1">Edit Profil</a>
                             {{--
                                     <br><a href="{{ route('customer.profile.change.password.index', ['customer' => $user->id]) }}" class="btn btn-secondary">Change Password</a>
                                     --}}
@@ -61,13 +61,13 @@
                     </div>
                     <div>
                         @if (auth()->guard('customer')->user()->allow_credit)
-                            <br><button type="button" class="btn btn-success">This account now premium</button>
+                            <br><button type="button" class="btn btn-success">Akun Premium</button>
                         @else
                             @if ($isPremium)
-                                <br><button type="button" class="btn btn-warning">Premium account in process</button>
+                                <br><button type="button" class="btn btn-warning">Sedang Ditinjau</button>
                             @else
                                 <br><a href="{{ route('customer.profile.submission_premium.index') }}"
-                                    class="btn btn-primary">Go To Premium</a>
+                                    class="btn  btn-primary">Upgrade Akun</a>
                             @endif
                         @endif
                     </div>

@@ -41,6 +41,12 @@
                         </div>
                     </div>
                     <div class="row my-4">
+                        <div class="col-3 d-flex justify-content-end align-items-center">Jenis Kelamin</div>
+                        <div class="col"style="font-weight: 600">
+                            {{ $user->gender }}
+                        </div>
+                    </div>
+                    <div class="row my-4">
                         <div class="col-3"></div>
                         <div class="col">
                             @if (auth()->guard('customer')->user()->allow_credit)

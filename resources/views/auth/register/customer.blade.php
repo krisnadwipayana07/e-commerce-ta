@@ -57,9 +57,8 @@
         <div class="row mb-3">
             <div class="col-md">
                 <div class="form-group">
-                    <label>Jenis Kelamin</label>&emsp;
-                    <n>
-                    <div class="form-check form-check-inline"> </n>
+                    <label>Jenis Kelamin</label><br>
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Male">
                         <label class="form-check-label" for="maleRadio">Laki-Laki</label>
                     </div>

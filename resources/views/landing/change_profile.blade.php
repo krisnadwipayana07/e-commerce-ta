@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Ubah Profil</h2>
+                        <h2>Profile Saya</h2>
                     </div>
                 </div>
             </div>
@@ -22,11 +22,12 @@
                                     Username
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                    {{-- <input type="text" class="form-control @error('username') is-invalid @enderror"
                                         name="username" value="{{ old('username', $customer->username) }}">
                                     @error('username')
                                         <small class="invalid-feedback">{{ $message }}</small>
-                                    @enderror
+                                    @enderror --}}
+                                    {{ $customer->username }}
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -78,6 +79,35 @@
                             </div>
 
                             <div class="row mb-3">
+                                <div class="col-3 d-flex justify-content-end">
+                                    <label>Jenis Kelamin</label><br>
+                                </div>
+                                <div class="col-9 d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="gender" id="maleRadio" value="Male"
+                                        @if ($customer->gender == 'Male') checked @endif>
+                                    <label class="form-check-label" for="maleRadio">Laki-Laki</label>
+
+                                    <input class="ml-3 mr-1" type="radio" name="gender" id="femaleRadio" value="Female"
+                                        @if ($customer->gender == 'Female') checked @endif>
+                                    <label class="form-check-label" for="femaleRadio">Perempuan</label>
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-3 d-flex justify-content-end align-items-center">
+                                    Tanggal Lahir
+                                </div>
+                                <div class="col-9">
+                                    <input type="date" class="form-control @error('birth_date') is-invalid @enderror"
+                                        name="birth_date" value="{{ old('birth_date', $customer->birth_date) }}">
+                                    @error('birth_date')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <div class="col-3 d-flex justify-content-end align-items-center">
                                     Kata Sandi
                                 </div>
@@ -105,10 +135,9 @@
                             <div class="row">
                                 <div class="col-3"></div>
                                 <div class="col-9 my-3">
-                                    <button type="reset" class="btn btn-danger mr-2">
-                                        <i class="fa fa-fw fa-undo me-1"></i>Reset</button>
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fa fa-fw fa-solid fa-floppy-o me-1"></i>Submit</button>
+                                    {{-- <button type="reset" class="btn btn-danger mr-2">
+                                        <i class="fa fa-fw fa-undo me-1"></i>Reset</button> --}}
+                                    <button type="submit" class="btn btn-success">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +155,19 @@
                                     <small class="invalid-feedback">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <p class="mt-2">Ukuran gambar: maks 1 MB</p>
+
+
+                            @if (auth()->guard('customer')->user()->allow_credit)
+                                <br><button type="button" class="btn btn-success px-5">Akun Premium</button>
+                            @else
+                                @if ($isPremium)
+                                    <br><button type="button" class="btn btn-warning">Sedang Ditinjau</button>
+                                @else
+                                    <br><a href="{{ route('customer.profile.submission_premium.index') }}"
+                                        class="btn btn-primary ">Upgrade Akun</a>
+                                @endif
+                            @endif
                             {{-- <div class="form-group">
                                 <input type="image" class="form-control @error('myimg') is-invalid @enderror"
                                     name="myimg" value="{{ old('myimg') }}" id="myimg" style="display: none;">
@@ -135,7 +177,6 @@
                                 <input type="button" class="btn btn-light mt-2" value="Pilih Gambar"
                                     onclick="document.getElementById('myimg').click();" />
                             </div> --}}
-                            <p class="mt-3">Ukuran file maksimal 1 MB</p>
                         </div>
                     </div>
                 </div>

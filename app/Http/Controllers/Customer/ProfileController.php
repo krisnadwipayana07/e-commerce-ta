@@ -54,44 +54,40 @@ class ProfileController extends Controller
                 'phone_number' => 'required|unique:customers,phone_number,' . $customer->id,
                 'email' => 'required|unique:customers,email,' . $customer->id,
                 'myimg' => 'nullable|mimes:jpeg,png|max:2048',
-                'password' => 'required'
             ],
-            [
-                'password.required' => 'Mohon menginputkan kata sandi agar dapat melanjutkan'
-            ],
+            [],
             [
                 'name' => 'Name',
                 'address' => 'Address',
                 'phone_number' => 'Phone Number',
                 'email' => 'Email',
                 'myimg' => 'Image',
-                'password' => 'Password',
             ]
         );
-        // if ($request->password || $request->password_confirmation) {
-        //     $request->validate(
-        //         [
-        //             'password' => 'required|confirmed',
-        //             'password_confirmation' => 'required',
-        //         ],
-        //         [],
-        //         [
-        //             'password' => 'Password',
-        //             'password_confirmation' => 'Confirm Password',
-        //         ]
-        //     );
-        // }
+        if ($request->password || $request->password_confirmation) {
+            $request->validate(
+                [
+                    'password' => 'required',
+                    'password_confirmation' => 'required',
+                ],
+                [],
+                [
+                    'password' => 'Password',
+                    'password_confirmation' => 'Confirm Password',
+                ]
+            );
+        }
 
         DB::beginTransaction();
         try {
-            if (!Hash::check($request->password, $customer->password)) {
-                return redirect()->back()->with('result', ['error', 'kata sandi anda salah!']);
-            }
             if ($request->hasFile('myimg')) {
                 $request['img'] = updateImg('upload/admin/customer/', $customer->img);
             }
 
             if ($request->password_confirmation) {
+                if (!Hash::check($request->password, $customer->password)) {
+                    return redirect()->back()->with('result', ['error', 'kata sandi anda salah!']);
+                }
                 $request['password'] = $request->password_confirmation;
                 $customer->update($request->all());
             } else {
@@ -159,7 +155,7 @@ class ProfileController extends Controller
 
             $notif = store_notif(auth()->guard('customer')->user()->id, "Pengajuan Anda ke akun premium telah dikirim", "Submission Premium Customer");
             DB::commit();
-            return redirect()->route('customer.profile.index')->with('result', ['success', "Pengajuan Akun Premium Terkirim"]);
+            return redirect()->route('customer.profile.edit', auth()->guard('customer')->user()->id)->with('result', ['success', "Penyerahan Akun Premium Terkirim"]);
         } catch (Exception $err) {
             DB::rollBack();
             Log::debug($err);
@@ -191,7 +187,7 @@ class ProfileController extends Controller
             $customer->update($request->only(['password']));
 
             DB::commit();
-            return redirect()->route('customer.profile.index')->with('result', ['success', 'Kata sandi diubah']);
+            return redirect()->route('customer.profile.edit')->with('result', ['success', 'Kata sandi diubah']);
         } catch (Exception $err) {
             DB::rollBack();
             Log::debug("========= Ganti Password =========");

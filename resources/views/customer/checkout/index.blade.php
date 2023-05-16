@@ -489,6 +489,9 @@
 
         });
 
+        $(".credit_period_input").on('change', function() {
+            $('#checkbox-agree').removeAttr('checked');
+        })
         $('#checkbox-agree').on('click', function() {
             var inputs = $(".credit_period_input");
             var check = true;

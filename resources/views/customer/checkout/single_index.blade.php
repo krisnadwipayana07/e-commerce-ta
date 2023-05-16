@@ -504,6 +504,31 @@
             }
         });
 
+        $(".credit_period_input").on('change', function() {
+            $('#checkbox-agree').removeAttr('checked');
+        })
+
+        $('#checkbox-agree').on('change', function() {
+            var inputs = $(".credit_period_input");
+            var check = true;
+            for (var i = 0; i < inputs.length; i++) {
+                if ($(inputs[i]).val() == "" || $(inputs[i]).val() == null) {
+                    check = false;
+                }
+            }
+            if (check == false) {
+                alert("Lengkapi data terlebih dahulu");
+                $('#checkbox-agree').removeAttr('checked');
+                if (!$('#btn-submit').hasClass('disabled')) {
+                    $('#btn-submit').addClass('disabled');
+                }
+            } else {
+                if ($('#btn-submit').hasClass('disabled')) {
+                    $('#btn-submit').removeClass('disabled');
+                }
+            }
+        });
+
         function format_rupiah(number) {
             var bilangan = Math.ceil(number);
             console.log(bilangan)

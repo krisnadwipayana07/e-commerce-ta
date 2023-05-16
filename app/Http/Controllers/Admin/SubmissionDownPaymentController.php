@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Delivery;
 use App\Models\SubmissionDownPayment;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -73,6 +74,8 @@ class SubmissionDownPaymentController extends Controller
             $submission_down_payment->update([
                 "status" => "accept"
             ]);
+
+            Delivery::make($submission_down_payment->customer_id, $submission_down_payment->transaction_id, Delivery::STATUS_IN_TRANSIT);
 
             DB::commit();
 

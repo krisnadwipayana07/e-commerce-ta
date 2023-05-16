@@ -507,7 +507,7 @@ class NotificationController extends Controller
             $notif = store_notif($transaction->customer_id, "Pembayaran Kredit Anda Terkirim", "Pengajuan Pembayaran Kredit");
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran sukses"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Bukti Transaksi Pembayaran Terkirim"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
@@ -546,7 +546,7 @@ class NotificationController extends Controller
             $notif = store_notif($transaction->customer_id, " Pembayaran Uang Muka berhasil terkirim, mohon menunggu konfirmasi dari admin", "Pembayaran Uang Muka");
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran Berhasil"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Bukti Transaksi Pembayaran Terkirim"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);
@@ -588,7 +588,7 @@ class NotificationController extends Controller
 
             DB::commit();
 
-            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Transaksi pembayaran sukses"]);
+            return redirect()->route('customer.notification.transaction.index')->with("result", ["success", "Bukti Transaksi Pembayaran Terkirim"]);
         } catch (Exception $e) {
             DB::rollBack();
             Log::debug($e);

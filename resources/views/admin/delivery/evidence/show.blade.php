@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="row mt-5">
-            <label>Foto TTD penerimaan Produk</label>
+            <label>Foto TTD Penerimaan Produk</label>
             <div class="col-md-12 my-2">
                 <img id="preview-signature_evidence"
                     src="{{ $evidence ? url('/upload/admin/delivery/signature/', $evidence->signature_evidence) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}"

@@ -155,8 +155,8 @@
                                                     @if ($transaction['isDP'])
                                                         <div class="mb-3">
                                                             <label for="disabledTextInput" class="form-label">Denda
-                                                                (melebihi tenggat bayar cililan, terhitung 2% dari
-                                                                total)
+                                                                (melebihi tenggat bayar cililan, terhitung perhari 2% dari
+                                                                total pembayaran)
                                                             </label>
                                                             <input type="text" id="disabledTextInput"
                                                                 class="form-control"
@@ -174,7 +174,7 @@
                                 <div class="col-md-4"></div>
                                 <div class="col-md-8">
                                     @if ($transaction['delivery'])
-                                        <h5>Status Pengiriman - {{ $transaction['delivery'] }} </h5>
+                                        <h5>Status Pesanan - {{ $transaction['delivery'] }} </h5>
                                     @endif
                                     @if ($transaction['message'])
                                         <h5> Note : </h5>

@@ -64,7 +64,7 @@
             </div>
             <div class="row">
                 @if (count($carts) === 0)
-                    <div class="text-center fw-bold py-4">Keranjang anda kosong, mohon isi terlebih dahulu </div>
+                    <h3><div class="text-center fw-bold py-4">Keranjang Anda Kosong, Mohon Isi Terlebih Dahulu </div></h3>
                 @else
                     <div class="col-md-2"></div>
                     <div class="col-md-2"></div>

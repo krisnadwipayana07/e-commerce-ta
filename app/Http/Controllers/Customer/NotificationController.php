@@ -466,7 +466,7 @@ class NotificationController extends Controller
         $currentDate = Carbon::now();
         if ($currentDate->gt($transaction->due_date) && $transaction->is_dp_paid == 1) {
             $overdate = $currentDate->diffInDays($transaction->due_date);
-            $overPrice = ($overdate + 1) * ($transaction->total_payment * 0.02);
+            $overPrice = $overdate  * ($transaction->total_payment * 0.02);
         }
         return view("customer.notifications.transaction.credit_payment", compact("transaction", "overPrice"));
     }

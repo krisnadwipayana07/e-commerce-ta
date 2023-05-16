@@ -50,7 +50,7 @@ class SubmissionCreditPaymentController extends Controller
         $currentDate = Carbon::now();
         if ($currentDate->gt($submission_credit_payment->transaction->due_date)) {
             $overdate = $currentDate->diffInDays($submission_credit_payment->transaction->due_date);
-            $overPrice = ($overdate + 1) * ($submission_credit_payment->transaction->total_payment * 0.02);
+            $overPrice = $overdate * ($submission_credit_payment->transaction->total_payment * 0.02);
         }
         return view('admin.submission_credit_payment.show', ["data" => $submission_credit_payment, "overPrice" => $overPrice]);
     }

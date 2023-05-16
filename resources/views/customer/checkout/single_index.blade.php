@@ -95,6 +95,7 @@
                             <label>Alamat</label>
                             <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control"
                                 placeholder="Jawaban Anda">{{ auth()->guard('customer')->user()->address }}</textarea>
+                            <small style="color: red;">*Wajib mengisikan koordinat pada peta</small>
                             <div id="map" class="my-3" style="height: 280px;"></div>
                             @error('lat')
                                 <small style="color:red;">{{ $message }}</small>

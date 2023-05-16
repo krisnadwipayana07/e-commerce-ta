@@ -24,6 +24,7 @@ class TransactionController extends Controller
         "in_progress" => "approved",
         "reject" => "reject",
         "pending" => "pending",
+        'paid' => "approved"
     ];
     public function index(Request $request)
     {
@@ -217,10 +218,12 @@ class TransactionController extends Controller
     public function evidence_payment_index(Request $request)
     {
         if ($request->ajax()) {
-
             $data = Transaction::join('category_payments as cp', 'transactions.category_payment_id', '=', 'cp.id')
+                ->leftJoin(DB::raw('(SELECT transaction_id, SUBSTRING(MAX(CONCAT(created_at,": ",status)),22) as status, created_at FROM deliveries GROUP BY transaction_id ORDER BY created_at DESC) AS latest_deliveries'), function ($join) {
+                    $join->on('transactions.id', '=', 'latest_deliveries.transaction_id');
+                })
                 ->select('transactions.code', 'transactions.id', 'transactions.account_number', 'transactions.recipient_name', 'cp.name', 'transactions.status')
-                ->whereIn('transactions.status', ['pending', 'in_progress', 'reject'])
+                ->where('latest_deliveries.status', '!=', 'Delivered')
                 ->orderBy('transactions.created_at', 'ASC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()

@@ -65,7 +65,7 @@ class CustomerController extends Controller
             }
             $customer = Customer::create($request->all());
             DB::commit();
-            return redirect()->back()->with('result', ['success', 'Data #'.$customer->name.' Added Successfully.']);
+            return redirect()->back()->with('result', ['success', 'Berhasil-'.$customer->name.'Menambahkan']);
 
         }catch(Exception $ex){
             DB::rollback();

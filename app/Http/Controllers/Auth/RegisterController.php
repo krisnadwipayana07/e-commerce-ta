@@ -48,7 +48,7 @@ class RegisterController extends Controller
             }
             $admin = Admin::create($request->all());
             DB::commit();
-            return redirect()->back()->with('result', ['success', 'Data #'.$admin->name.' Added Successfully.']);
+            return redirect()->back()->with('result', ['success', 'Berhasil-'.$admin->name.'Melakukan Pendaftaran']);
 
         }catch(Exception $ex){
             DB::rollback();
@@ -135,7 +135,7 @@ class RegisterController extends Controller
             }
             $treasure = Treasure::create($request->all());
             DB::commit();
-            return redirect()->back()->with('result', ['success', 'Data #'.$treasure->name.' Added Successfully.']);
+            return redirect()->back()->with('result', ['success', 'Berhasil-'.$treasure->name.'Melakukan Pendaftaran']);
 
         }catch(Exception $ex){
             DB::rollback();
@@ -182,7 +182,7 @@ class RegisterController extends Controller
             }
             $customer = Customer::create($request->all());
             DB::commit();
-            return redirect()->route('landing.index')->with('result', ['success', 'Data #'.$customer->name.' Added Successfully.']);
+            return redirect()->route('landing.index')->with('result', ['success', 'Berhasil-'.$customer->name.' Melakukan Pendaftaran.']);
             
         }catch(Exception $ex){
             DB::rollback();

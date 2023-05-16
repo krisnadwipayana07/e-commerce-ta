@@ -155,7 +155,7 @@
                                     <small class="invalid-feedback">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <p class="mt-2">Ukuran gambar: maks 1 MB</p>
+                            <p class="mt-2">Ukuran file gambar maksimal 1 MB</p>
 
 
                             @if (auth()->guard('customer')->user()->allow_credit)

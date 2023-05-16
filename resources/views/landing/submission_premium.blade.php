@@ -42,7 +42,7 @@
                             <label for="photo" class="form-label">Foto Selfie</label>
                             <input type="file" class="form-control" name="photo" id="photo">
                         </div>
-                        <button type="submit" class="btn btn-success">Kirim</button>
+                        <button type="submit" class="btn w-30 btn-success">Kirim</button>
                     </form>
                 </div>
             </div>

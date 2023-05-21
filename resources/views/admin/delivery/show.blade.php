@@ -53,41 +53,56 @@
         src="{{ $evidence ? url('/upload/admin/delivery/signature/', $evidence->signature_evidence) : 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png' }}"
         alt="preview image" style="height: 50vh;">
 </div>
-<div class="form-group py-3">
+<div class="py-3">
     <label>Status Pesanan</label>
     {{-- {{$data->customer_id}} --}}
-    <form action="{{ route('admin.delivery.change_status', $data->id) }}" method="POST">
-        @csrf
-        <input type="hidden" name="transaction_id" value="{{ $data->id }}">
-        <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
-        <input type="hidden" name="payment_type" value="{{ $data->category_payment->name }}">
-        <div class="pb-1">
-            <select class="form-select" aria-label="Default select example" name="status" required>
-                <option value="">Pilih Status Pengiriman</option>
-                <option value="Order Received" {{ $status == 'Order Received' ? 'selected' : '' }}>Pesanan Dibuat
-                </option>
-                <option value="In Transit" {{ $status == 'In Transit' ? 'selected' : '' }}>Pesananan Dalam Pengiriman
-                </option>
-                <option value="Delivered" {{ $status == 'Delivered' ? 'selected' : '' }}>Pesanan Telah Diterima
-                </option>
-            </select>
-        </div>
-        <div class="border-bottom py-3">
-            <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Kirim</button>
+    <div class="form-group">
+        <form action="{{ route('admin.delivery.change_status', $data->id) }}" method="POST">
+            @csrf
+            <input type="hidden" name="transaction_id" value="{{ $data->id }}">
+            <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
+            <input type="hidden" name="payment_type" value="{{ $data->category_payment->name }}">
+            <div class="pb-1 d-flex gap-2">
+                <select aria-label="Default select example" name="status" required id="payment_status" onchange="val()"
+                    class="form-select w-50">
+                    <option value="">Pilih Status Pengiriman</option>
+                    <option value="Order Received" {{ $status == 'Order Received' ? 'selected' : '' }}>Pesanan Dibuat
+                    <option value="In Packing" {{ $status == 'In Packing' ? 'selected' : '' }}>Pesanan Sedang Dikemas
+                    </option>
+                    <option value="In Transit" {{ $status == 'In Transit' ? 'selected' : '' }}>Pesananan Dalam
+                        Pengiriman
+                    </option>
+                    <option value="Delivered" {{ $status == 'Delivered' ? 'selected' : '' }}>Pesanan Telah Diterima
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Simpan
+                    Status</button>
+            </div>
+
+        </form>
+    </div>
+    <form action="{{ route('admin.delivery.send_notifications') }}" method="POST">
+        <div class="my-3 d-flex gap-2 message_confirmation">
+            @csrf
+            <input type="hidden" name="transaction_id" value="{{ $data->id }}">
+            <input type="hidden" name="customer_id" value="{{ $data->customer->id }}">
+            <input type="hidden" name="type" value="Delivery - Notification">
+            <input type="text" name="message" placeholder="Informasi Pertanyaan Hari pengiriman"
+                class="form-control">
+            <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
         </div>
     </form>
+    @foreach ($notifications as $notif)
+        <div class="my-2">
+            <div>{{ $notif->message }} </div>
+            <div> Balasan : {{ $notif->reply }} </div>
+        </div>
+    @endforeach
 </div>
 
 <script>
     $(document).ready(function() {
-        // for display myimg
-        $('#myimg').change(function() {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#preview-myimg').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
+        message_confirmation.style.display = 'none';
     });
 </script>
 {{-- <div class="border-bottom py-3">

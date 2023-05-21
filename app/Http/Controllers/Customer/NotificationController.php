@@ -63,7 +63,7 @@ class NotificationController extends Controller
     {
         $header_category = $this->category_product;
         $notifications = Notification::leftJoin('transactions', 'transactions.id', '=', 'notifications.transaction_id')
-            ->select('notifications.id', 'notifications.type', 'notifications.message', 'notifications.is_read', 'notifications.transaction_id', 'transactions.status', 'notifications.created_at')
+            ->select('notifications.id', 'notifications.type', 'notifications.message', 'notifications.reply', 'notifications.is_read', 'notifications.transaction_id', 'transactions.status', 'notifications.created_at')
             ->where("notifications.customer_id", Auth::guard("customer")->user()->id)
             ->orderBy('notifications.created_at', 'desc')
             ->get();
@@ -76,6 +76,19 @@ class NotificationController extends Controller
             "is_read" => true
         ]);
         return view('customer.notifications.show', compact('notification'));
+    }
+
+    public function reply(Request $request)
+    {
+        try {
+            $notification = Notification::find($request->id);
+            $notification->update([
+                "reply" => $request->reply
+            ]);
+            return redirect()->back()->with('result', ['success', 'Balasan sudah dikirim!']);
+        } catch (Exception $ex) {
+            return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
+        }
     }
 
 
@@ -118,6 +131,9 @@ class NotificationController extends Controller
             })
             ->when($request->filter === 'rejected', function ($query) {
                 return $query->whereIn('transactions.status', ['reject']);
+            })
+            ->when($request->filter === 'in_packing', function ($query) {
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_PACKING]);
             })
             ->when($request->filter === 'in_transit', function ($query) {
                 return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_TRANSIT]);

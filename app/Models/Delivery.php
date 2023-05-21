@@ -11,6 +11,7 @@ class Delivery extends Model
     use HasFactory, UsesUuid;
 
     const STATUS_ORDER_RECEIVED = 'Order Received';
+    const STATUS_IN_PACKING = 'In Packing';
     const STATUS_IN_TRANSIT = 'In Transit';
     const STATUS_DELIVERED = 'Delivered';
     const STATUS_REJECTED = 'Rejected';
@@ -29,9 +30,9 @@ class Delivery extends Model
     public static function statusList(): array
     {
         return [
-            Delivery::STATUS_ORDER_RECEIVED, 
-            Delivery::STATUS_IN_TRANSIT, 
-            Delivery::STATUS_DELIVERED, 
+            Delivery::STATUS_ORDER_RECEIVED,
+            Delivery::STATUS_IN_TRANSIT,
+            Delivery::STATUS_DELIVERED,
             Delivery::STATUS_REJECTED
         ];
     }

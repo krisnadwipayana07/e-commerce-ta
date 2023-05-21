@@ -75,7 +75,7 @@ class SubmissionDownPaymentController extends Controller
                 "status" => "accept"
             ]);
 
-            Delivery::make($submission_down_payment->customer_id, $submission_down_payment->transaction_id, Delivery::STATUS_IN_TRANSIT);
+            Delivery::make($submission_down_payment->customer_id, $submission_down_payment->transaction_id, Delivery::STATUS_IN_PACKING);
 
             DB::commit();
 

@@ -19,6 +19,9 @@
                     class="btn btn-{{ request()->get('filter') === 'paid' ? 'primary' : 'outline-primary' }} rounded-pill ">Lunas</a>
                 <a href="{{ route('customer.notification.transaction.index', ['filter' => 'rejected']) }}"
                     class="btn btn-{{ request()->get('filter') === 'rejected' ? 'primary' : 'outline-primary' }} rounded-pill ">Ditolak</a>
+                <a href="{{ route('customer.notification.transaction.index', ['filter' => 'in_packing']) }}"
+                    class="btn btn-{{ request()->get('filter') === 'in_transit' ? 'primary' : 'outline-primary' }} rounded-pill ">Sedang
+                    Dikemas</a>
                 <a href="{{ route('customer.notification.transaction.index', ['filter' => 'in_transit']) }}"
                     class="btn btn-{{ request()->get('filter') === 'in_transit' ? 'primary' : 'outline-primary' }} rounded-pill ">Diproses
                     Pengiriman</a>

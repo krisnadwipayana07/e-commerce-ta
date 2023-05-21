@@ -32,23 +32,27 @@ class NotificationController extends Controller
     protected $status_transaction = [
         'paid' => 'LUNAS',
         'in_progress' => 'Sudah Diterima dan Dalam proses',
+        'non_active' => "Tidak Aktif",
         'pending' => 'Sedang Diproses',
         'reject' => 'Ditolak'
     ];
     protected $statuses = [
         'paid' => 'LUNAS',
+        'non_active' => "Tidak Aktif",
         'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
         'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
         'reject' => 'Ditolak'
     ];
     protected $buttons = [
         'paid' => 'success',
+        'non_active' => 'danger',
         'in_progress' => 'warning',
         'pending' => 'warning',
         'reject' => 'danger'
     ];
     protected $delivery_status = [
         Delivery::STATUS_ORDER_RECEIVED => 'Pesanan Dibuat',
+        Delivery::STATUS_IN_PACKING => 'Pesanan Dalam Pengemasan',
         Delivery::STATUS_IN_TRANSIT => 'Pesanan Dalam Pengiriman',
         Delivery::STATUS_DELIVERED => 'Pesanan Telah Diterima',
         Delivery::STATUS_REJECTED => 'Ditolak'
@@ -128,6 +132,9 @@ class NotificationController extends Controller
             })
             ->when($request->filter === 'paid', function ($query) {
                 return $query->whereIn('transactions.status', ['paid']);
+            })
+            ->when($request->filter === 'non_active', function ($query) {
+                return $query->whereIn('transactions.status', ['non_active']);
             })
             ->when($request->filter === 'rejected', function ($query) {
                 return $query->whereIn('transactions.status', ['reject']);

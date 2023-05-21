@@ -17,10 +17,13 @@
                     class="btn btn-{{ request()->get('filter') === 'payment' ? 'primary' : 'outline-primary' }} rounded-pill ">Pembayaran</a>
                 <a href="{{ route('customer.notification.transaction.index', ['filter' => 'paid']) }}"
                     class="btn btn-{{ request()->get('filter') === 'paid' ? 'primary' : 'outline-primary' }} rounded-pill ">Lunas</a>
+                <a href="{{ route('customer.notification.transaction.index', ['filter' => 'non_active']) }}"
+                    class="btn btn-{{ request()->get('filter') === 'non_active' ? 'primary' : 'outline-primary' }} rounded-pill ">Tidak
+                    Aktif</a>
                 <a href="{{ route('customer.notification.transaction.index', ['filter' => 'rejected']) }}"
                     class="btn btn-{{ request()->get('filter') === 'rejected' ? 'primary' : 'outline-primary' }} rounded-pill ">Ditolak</a>
                 <a href="{{ route('customer.notification.transaction.index', ['filter' => 'in_packing']) }}"
-                    class="btn btn-{{ request()->get('filter') === 'in_transit' ? 'primary' : 'outline-primary' }} rounded-pill ">Sedang
+                    class="btn btn-{{ request()->get('filter') === 'in_packing' ? 'primary' : 'outline-primary' }} rounded-pill ">Sedang
                     Dikemas</a>
                 <a href="{{ route('customer.notification.transaction.index', ['filter' => 'in_transit']) }}"
                     class="btn btn-{{ request()->get('filter') === 'in_transit' ? 'primary' : 'outline-primary' }} rounded-pill ">Diproses
@@ -147,7 +150,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @if ($transaction['statuses'] == 'in_progress')
+                                                @if ($transaction['statuses'] == 'in_progress' || $transaction['statuses'] == 'non_active')
                                                     <div class="mb-3">
                                                         <label for="disabledTextInput" class="form-label">Tenggat
                                                             Pembayaran
@@ -199,7 +202,7 @@
                                         <div>
                                             <button type="button"
                                                 class="btn btn-{{ $transaction['button'] }} {{ $transaction['button'] === 'success' && 'text-white' }} btn-block text-uppercase"
-                                                style=" font-weight: 600">{{ $transaction['isDP'] && $transaction['remaining_instalment'] > 0 ? 'BAYAR CICILAN PERBULAN' : $transaction['status'] }}
+                                                style=" font-weight: 600">{{ $transaction['isDP'] && $transaction['remaining_instalment'] > 0 && $transaction['statuses'] != 'non_active' ? 'BAYAR CICILAN PERBULAN' : $transaction['status'] }}
                                             </button>
                                         </div>
                                     @endif

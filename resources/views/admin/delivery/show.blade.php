@@ -94,8 +94,16 @@
     </form>
     @foreach ($notifications as $notif)
         <div class="my-2">
-            <div>{{ $notif->message }} </div>
-            <div> Balasan : {{ $notif->reply }} </div>
+            <div class="mb-3">
+                <label for="adminMessage" class="form-label">Admin</label>
+                <input type="text" id="adminMessage" class="form-control" placeholder="Disabled input" value="{{ $notif->message }}">
+            </div>
+            <div class="mb-3">
+                <label for="customerReply" class="form-label">Admin</label>
+                <input type="text" id="customerReply" class="form-control" placeholder="Disabled input" value="{{ $notif->reply }}">
+            </div>
+            {{-- <div>{{ $notif->message }} </div>
+            <div> Balasan : {{ $notif->reply }} </div> --}}
         </div>
     @endforeach
 </div>

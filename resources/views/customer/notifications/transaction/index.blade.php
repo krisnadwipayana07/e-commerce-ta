@@ -220,7 +220,7 @@
                                                     class="btn btn-block btn-success disabled">Pembayaran Cicilan sedang
                                                     Diperiksa</a>
                                             </div>
-                                        @else
+                                        @elseif($transaction['statuses'] != 'non_active')
                                             <div class="col-md-4 mt-1"></div>
                                             <div class="col-md-8 mt-1">
                                                 <a href="javascript:;"

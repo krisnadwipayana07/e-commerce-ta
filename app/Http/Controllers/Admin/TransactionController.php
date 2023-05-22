@@ -328,6 +328,8 @@ class TransactionController extends Controller
             $transaction->update([
                 'status' => $request->status
             ]);
+            $message = $request->status == "in_progress" ? "Status Transaksi anda di sudah diakifkan kembali, mohon bayar cicilan anda" : "Status Transaksi anda di " . $request->status;
+            store_notif($transaction->customer_id, $message, "Transaction - Notification", $request->transaction_id);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index')->with('result', ['success', 'Status ' . $request->status . " pada transaksi berhasil diubah"]);
         } catch (Exception $ex) {

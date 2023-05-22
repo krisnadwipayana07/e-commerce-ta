@@ -98,15 +98,15 @@
         @endif
         <div class="my-2">
             <div class="mb-3">
-                <p class="font-weight-bold text-sm-left">Admin</p>
-                <p class="font-weight-normal">{{ $notif->message }}</p>
+                <label for="adminMessage" class="form-label">Admin</label>
+                <input type="text" id="adminMessage" class="form-control" placeholder="Disabled input" value="{{ $notif->message }}">
             </div>
             <div class="mb-3">
-                <p class="font-weight-bold text-sm-left">Customer</p>
-                <p class="font-weight-normal">{{ $notif->reply }}</p>
+                <label for="customerReply" class="form-label">Customer</label>
+                <input type="text" id="customerReply" class="form-control" placeholder="Disabled input" value="{{ $notif->reply }}">
             </div>
-            {{-- <div>{{ $notif->message }} </div>
-            <div> Balasan : {{ $notif->reply }} </div> --}}
+            <div>{{ $notif->message }} </div>
+            <div> Balasan : {{ $notif->reply }} </div>
         </div>
     @endforeach
 </div>

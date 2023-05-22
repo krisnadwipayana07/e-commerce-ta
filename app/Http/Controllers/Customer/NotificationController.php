@@ -32,23 +32,27 @@ class NotificationController extends Controller
     protected $status_transaction = [
         'paid' => 'LUNAS',
         'in_progress' => 'Sudah Diterima dan Dalam proses',
+        'non_active' => "Tidak Aktif",
         'pending' => 'Sedang Diproses',
         'reject' => 'Ditolak'
     ];
     protected $statuses = [
         'paid' => 'LUNAS',
+        'non_active' => "Tidak Aktif",
         'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
         'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
         'reject' => 'Ditolak'
     ];
     protected $buttons = [
         'paid' => 'success',
+        'non_active' => 'danger',
         'in_progress' => 'warning',
         'pending' => 'warning',
         'reject' => 'danger'
     ];
     protected $delivery_status = [
         Delivery::STATUS_ORDER_RECEIVED => 'Pesanan Dibuat',
+        Delivery::STATUS_IN_PACKING => 'Pesanan Dalam Pengemasan',
         Delivery::STATUS_IN_TRANSIT => 'Pesanan Dalam Pengiriman',
         Delivery::STATUS_DELIVERED => 'Pesanan Telah Diterima',
         Delivery::STATUS_REJECTED => 'Ditolak'
@@ -63,7 +67,7 @@ class NotificationController extends Controller
     {
         $header_category = $this->category_product;
         $notifications = Notification::leftJoin('transactions', 'transactions.id', '=', 'notifications.transaction_id')
-            ->select('notifications.id', 'notifications.type', 'notifications.message', 'notifications.is_read', 'notifications.transaction_id', 'transactions.status', 'notifications.created_at')
+            ->select('notifications.id', 'notifications.type', 'notifications.message', 'notifications.reply', 'notifications.is_read', 'notifications.transaction_id', 'transactions.status', 'notifications.created_at')
             ->where("notifications.customer_id", Auth::guard("customer")->user()->id)
             ->orderBy('notifications.created_at', 'desc')
             ->get();
@@ -76,6 +80,19 @@ class NotificationController extends Controller
             "is_read" => true
         ]);
         return view('customer.notifications.show', compact('notification'));
+    }
+
+    public function reply(Request $request)
+    {
+        try {
+            $notification = Notification::find($request->id);
+            $notification->update([
+                "reply" => $request->reply
+            ]);
+            return redirect()->back()->with('result', ['success', 'Balasan sudah dikirim!']);
+        } catch (Exception $ex) {
+            return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
+        }
     }
 
 
@@ -116,8 +133,14 @@ class NotificationController extends Controller
             ->when($request->filter === 'paid', function ($query) {
                 return $query->whereIn('transactions.status', ['paid']);
             })
+            ->when($request->filter === 'non_active', function ($query) {
+                return $query->whereIn('transactions.status', ['non_active']);
+            })
             ->when($request->filter === 'rejected', function ($query) {
                 return $query->whereIn('transactions.status', ['reject']);
+            })
+            ->when($request->filter === 'in_packing', function ($query) {
+                return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_PACKING]);
             })
             ->when($request->filter === 'in_transit', function ($query) {
                 return $query->whereIn('latest_deliveries.status', [Delivery::STATUS_IN_TRANSIT]);

@@ -72,11 +72,13 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::get('delivery', 'DeliveryController@index')->name('delivery.index');
         Route::get('delivery/{transaction}', 'DeliveryController@show')->name('delivery.show');
         Route::post('delivery/{transaction}', 'DeliveryController@store')->name('delivery.change_status');
+        Route::post('delivery_notification', 'DeliveryController@delivery_notify_user')->name('delivery.send_notifications');
         Route::get('evidence_payment', 'TransactionController@evidence_payment_index')->name('evidence_payment.index');
         Route::get('evidence_payment/{transaction}', 'TransactionController@evidence_payment_show')->name('evidence_payment.show');
         Route::put('evidence_payment/{transaction}', 'TransactionController@evidence_payment_approve')->name('evidence_payment.approve');
         Route::delete('evidence_payment/{transaction}', 'TransactionController@evidence_payment_reject')->name('evidence_payment.reject');
         Route::post('evidence_payment/{transaction}', 'TransactionController@evidence_payment_notify_user')->name('evidence_payment.notify_user');
+        Route::post('evidence/payment/update/status/{transaction}', 'TransactionController@evidence_payment_update_status')->name('evidence_payment.update.status');
 
         Route::get('submission_premium', 'SubmissionPremiumController@submission_premium_index')->name('submission_premium.index');
         Route::get('submission_premium/{submission_premium_customer}', 'SubmissionPremiumController@submission_premium_show')->name('submission_premium.show');
@@ -153,6 +155,7 @@ Route::namespace('Customer')->prefix('customer/')->name('customer.')->group(func
         Route::put('/profile/change/{customer}', 'ProfileController@update')->name('profile.update');
 
         Route::resource('notification', 'NotificationController');
+        Route::post('/notifications/reply', 'NotificationController@reply')->name('notification.transaction.reply');
         Route::get('/notifications/transaction', 'NotificationController@transaction_index')->name('notification.transaction.index');
         Route::get('/notifications/transaction/{transaction}', 'NotificationController@transaction_show')->name('notification.transaction.show');
         Route::get('/notifications/transaction/edit/{transaction}', 'NotificationController@transaction_edit')->name('notification.transaction.edit');

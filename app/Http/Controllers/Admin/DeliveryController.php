@@ -7,6 +7,7 @@ use App\Models\CategoryPayment;
 use App\Models\CategoryProperty;
 use App\Models\Customer;
 use App\Models\Delivery;
+use App\Models\Notification;
 use App\Models\Property;
 use App\Models\SubmissionCreditTransaction;
 use App\Models\SubmissionDeliveryPayment;
@@ -20,10 +21,11 @@ use Yajra\DataTables\Facades\DataTables;
 class DeliveryController extends Controller
 {
     protected $delivery_status = [
-        'Order Received' => 'Pesanan Dibuat',
-        'In Transit' => 'Pesanan Dalam Pengiriman',
-        'Delivered' => 'Pesanan Telah Diterima',
-        'Rejected' => 'Ditolak'
+        Delivery::STATUS_ORDER_RECEIVED => 'Pesanan Dibuat',
+        Delivery::STATUS_IN_TRANSIT => 'Pesanan Dalam Pengiriman',
+        Delivery::STATUS_IN_PACKING => 'Pesanan Sedang Dikemas',
+        Delivery::STATUS_DELIVERED => 'Pesanan Telah Diterima',
+        Delivery::STATUS_REJECTED => 'Ditolak'
     ];
 
     public function index(Request $request)
@@ -39,7 +41,6 @@ class DeliveryController extends Controller
             //     ->get();
             foreach ($transaction as $temp) {
                 $status = '';
-
                 $isCredit = $temp->category_payment->name == "Credit" || $temp->category_payment->name == "Kredit" ? true : false;
                 $isCOD = $temp->category_payment->name == "Cash On Delivery" ? true : false;
                 $isTransfer = str_contains(strtoupper($temp->category_payment->name), 'TRANSFER');
@@ -86,6 +87,7 @@ class DeliveryController extends Controller
         $status = '';
         $delivery = Delivery::where('deliveries.transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
         $evidence = SubmissionDeliveryPayment::where('transaction_id', $transaction->id)->orderBy('created_at', 'DESC')->first();
+        $notifications = Notification::where('transaction_id', $transaction->id)->where('type', "Delivery - Notification")->orderBy('updated_at', 'DESC')->get();
         if ($delivery != null) {
             $status = $delivery->status;
         }
@@ -93,7 +95,7 @@ class DeliveryController extends Controller
         if ($transaction->credit_period != null && $transaction->credit_period > 0) {
             $submission_credit_transactions = SubmissionCreditTransaction::where('transaction_id', $transaction->id)->first();
         }
-        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'status' => $status, 'evidence' => $evidence]);
+        return view('admin.delivery.show', ['data' => $transaction, 'submission' => $submission_credit_transactions, 'status' => $status, 'evidence' => $evidence, 'notifications' => $notifications]);
     }
 
     public function store(Request $request)
@@ -173,6 +175,17 @@ class DeliveryController extends Controller
                 'signature_evidence' => $signatureFile
             ]);
             return redirect()->back()->with('result', ['success', 'New delivery data has been save!']);
+        } catch (Exception $ex) {
+            return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
+        }
+    }
+
+    public function delivery_notify_user(Request $request)
+    {
+        // var_dump($request->all());
+        try {
+            store_notif($request->customer_id, $request->message ? $request->message : "Something wrong in your transactions! Please check your transactions", $request->type, $request->transaction_id);
+            return redirect()->back()->with('result', ['success', 'Notifikasi sudah dikirim!']);
         } catch (Exception $ex) {
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
         }

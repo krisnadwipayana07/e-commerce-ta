@@ -51,10 +51,18 @@
     <h6 class="font-weight-bold">Tanggal Transaksi</h6>{{ $data->created_at }}
 </div>
 
-@if ($data->category_payment->name == 'Kredit' || ($data->category_payment->name == 'Credit' && $data->due_date))
+@if (($data->category_payment->name == 'Kredit' || $data->category_payment->name == 'Credit') && $data->due_date)
     @if ($data->is_dp_paid == 0 && $data->status == 'in_progress')
         <div class="border-bottom py-3">
             <h6 class="font-weight-bold">Batas Pembayaran DP</h6>{{ $data->due_date }}
+        </div>
+    @elseif ($data->status == 'in_progress' || $data->status == 'non_active')
+        <div class="border-bottom py-3">
+            <h6 class="font-weight-bold">Remaining Installment</h6>
+            {{ $data->credit_period - $data->total_phase }}
+        </div>
+        <div class="border-bottom py-3">
+            <h6 class="font-weight-bold">Batas Pembayaran Cicilan Bulan ini</h6>{{ $data->due_date }}
         </div>
     @endif
 @elseif ($isTransfer && $data->due_date)
@@ -272,43 +280,73 @@
     </form>
 </div>
 <div class="row">
-    @if ($data->status != 'reject')
-        @if ($data->status === 'pending')
-            <div class="col-md-2">
-                @php
-                    $stt = 'in_progress';
-                @endphp
+    @if ($data->status === 'pending')
+        <div class="col-md-2">
+            @php
+                $stt = 'in_progress';
+            @endphp
 
-                <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
+            <form method="POST" action="{{ route('admin.evidence_payment.approve', $data->id) }}">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="status" value="{{ $stt }}">
+                <div class="border-bottom py-3">
+                    <button type="submit" class="btn btn-success"><i
+                            class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
+                @csrf
+                @method('DELETE')
+                <div class="border-bottom py-3">
+                    <button type="submit" class="btn btn-danger"><i
+                            class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
+                </div>
+            </form>
+        </div>
+    @endif
+
+</div>
+<div class="row">
+    @if ($data->category_payment->name == 'Kredit' || $data->category_payment->name == 'Credit')
+        @if ($data->is_dp_paid == 0 && $data->status == 'in_progress')
+            <div class="col-md-2">
+                <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
                     @csrf
-                    @method('PUT')
+                    @method('DELETE')
+                    <div class="border-bottom py-3">
+                        <button type="submit" class="btn btn-danger"><i
+                                class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
+                    </div>
+                </form>
+            </div>
+        @elseif ($data->status == 'in_progress')
+            <div class="col-md-2">
+                <form method="POST" action="{{ route('admin.evidence_payment.update.status', $data->id) }}">
+                    @csrf
+                    @php
+                        $stt = 'non_active';
+                    @endphp
+                    <input type="hidden" name="status" value="{{ $stt }}">
+                    <div class="border-bottom py-3">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-paper-plane me-1"></i>Non
+                            Aktif</button>
+                    </div>
+                </form>
+            </div>
+        @elseif ($data->status == 'non_active')
+            <div class="col-md-3">
+                <form method="POST" action="{{ route('admin.evidence_payment.update.status', $data->id) }}">
+                    @csrf
+                    @php
+                        $stt = 'in_progress';
+                    @endphp
                     <input type="hidden" name="status" value="{{ $stt }}">
                     <div class="border-bottom py-3">
                         <button type="submit" class="btn btn-success"><i
-                                class="fa fa-fw fa-paper-plane me-1"></i>Terima</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-2">
-                <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <div class="border-bottom py-3">
-                        <button type="submit" class="btn btn-danger"><i
-                                class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
-                    </div>
-                </form>
-            </div>
-        @elseif (
-            $data->category_payment->name == 'Kredit' ||
-                ($data->category_payment->name == 'Credit' && $data->is_dp_paid == 0 && $data->status === 'is_progress'))
-            <div class="col-md-2">
-                <form method="POST" action="{{ route('admin.evidence_payment.reject', $data->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <div class="border-bottom py-3">
-                        <button type="submit" class="btn btn-danger"><i
-                                class="fa fa-fw fa-paper-plane me-1"></i>Tolak</button>
+                                class="fa fa-fw fa-paper-plane me-1"></i>Aktifkan Kembali</button>
                     </div>
                 </form>
             </div>

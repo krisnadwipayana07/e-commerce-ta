@@ -21,10 +21,11 @@ use Yajra\DataTables\Facades\DataTables;
 class TransactionController extends Controller
 {
     protected $showed_status = [
-        "in_progress" => "approved",
+        "non_active" => "non active",
+        "in_progress" => "active",
         "reject" => "reject",
         "pending" => "pending",
-        'paid' => "approved"
+        'paid' => "paid"
     ];
     public function index(Request $request)
     {
@@ -284,7 +285,7 @@ class TransactionController extends Controller
                     'stock' => $property->stock - $transactionDetail->qty
                 ]);
             }
-            // Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_IN_TRANSIT);
+            Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_ORDER_RECEIVED);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index')->with('result', ['success', 'Approve transaction']);
         } catch (Exception $ex) {
@@ -315,6 +316,20 @@ class TransactionController extends Controller
             Delivery::make($transaction->customer_id, $transaction->id, Delivery::STATUS_REJECTED);
             DB::commit();
             return redirect()->route('admin.evidence_payment.index');
+        } catch (Exception $ex) {
+            DB::rollback();
+            return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);
+        }
+    }
+    public function evidence_payment_update_status(Transaction $transaction, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $transaction->update([
+                'status' => $request->status
+            ]);
+            DB::commit();
+            return redirect()->route('admin.evidence_payment.index')->with('result', ['success', 'Status ' . $request->status . " pada transaksi berhasil diubah"]);
         } catch (Exception $ex) {
             DB::rollback();
             return redirect()->back()->with('result', ['error', 'Something error: ' . $ex]);

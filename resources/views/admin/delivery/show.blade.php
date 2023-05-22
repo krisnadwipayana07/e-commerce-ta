@@ -105,8 +105,8 @@
                 <label for="customerReply" class="form-label">Customer</label>
                 <input type="text" id="customerReply" class="form-control" placeholder="Disabled input" value="{{ $notif->reply }}">
             </div>
-            <div>{{ $notif->message }} </div>
-            <div> Balasan : {{ $notif->reply }} </div>
+            {{-- <div>{{ $notif->message }} </div>
+            <div> Balasan : {{ $notif->reply }} </div> --}}
         </div>
     @endforeach
 </div>

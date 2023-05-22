@@ -98,7 +98,7 @@ class CheckoutController extends Controller
                     "latitude" => $request->lat,
                     "longitude" => $request->lng,
                 ]);
-                $notif = store_notif($customer->id, "Pembelian barang sukses. Lakukan pembayaran saat barang sudah sampai", "Transaction");
+                $notif = store_notif($customer->id, "Pembelian barang sukses. Lakukan pembayaran saat barang sudah sampai, cek status pesanan pada riwayat transaksi", "Transaction");
                 $redirect = redirect()->route('landing.index')->with('result', ['success', 'Success melakukan pembelian barang']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
@@ -347,8 +347,9 @@ class CheckoutController extends Controller
                     "latitude" => $request->lat,
                     "longitude" => $request->lng
                 ]);
-                $notif = store_notif($customer->id, "Pembelian tunai yang sukses. Lakukan pembayaran saat barang sudah sampai", "Transaction");
-                $redirect = redirect()->route('landing.index')->with('result', ['success', 'Lakukan pembayaran saat barang sudah sampai']);
+                $notif = store_notif($customer->id, "Pembelian tunai yang sukses. Lakukan pembayaran saat barang sudah sampai, cek status pesanan pada riwayat transaksi
+                ", "Transaction");
+                $redirect = redirect()->route('landing.index')->with('result', ['success', 'Lakukan pembayaran saat barang sudah sampai, cek status pesanan pada riwayat transaksi']);
             } else if ($payment->name == "Kredit" || $payment->name == "Credit") {
                 $total_credit = 0;
                 $transactionOnProgress = Transaction::where("customer_id", $customer->id)->where("status", "on_progress")->get();

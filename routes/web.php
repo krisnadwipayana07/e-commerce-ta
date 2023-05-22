@@ -29,7 +29,7 @@ Route::get('/product/detail/{property}', 'LandingController@detail')->name('land
 
 // AUTH
 Route::namespace('Auth')->prefix('secure/auth/')->name('auth.')->group(function () {
-    // REGISTER
+    // REGISTER 
     Route::prefix('register/')->name('register.')->group(function () {
         Route::get('/admin', 'RegisterController@form_admin')->name('form_admin');
         Route::post('/admin', 'RegisterController@register_admin')->name('register_admin');

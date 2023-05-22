@@ -102,7 +102,7 @@
                             <div id="map" class="my-3 @error('name') border border-danger @enderror"
                                 style="height: 280px;">
                             </div>
-                            <small style="color: red;">*Wajib mengisikan koordinat pada peta</small>
+                            <small style="color: red;">*Wajib mengisikan titik koordinat pada peta</small>
                             <input type="hidden" id="latitude" name="lat" required>
                             <input type="hidden" id="longitude" name="lng" required>
                             @error('lat')

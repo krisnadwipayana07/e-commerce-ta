@@ -94,7 +94,7 @@
     </form>
     @foreach ($notifications as $idx => $notif)
         @if ($idx === 0)
-            <h5 class="text-center">Notifikasi</h5>
+            <h5 class="text-center">Reply Message</h5>
         @endif
         <div class="my-2">
             <div class="mb-3">

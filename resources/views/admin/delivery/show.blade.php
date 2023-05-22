@@ -92,15 +92,18 @@
             <button type="submit" class="btn btn-primary">Kirim Pesan Notifikasi</button>
         </div>
     </form>
-    @foreach ($notifications as $notif)
+    @foreach ($notifications as $idx => $notif)
+        @if ($idx === 0)
+            <h5 class="text-center">Notifikasi</h5>
+        @endif
         <div class="my-2">
             <div class="mb-3">
-                <label for="adminMessage" class="form-label">Admin</label>
-                <input type="text" id="adminMessage" class="form-control" placeholder="Disabled input" value="{{ $notif->message }}">
+                <p class="font-weight-bold text-sm-left">Admin</p>
+                <p class="font-weight-normal">{{ $notif->message }}</p>
             </div>
             <div class="mb-3">
-                <label for="customerReply" class="form-label">Admin</label>
-                <input type="text" id="customerReply" class="form-control" placeholder="Disabled input" value="{{ $notif->reply }}">
+                <p class="font-weight-bold text-sm-left">Customer</p>
+                <p class="font-weight-normal">{{ $notif->reply }}</p>
             </div>
             {{-- <div>{{ $notif->message }} </div>
             <div> Balasan : {{ $notif->reply }} </div> --}}

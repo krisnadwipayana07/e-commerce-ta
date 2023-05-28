@@ -2,12 +2,12 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-heading">Delivery</li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.delivery.index') }}">
                 <i class="ri-truck-line"></i><span>Delivery</span>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.evidence.index' ? '' : 'collapsed' }}"
                 href="{{ route('admin.delivery.evidence.index') }}">

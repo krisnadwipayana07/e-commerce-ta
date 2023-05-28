@@ -98,12 +98,34 @@
 
     {{-- ! ini mengatur sidebar admin --}}
     <!-- ======= Sidebar ======= -->
-    @if (auth()->guard('admin')->check())
+    {{-- @if (auth()->guard('admin')->check())
         @if (auth()->guard('admin')->user()->role == 'SUPERADMIN')
             @include('admin.components.superadmin_sidebar')
         @else
             @include('admin.components.admin_sidebar')
         @endif
+    @endif --}}
+    @if (auth()->guard('admin')->check())
+        @switch(auth()->guard('admin')->user()->role)
+            @case('SUPERADMIN')
+                @include('admin.components.superadmin_sidebar')
+            @break
+
+            @case('ADMIN')
+                @include('admin.components.admin_sidebar')
+            @break
+
+            @case('ANALYS')
+                @include('admin.components.analys_sidebar')
+            @break
+
+            @case('DELIVERY')
+                @include('admin.components.delivery_sidebar')
+            @break
+
+            @default
+                @include('admin.components.admin_sidebar')
+        @endswitch
     @endif
 
     <!-- End Sidebar-->

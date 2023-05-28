@@ -329,7 +329,7 @@ function returnStatus($key = 'showall')
 
 function returnAdminRole($key = 'showall')
 {
-    $arr = ['SUPERADMIN' => 'SUPER ADMIN', 'ADMIN' => 'ADMIN'];
+    $arr = ['SUPERADMIN' => 'SUPER ADMIN', 'ADMIN' => 'ADMIN', 'ANALYS' => 'ANALIS', 'DELIVERY' => 'DELIVERY'];
     if ($key == 'showall') {
         return $arr;
     }

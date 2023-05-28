@@ -84,7 +84,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://wa.me/6282145105606">Hubungi Kami</a>
+                                        <a class="nav-link" href="https://linktr.ee/krisnawijaksana">Hubungi Kami</a>
                                     </li>
                                 </ul>
                             </div>

@@ -20,7 +20,7 @@
     <!-- Responsive-->
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <!-- fevicon -->
-    <link rel="icon" href="{{ '1.jpg' }}" />
+    <link rel="icon" href="{{ 'favicon.ico' }}" />
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css') }}">
     <!-- Tweaks for older IEs-->
@@ -52,7 +52,7 @@
 
     @include('result')
     <!-- end header inner -->
-    
+
     @yield('sidebar')
 
     @yield('content')
@@ -61,7 +61,8 @@
     @include('landing.footer')
     <!-- end footer -->
     <!-- Javascript files-->
-    <div class="modal fade" id="penuliskode-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="penuliskode-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">

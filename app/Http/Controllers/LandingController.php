@@ -21,7 +21,7 @@ class LandingController extends Controller
         // $page = $request['page'];
         $property = Property::when($isKeyword, function ($query) use ($keyword) {
             $query->where('name', 'LIKE', "%{$keyword}%");
-        })->simplePaginate(10);
+        })->orderBy('stock', 'desc')->simplePaginate(25);
         // return view('landing.index');
         return view('landing.home', [
             'property' => $property,
@@ -36,16 +36,16 @@ class LandingController extends Controller
         $isKeyword = $request->keyword != null && $request->keyword != "";
         $keyword = $request->keyword;
         $property = Property::join('sub_category_properties as scp', 'properties.sub_category_property_id', 'scp.id')
-                    ->join('category_properties as cp', 'scp.category_property_id', 'cp.id')
-                    ->where('cp.id', $id)
-                    ->when($isKeyword, function ($query) use ($keyword) {
-                        $query->where('properties.name', 'LIKE', "%{$keyword}%");
-                    })
-                    ->when($sub_category <> "", function ($query) use ($sub_category) {
-                        $query->where('scp.id', $sub_category);
-                    })
-                    ->select(['properties.*','scp.name as sub_name','scp.category_property_id as sub_id'])
-                    ->get();
+            ->join('category_properties as cp', 'scp.category_property_id', 'cp.id')
+            ->where('cp.id', $id)
+            ->when($isKeyword, function ($query) use ($keyword) {
+                $query->where('properties.name', 'LIKE', "%{$keyword}%");
+            })
+            ->when($sub_category <> "", function ($query) use ($sub_category) {
+                $query->where('scp.id', $sub_category);
+            })
+            ->select(['properties.*', 'scp.name as sub_name', 'scp.category_property_id as sub_id'])
+            ->get();
         $count = $property->count();
         $thisCategory = CategoryProperty::find($id);
         $subCategory = SubCategoryProperty::where("category_property_id", $id)->get();

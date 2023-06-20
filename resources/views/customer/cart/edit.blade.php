@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Edit Cart</h2>
+                        <h2>Edit Keranjang Belanja</h2>
                     </div>
                 </div>
             </div>

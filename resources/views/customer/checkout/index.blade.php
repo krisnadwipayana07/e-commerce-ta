@@ -408,7 +408,7 @@
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
                                 Semua informasi dalam formulir ini adalah lengka dan benar. Dengan mengisi formulir ini,
-                                Saya memnerikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua data dengan cara
+                                Saya memberikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua data dengan cara
                                 bagaimanapun yang layak menurut BALI ARTHA JAYA.
                             </label>
                         </div>

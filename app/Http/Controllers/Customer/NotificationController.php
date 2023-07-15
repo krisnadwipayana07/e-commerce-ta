@@ -40,7 +40,7 @@ class NotificationController extends Controller
         'paid' => 'LUNAS',
         'non_active' => "Tidak Aktif",
         'in_progress' => 'DATA PENGAJUAN KREDIT DITERIMA',
-        'pending' => 'Data Sedang Pengajuan Kredit Diperiksa',
+        'pending' => 'Data Pengajuan Kredit Sedang Diperiksa',
         'reject' => 'Ditolak'
     ];
     protected $buttons = [
@@ -443,7 +443,7 @@ class NotificationController extends Controller
                     "rekening_book_image" => $rekening_book_image_name
                 ]);
                 store_notif($customer->id, "Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya", 'Transaksi');
-                $redirect = redirect()->route('customer.notification.index')->with('result', ['Success', 'Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya']);
+                $redirect = redirect()->route('customer.notification.index')->with('result', ['success', 'Data Kredit berhasil diupdate, mohon di cek untuk lebih detailnya']);
             } else {
                 $due_date = Carbon::now()->addDay();
                 $transaction->update([

@@ -4,7 +4,7 @@
             <div class="row text-left">
                 <div class="col-md-6">
                     <h3>INFORMASI </h3>
-                    <p>Tempat Beli Barang Murah Dan Berkualitas Hanya Di BAJ</p>
+                    <p>Menjual Segala Kebutuhan Rumah Tangga Anda !</p>
                 </div>
                 <div class="col-md-6">
                     <h3>HUBUNGI KAMI</h3>

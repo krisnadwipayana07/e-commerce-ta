@@ -7,7 +7,7 @@
                 <div class="col-md-8">
                     <div class="text-bg">
                         <h1> <span class="blodark"> Bali Artha Jaya </h1>
-                        <p>Tempat Beli Barang Murah Dan Berkualitas Hanya Di BAJ</p>
+                        <p>Tempat Beli Barang Murah dan Berkualitas</p>
                     </div>
                 </div>
                 {{--

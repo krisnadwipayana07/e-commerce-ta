@@ -25,11 +25,14 @@ use Illuminate\Support\Str;
 class CheckoutController extends Controller
 {
     protected $category_product;
+    protected $list_province = [
+        "Aceh", "Bali", "Banten", "Bengkulu", "Gorontalo", "Irian Jaya Barat", "Jakarta Raya", "Jambi", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Kalimantan Barat", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Timur", "Kepulauan Bangka Belitung", "Kepulauan Riau", "Lampung", "Maluku", "Maluku Utara", "Nusa Tenggara Barat", "Nusa Tenggara Timur", "Papua", "Riau", "Sulawesi Barat", "Sulawesi Selatan", "Sulawesi Tengah", "Sulawesi Tenggara", "Sulawesi Utara", "Sumatera Barat", "Sumatera Selatan", "Sumatera Utara", "Yogyakarta"
+    ];
     public function __construct()
     {
         $this->category_product = CategoryProperty::where('status', 'active')->get();
     }
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -40,7 +43,8 @@ class CheckoutController extends Controller
         $carts = Cart::where('user_id', $user->id)->get();
         $payments = CategoryPayment::all();
         $header_category = $this->category_product;
-        return view('customer.checkout.index', compact('carts', 'header_category', 'payments'));
+        $list_province = $this->list_province;
+        return view('customer.checkout.index', compact('carts', 'header_category', 'payments', 'list_province'));
     }
 
     /**

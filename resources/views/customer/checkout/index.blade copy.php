@@ -472,6 +472,10 @@
             var html = $(".total_field_temp").html();
             // window.console&&console.log(credit_period);
 
+            if (payment == "Kredit" || payment == "Credit") {
+
+            }
+
             if(val.trim() == "Bali"){
                 delivery_fee = 10000;
             } else if(val.trim() == ""){
@@ -479,11 +483,8 @@
             } else {
                 delivery_fee = 20000;
             }
-            
+
             var n_total = total + delivery_fee;
-            if (payment == "Kredit" || payment == "Credit") {
-                var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
-            }
             
             html = "<input name='total' value=" + n_total + ">";
             html += "<input name='delivery_fee' value=" + delivery_fee + ">";
@@ -503,21 +504,11 @@
             var credit_p = 3;
             $(".credit_period").val(3).change();
             var total = parseInt($("#total_payment").val());
-            var delivery_fee = 0;
+            var delivery_fee = parseInt($("#delivery_fee").val());
             var html = $(".total_field_temp").html();
             var bunga = 1 / 100;
-            var n_total = total + (total * bunga) + delivery_fee;
+            var n_total = total + (total * bunga);
             var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
-
-            var province = $('#province').find(":selected").val().trim();
-
-            if(province == "Bali"){
-                delivery_fee = 10000;
-            } else if(province == ""){
-                delivery_fee = 0;
-            } else {
-                delivery_fee = 20000;
-            }
 
             html = "<input name='total' value=" + n_total + ">";
             html += "<input name='delivery_fee' value=" + delivery_fee + ">";

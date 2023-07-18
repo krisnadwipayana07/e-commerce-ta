@@ -56,51 +56,51 @@
                 <i class="ri-wallet-line"></i><span>Pembayaran Pelanggan</span>
             </a>
         </li>
-        <li class="nav-heading">Pembayaran Kredit</li>
+        <li class="nav-heading">Submission Credit</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.dp.payment.index' ? '' : 'collapsed' }}" href="{{ route('admin.submission.dp.payment.index') }}">
-                <i class="ri-wallet-line"></i><span>Pembayaran Uang Muka (DP)</span>
+                <i class="ri-wallet-line"></i><span>Submission Down Payment</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.credit.payment.index' ? '' : 'collapsed' }}" href="{{ route('admin.submission.credit.payment.index') }}">
-                <i class="ri-wallet-line"></i><span>Pembayaran Angsuran Kredit</span>
+                <i class="ri-wallet-line"></i><span>Submission Credit Payment</span>
             </a>
         </li>
-        <li class="nav-heading">Pembayaran Transfer</li>
+        <li class="nav-heading">Submission Transfer</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission.transfer.payment.index' ? '' : 'collapsed' }}" href="{{ route('admin.submission.transfer.payment.index') }}">
-                <i class="ri-wallet-line"></i><span>Pembayaran Transfer Bank</span>
+                <i class="ri-wallet-line"></i><span>Submission Transfer Payment</span>
             </a>
         </li>
-        <li class="nav-heading">Pengiriman</li>
+        <li class="nav-heading">Delivery</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.index' ? '' : 'collapsed' }}" href="{{ route('admin.delivery.index') }}">
-                <i class="ri-truck-line"></i><span>Pengiriman</span>
+                <i class="ri-truck-line"></i><span>Delivery</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.delivery.evidence.index' ? '' : 'collapsed' }}" href="{{ route('admin.delivery.evidence.index') }}">
-                <i class="ri-truck-line"></i><span>Bukti Pengiriman</span>
+                <i class="ri-truck-line"></i><span>Submission Delivery Arrived</span>
             </a>
         </li>
-        <li class="nav-heading">Laporan Penjualan</li>
+        <li class="nav-heading">Sales Report</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.sales.report.index' ? '' : 'collapsed' }}" href="{{ route('admin.sales.report.index') }}">
-                <i class="ri-wallet-line"></i><span>Laporan Penjualan</span>
+                <i class="ri-wallet-line"></i><span>Sales Report</span>
             </a>
         </li>
-        <li class="nav-heading">Pengajuan Pelanggan Premium</li>
+        <li class="nav-heading">Submission Premium Customer</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.submission_premium.index' ? '' : 'collapsed' }}" href="{{ route('admin.submission_premium.index') }}">
-                <i class="ri-wallet-line"></i><span>Pengajuan Pelanggan Premium</span>
+                <i class="ri-wallet-line"></i><span>Submission Premium Customer</span>
             </a>
         </li>
 
         <li class="nav-heading">Users</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.customer.index' || Route::current()->getName() == 'admin.customer.edit' ? '' : 'collapsed' }}" href="{{ route('admin.customer.index') }}">
-                <i class="ri-user-heart-line"></i><span>Pelanggan</span>
+                <i class="ri-user-heart-line"></i><span>Customer</span>
             </a>
         </li>
         <li class="nav-item">
@@ -110,7 +110,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link {{ Route::current()->getName() == 'admin.admin.edit' ? '' : 'collapsed' }}" href="{{ route('admin.admin.edit',auth()->guard('admin')->user()->id) }}">
-                <i class="ri-user-settings-line"></i><span>Profil</span>
+                <i class="ri-user-settings-line"></i><span>Profile</span>
             </a>
         </li>
     </ul>

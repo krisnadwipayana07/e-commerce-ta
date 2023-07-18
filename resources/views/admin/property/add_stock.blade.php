@@ -1,27 +1,27 @@
 @extends('layouts.admin')
 
 @section('page-title')
-    Property Page
+Halaman Barang
 @endsection
 
 @section('page-parent-route')
-    Property
+Barang
 @endsection
 
 @section('page-active-route')
-    Tambah Stock
+Tambah Stok
 @endsection
 
 @section('page-back-button')
-    <a href="{{ route('admin.property.index') }}" class="my-2 btn btn-secondary btn-sm"><i class="ri-arrow-left-circle-line"></i> Back</a>
+<a href="{{ route('admin.property.index') }}" class="my-2 btn btn-secondary btn-sm"><i class="ri-arrow-left-circle-line"></i> Back</a>
 @endsection
 
 @section('page-content-title')
-    Tambah Stock Property
+Tambah Stock Property
 @endsection
 
 @section('page-desc')
-    Page to edit property data
+Halaman untuk mengubah Barang Data
 @endsection
 
 @section('page-content-body')
@@ -33,7 +33,7 @@
             <div class="row mb-3">
                 <div class="col-md">
                     <div class="form-group">
-                        <label>Stock</label>
+                        <label>Stok</label>
                         <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="0" min="0">
                         @error('stock')<small class="invalid-feedback">{{ $message }}</small>@enderror
                     </div>
@@ -41,10 +41,9 @@
             </div>
             <div class="text-end my-3">
                 <button type="reset" class="btn btn-danger"><i class="fa fa-fw fa-undo me-1"></i>Reset</button>
-                <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Submit</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-paper-plane me-1"></i>Kirim</button>
             </div>
         </form>
     </div>
 </div>
 @endsection
-

@@ -95,6 +95,7 @@ class CheckoutController extends Controller
                     'recipient_name' => $request->recipient_name,
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
+                    'delivery_fee' => $request->delivery_fee,
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,

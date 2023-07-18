@@ -83,6 +83,7 @@ class CheckoutController extends Controller
         );
         DB::beginTransaction();
         try {
+            dump($request->delivery_fee);
             $customer = Auth::guard('customer')->user();
             $transaction = Transaction::where('customer_id', $customer->id)->withTrashed()->get()->count();
             $code = "TRX-" . strval($transaction + 1) . "-CS-" . $customer->id;
@@ -126,6 +127,7 @@ class CheckoutController extends Controller
                     'recipient_name' => $request->recipient_name,
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
+                    'delivery_fee' => $request->delivery_fee,
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
@@ -242,6 +244,7 @@ class CheckoutController extends Controller
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
                     // 'img' => $img_name,
+                    'delivery_fee' => $request->delivery_fee,
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
@@ -294,8 +297,9 @@ class CheckoutController extends Controller
         $property = Property::where('id', $request->property_id)->first();
         $quantity = $request->quantity;
         $payments = CategoryPayment::all();
+        $list_province = $this->list_province;
         $header_category = $this->category_product;
-        return view('customer.checkout.single_index', compact('property', 'header_category', 'payments', 'quantity'));
+        return view('customer.checkout.single_index', compact('property', 'header_category', 'payments', 'quantity', 'list_province'));
     }
 
     public function single_store(Request $request)
@@ -345,6 +349,7 @@ class CheckoutController extends Controller
                     'recipient_name' => $request->recipient_name,
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
+                    'delivery_fee' => $request->delivery_fee,
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
@@ -376,6 +381,7 @@ class CheckoutController extends Controller
                     'recipient_name' => $request->recipient_name,
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
+                    'delivery_fee' => $request->delivery_fee,
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,
@@ -490,6 +496,7 @@ class CheckoutController extends Controller
                     'deliver_to' => $request->deliver_to,
                     'account_number' => $request->account_number,
                     // 'img' => $img_name,
+                    'delivery_fee' => $request->delivery_fee,
                     'total_payment' => $request->total,
                     'customer_id' => $customer->id,
                     'admin_id' => $admin[0]->id,

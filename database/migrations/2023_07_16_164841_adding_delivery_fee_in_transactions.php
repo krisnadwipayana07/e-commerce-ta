@@ -14,7 +14,7 @@ class AddingDeliveryFeeInTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->unsignedBigInteger("delivery_fee")->after("total_phase");
+            $table->unsignedBigInteger("delivery_fee")->after("total_phase")->nullable();
         });
     }
 

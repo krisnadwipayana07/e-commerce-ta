@@ -1,11 +1,9 @@
 @extends('landing.landing')
 
 @section('inject-head')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 @endsection
 
 @section('content')
@@ -402,7 +400,7 @@
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
                                 Semua informasi dalam formulir ini adalah lengka dan benar. Dengan mengisi formulir ini,
-                                Saya memberikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua data dengan cara
+                                Saya memnerikan kuasa kepada BALI ARTHA JAYA untuk memeriksa semua data dengan cara
                                 bagaimanapun yang layak menurut BALI ARTHA JAYA.
                             </label>
                         </div>
@@ -412,20 +410,58 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="total_payment" value="{{ $total }}">
     <div class="total_field_temp" style="display: none;">
-        {{-- <label>Total:</label> --}}
-        <input type="hidden" name="total" value="{{ $total }}">
-        {{-- <br><b>{{ format_rupiah($total) }}</b> --}}
+        <input id="delivery_fee" name="delivery_fee" value="{{ $delivery_fee }}">
+        <input id="total_payment" name="total" value="{{ $total }}">
     </div>
     <!-- end news section -->
-@endsection
+    @endsection
 
-@section('page-js')
+    @section('page-js')
     <script>
         $(document).ready(function() {
             $('.evidence_payment').hide();
             $('.credit_period').hide();
+        });
+
+        $('#province').on('change', function() {
+            var val = $(this).find(":selected").val();
+            var IDRConvert = new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR"
+            })
+            var payment = $('#payment').find(":selected").text().trim();
+            var credit_period = $('#credit_period').find(":selected").val();
+            var delivery_fee = parseInt($("#delivery_fee").val());
+            var total = parseInt($("#total_payment").val());
+            var totalShow = $(".total_show_temp").html();
+            var html = $(".total_field_temp").html();
+            // window.console&&console.log(credit_period);
+
+            if (val.trim() == "Bali") {
+                delivery_fee = 30000;
+            } else if (val.trim() == "") {
+                delivery_fee = 0;
+            } else {
+                delivery_fee = 50000;
+            }
+
+            var n_total = total + delivery_fee;
+            if (payment == "Kredit" || payment == "Credit") {
+                var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
+            }
+
+            html = "<input name='total' value=" + n_total + ">";
+            html += "<input name='delivery_fee' value=" + delivery_fee + ">";
+
+            n_total = IDRConvert.format(n_total);
+            delivery_fee = IDRConvert.format(delivery_fee);
+
+            totalShow = "<p class='fw-bold'> :" + delivery_fee + " </p>"
+            totalShow += "<p class='fw-bold'> :" + n_total + " </p>"
+
+            $('.total_show').html(totalShow);
+            $('.total_field').html(html);
         });
 
         $('#payment').on('change', function() {
@@ -433,14 +469,28 @@
             var credit_p = 3;
             $(".credit_period").val(3).change();
             var total = parseInt($("#total_payment").val());
+            var delivery_fee = 0;
             var html = $(".total_field_temp").html();
             var bunga = 1 / 100;
-            var n_total = total + (total * bunga);
+            var n_total = total + (total * bunga) + delivery_fee;
             var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
+
+            var province = $('#province').find(":selected").val().trim();
+
+            if (province == "Bali") {
+                delivery_fee = 30000;
+            } else if (province == "") {
+                delivery_fee = 0;
+            } else {
+                delivery_fee = 50000;
+            }
+
+            html = "<input name='total' value=" + n_total + ">";
+            html += "<input name='delivery_fee' value=" + delivery_fee + ">";
+
             if (val.trim() == "Cash" || val.trim == "Cash On Delivery") {
                 $('.evidence_payment').hide();
                 $('.credit_period').hide();
-                $('.total_field').html(html);
                 if ($('#btn-submit').hasClass('disabled')) {
                     $('#btn-submit').removeClass('disabled');
                 }
@@ -449,23 +499,25 @@
                 $('.credit_period').show();
                 $('#btn-submit').addClass("disabled");
                 $('#checkbox-agree').attr('checked', false);
-                html += "<input type='hidden' name='total' value=" + n_total + ">";
-                html += "<input type='hidden' name='down_payment' value=" + (dp) + ">";
-                html += "<input type='hidden' name='payment_credit' value=" + ((n_total - dp) / 3) + ">";
-                $('.total_field').html(html);
+                html += "<input name='down_payment' value=" + (dp) + ">";
+                html += "<input name='payment_credit' value=" + ((n_total - dp) / 3) + ">";
             } else {
                 $('.evidence_payment').hide();
                 $('.credit_period').hide();
-                $('.total_field').html(html);
                 if ($('#btn-submit').hasClass('disabled')) {
                     $('#btn-submit').removeClass('disabled');
                 }
             }
+            window.console && console.log(credit_period);
+            $('.total_field').html(html);
         });
 
         $('#credit_period').on('change', function() {
             var val = $(this).find(":selected").val();
             var total = parseInt($("#total_payment").val());
+            var delivery_fee = 0;
+            var province = $('#province').find(":selected").val().trim();
+
             var html = $(".total_field_temp").html();
             var bunga = 1 / 100;
             if (val == 6) {
@@ -474,41 +526,29 @@
             if (val == 12) {
                 bunga = 2.5 / 100;
             }
-            var n_total = total + (total * bunga);
-            var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
-            html += "<input type='hidden' name='total' value=" + n_total + ">";
-            html += "<input type='hidden' name='down_payment' value=" + (dp) + ">";
-            html += "<input type='hidden' name='payment_credit' value=" + ((n_total - dp) / val) + ">";
-            $('.total_field').html(html);
 
-        });
-
-        $('#checkbox-agree').on('click', function() {
-            var inputs = $(".credit_period_input");
-            var check = true;
-            for (var i = 0; i < inputs.length; i++) {
-                if ($(inputs[i]).val() == "" || $(inputs[i]).val() == null) {
-                    check = false;
-                }
-            }
-            if (check == false) {
-                alert("Lengkapi data terlebih dahulu");
-                $('#checkbox-agree').removeAttr('checked');
-                if (!$('#btn-submit').hasClass('disabled')) {
-                    $('#btn-submit').addClass('disabled');
-                }
+            if (province == "Bali") {
+                delivery_fee = 30000;
+            } else if (province == "") {
+                delivery_fee = 0;
             } else {
-                if ($('#btn-submit').hasClass('disabled')) {
-                    $('#btn-submit').removeClass('disabled');
-                }
+                delivery_fee = 50000;
             }
+            var n_total = total + (total * bunga) + delivery_fee;
+            var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
+
+            html = "<input name='total' value=" + n_total + ">";
+            html += "<input name='delivery_fee' value=" + delivery_fee + ">";
+            html += "<input name='down_payment' value=" + (dp) + ">";
+            html += "<input name='payment_credit' value=" + ((n_total - dp) / val) + ">";
+
+            $('.total_field').html(html);
         });
 
         $(".credit_period_input").on('change', function() {
             $('#checkbox-agree').removeAttr('checked');
         })
-
-        $('#checkbox-agree').on('change', function() {
+        $('#checkbox-agree').on('click', function() {
             var inputs = $(".credit_period_input");
             var check = true;
             for (var i = 0; i < inputs.length; i++) {
@@ -575,4 +615,5 @@
             displayedMarker = L.marker([latitude, longitude]).addTo(map);
         });
     </script>
-@endsection
+    </script>
+    @endsection

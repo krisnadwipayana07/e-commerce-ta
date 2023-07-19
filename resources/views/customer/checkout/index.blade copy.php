@@ -1,31 +1,33 @@
 @extends('landing.landing')
 
 @section('inject-head')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-<!-- Make sure you put this AFTER Leaflet's CSS -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 @endsection
 
 @section('content')
-<div class="news">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="titlepage">
-                    <h2>Produk</h2>
+    <div class="news">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Produk</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        @php
-        $delivery_fee = 0;
-        $total = 0;
-        @endphp
-        <div class="row">
-            <div class="col-md-12 margin_top40">
-                @foreach ($carts as $cart)
-                <div class="row">
-                    <div class="col-md-2">
-                        {{--
+            @php
+                $delivery_fee = 0;
+                $total = 0;
+            @endphp
+            <div class="row">
+                <div class="col-md-12 margin_top40">
+                    @foreach ($carts as $cart)
+                        <div class="row">
+                            <div class="col-md-2">
+                                {{-- 
                             <div class="align-middle">
                                 <input type="checkbox" class="checkbox" id="checkbox{{ $cart->id }}" value="{{ $cart->id }}">
                             </div>
@@ -68,7 +70,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
                     <form action="{{ route('customer.checkout.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -90,12 +91,26 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Provinsi</label>
+                            <select name="province"
+                                class="select-picker form-control @error('province') is-invalid @enderror"
+                                style="width:100%;" id="province">>
+                                <option value="">--PILIH--</option>
+                                @foreach ($list_province as $province)
+                                    <option value="{{ $province }}"
+                                        {{ old('province') == $province ? 'selected' : '' }}>
+                                        {{ $province }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Nama Penerima</label>
                             <input type="text" name="recipient_name" class="form-control"
                                 value="{{ auth()->guard('customer')->user()->name }}" placeholder="Jawaban Anda">
                         </div>
                         <div class="form-group">
-                            <label>Alamat</label>
+                            <label>Alamat Lengkap</label>
                             <textarea name="deliver_to" id="" cols="30" rows="10" class="form-control"
                                 placeholder="Jawaban Anda">{{ auth()->guard('customer')->user()->address }}</textarea>
                             <div id="map" class="my-3 @error('name') border border-danger @enderror"
@@ -392,17 +407,18 @@
                             <select name="credit_period"
                                 class="select-picker form-control credit_period_input @error('credit_period') is-invalid @enderror credit_period"
                                 id="credit_period" style="width:100%;">
-                                <option value="3" selected class="3months">3 Bulan (Bunga 1%)</option>
+                                <option value="3" class="3months">3 Bulan (Bunga 1%)</option>
                                 <option value="6" class="6months">6 Bulan (Bunga 2%)</option>
                                 <option value="12" class="12months">12 Bulan (Bunga 2,5%)</option>
                             </select>
                             <small style="color: red;">*Pilih Periode Kredit</small>
                         </div>
-                        <div class="form-group total_field">
-                            {{-- <label>Total:</label> --}}
-                            <input type="hidden" name="total" id="total_payment" value="{{ $total }}">
-                            {{-- <br><b>{{ format_rupiah($total) }}</b> --}}
+                        
+                        <div class="form-group total_field" >
+                            <input id="delivery_fee" value="{{ $delivery_fee }}" name="delivery_fee">
+                            <input name="total" id="total_payment" value="{{ $total }}">
                         </div>
+
                         <div class="form-check credit_period">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox-agree">
                             <label class="form-check-label" for="checkbox-agree">
@@ -411,217 +427,207 @@
                                 bagaimanapun yang layak menurut BALI ARTHA JAYA.
                             </label>
                         </div>
+
+                        <div class="titlepage">
+                            <h1> </h1>   
+                        </div>
+
+                        <div class="total_show">
+                            <p class="fw-bold">Ongkos Kirim : {{IDRConvert($delivery_fee)}} </p>
+                            <p class="fw-bold">Total : {{IDRConvert($total)}} </p>
+                        </div>
                         <button type="submit" class="btn btn-block btn-success" id="btn-submit">Kirim</button>
                     </form>
-                </div>
             </div>
         </div>
     </div>
-    <input type="hidden" id="total_payment" value="{{ $total }}">
+
+    <div class="total_show_temp">
+    </div>
     <div class="total_field_temp" style="display: none;">
-        {{-- <label>Total:</label> --}}
-        <input type="hidden" name="total" id="total_payment" value="{{ $total }}">
-        {{-- <br><b>{{ format_rupiah($total) }}</b> --}}
+        <input id="delivery_fee" name="delivery_fee" value="{{ $delivery_fee }}">
+        <input id="total_payment" name="total"  value="{{ $total }}">
     </div>
     <!-- end news section -->
 @endsection
 
 @section('page-js')
-<script>
-    $(document).ready(function() {
-        $('.evidence_payment').hide();
-        $('.credit_period').hide();
-    });
+    <script>
+        $(document).ready(function() {
+            $('.evidence_payment').hide();
+            $('.credit_period').hide();
+        });
 
-    $('#province').on('change', function() {
-        var val = $(this).find(":selected").val();
-        var IDRConvert = new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR"
-        })
-        var payment = $('#payment').find(":selected").text().trim();
-        var credit_period = $('#credit_period').find(":selected").val();
-        var delivery_fee = parseInt($("#delivery_fee").val());
-        var total = parseInt($("#total_payment").val());
-        var totalShow = $(".total_show_temp").html();
-        var html = $(".total_field_temp").html();
-        // window.console&&console.log(credit_period);
+        $('#province').on('change', function () {
+            var val = $(this).find(":selected").val();
+            var IDRConvert = new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR"
+            })
+            var payment = $('#payment').find(":selected").text().trim();
+            var credit_period = $('#credit_period').find(":selected").val();
+            var delivery_fee = parseInt($("#delivery_fee").val());
+            var total = parseInt($("#total_payment").val());
+            var totalShow = $(".total_show_temp").html();
+            var html = $(".total_field_temp").html();
+            // window.console&&console.log(credit_period);
 
-        if (val.trim() == "Bali") {
-            delivery_fee = 30000;
-        } else if (val.trim() == "") {
-            delivery_fee = 0;
-        } else {
-            delivery_fee = 50000;
-        }
+            if (payment == "Kredit" || payment == "Credit") {
 
-        var n_total = total + delivery_fee;
-        if (payment == "Kredit" || payment == "Credit") {
+            }
+
+            if(val.trim() == "Bali"){
+                delivery_fee = 10000;
+            } else if(val.trim() == ""){
+                delivery_fee = 0;
+            } else {
+                delivery_fee = 20000;
+            }
+
+            var n_total = total + delivery_fee;
+            
+            html = "<input name='total' value=" + n_total + ">";
+            html += "<input name='delivery_fee' value=" + delivery_fee + ">";
+
+            n_total = IDRConvert.format(n_total);
+            delivery_fee = IDRConvert.format(delivery_fee);
+
+            totalShow = "<p class='fw-bold'> Ongkos Kirim : "+ delivery_fee +" </p>"
+            totalShow += "<p class='fw-bold'> Total : "+ n_total +" </p>"
+            
+            $('.total_show').html(totalShow);
+            $('.total_field').html(html);
+        });
+
+        $('#payment').on('change', function() {
+            var val = $(this).find(":selected").text();
+            var credit_p = 3;
+            $(".credit_period").val(3).change();
+            var total = parseInt($("#total_payment").val());
+            var delivery_fee = parseInt($("#delivery_fee").val());
+            var html = $(".total_field_temp").html();
+            var bunga = 1 / 100;
+            var n_total = total + (total * bunga);
             var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
-        }
 
-        html = "<input name='total' value=" + n_total + ">";
-        html += "<input name='delivery_fee' value=" + delivery_fee + ">";
-
-        n_total = IDRConvert.format(n_total);
-        delivery_fee = IDRConvert.format(delivery_fee);
-
-        totalShow = "<p class='fw-bold'> :" + delivery_fee + " </p>"
-        totalShow += "<p class='fw-bold'> :" + n_total + " </p>"
-
-        $('.total_show').html(totalShow);
-        $('.total_field').html(html);
-    });
-
-    $('#payment').on('change', function() {
-        var val = $(this).find(":selected").text();
-        var credit_p = 3;
-        $(".credit_period").val(3).change();
-        var total = parseInt($("#total_payment").val());
-        var delivery_fee = 0;
-        var html = $(".total_field_temp").html();
-        var bunga = 1 / 100;
-        var n_total = total + (total * bunga) + delivery_fee;
-        var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
-
-        var province = $('#province').find(":selected").val().trim();
-
-        if (province == "Bali") {
-            delivery_fee = 30000;
-        } else if (province == "") {
-            delivery_fee = 0;
-        } else {
-            delivery_fee = 50000;
-        }
-
-        html = "<input name='total' value=" + n_total + ">";
-        html += "<input name='delivery_fee' value=" + delivery_fee + ">";
-
-        if (val.trim() == "Cash" || val.trim == "Cash On Delivery") {
-            $('.evidence_payment').hide();
-            $('.credit_period').hide();
-            if ($('#btn-submit').hasClass('disabled')) {
-                $('#btn-submit').removeClass('disabled');
+            html = "<input name='total' value=" + n_total + ">";
+            html += "<input name='delivery_fee' value=" + delivery_fee + ">";
+            
+            if (val.trim() == "Cash" || val.trim == "Cash On Delivery") {
+                $('.evidence_payment').hide();
+                $('.credit_period').hide();
+                if ($('#btn-submit').hasClass('disabled')) {
+                    $('#btn-submit').removeClass('disabled');
+                }
+            } else if (val.trim() == 'Kredit' || val.trim() == "Credit") {
+                $('.evidence_payment').hide();
+                $('.credit_period').show();
+                $('#btn-submit').addClass("disabled");
+                $('#checkbox-agree').attr('checked', false);
+                html += "<input name='down_payment' value=" + (dp) + ">";
+                html += "<input name='payment_credit' value=" + ((n_total - dp) / 3) + ">";
+            } else {
+                $('.evidence_payment').hide();
+                $('.credit_period').hide();
+                if ($('#btn-submit').hasClass('disabled')) {
+                    $('#btn-submit').removeClass('disabled');
+                }
             }
-        } else if (val.trim() == 'Kredit' || val.trim() == "Credit") {
-            $('.evidence_payment').hide();
-            $('.credit_period').show();
-            $('#btn-submit').addClass("disabled");
-            $('#checkbox-agree').attr('checked', false);
+            window.console&&console.log(credit_period);
+            $('.total_field').html(html);
+        });
+
+        $('#credit_period').on('change', function() {
+            var val = $(this).find(":selected").val();
+            var total = parseInt($("#total_payment").val());
+            var delivery_fee = parseInt($("#delivery_fee").val());
+            var html = $(".total_field_temp").html();
+            var bunga = 1 / 100;
+            if (val == 6) {
+                bunga = 2 / 100;
+            }
+            if (val == 12) {
+                bunga = 2.5 / 100;
+            }
+            var n_total = total + (total * bunga);
+            var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
+            
+            html = "<input name='total' value=" + n_total + ">";
+            html += "<input name='delivery_fee' value=" + delivery_fee + ">";
             html += "<input name='down_payment' value=" + (dp) + ">";
-            html += "<input name='payment_credit' value=" + ((n_total - dp) / 3) + ">";
-        } else {
-            $('.evidence_payment').hide();
-            $('.credit_period').hide();
-            if ($('#btn-submit').hasClass('disabled')) {
-                $('#btn-submit').removeClass('disabled');
-            }
-        }
-        window.console && console.log(credit_period);
-        $('.total_field').html(html);
-    });
+            html += "<input name='payment_credit' value=" + ((n_total - dp) / val) + ">";
 
-    $('#credit_period').on('change', function() {
-        var val = $(this).find(":selected").val();
-        var total = parseInt($("#total_payment").val());
-        var delivery_fee = 0;
-        var province = $('#province').find(":selected").val().trim();
+            $('.total_field').html(html);
+        });
 
-        var html = $(".total_field_temp").html();
-        var bunga = 1 / 100;
-        if (val == 6) {
-            bunga = 2 / 100;
-        }
-        if (val == 12) {
-            bunga = 2.5 / 100;
-        }
-
-        if (province == "Bali") {
-            delivery_fee = 30000;
-        } else if (province == "") {
-            delivery_fee = 0;
-        } else {
-            delivery_fee = 50000;
-        }
-        var n_total = total + (total * bunga) + delivery_fee;
-        var dp = Math.round((Math.round(n_total * 30 / 100)) / 1000) * 1000;
-
-        html = "<input name='total' value=" + n_total + ">";
-        html += "<input name='delivery_fee' value=" + delivery_fee + ">";
-        html += "<input name='down_payment' value=" + (dp) + ">";
-        html += "<input name='payment_credit' value=" + ((n_total - dp) / val) + ">";
-
-        $('.total_field').html(html);
-    });
-
-    $(".credit_period_input").on('change', function() {
-        $('#checkbox-agree').removeAttr('checked');
-    })
-    $('#checkbox-agree').on('click', function() {
-        var inputs = $(".credit_period_input");
-        var check = true;
-        for (var i = 0; i < inputs.length; i++) {
-            if ($(inputs[i]).val() == "" || $(inputs[i]).val() == null) {
-                check = false;
-            }
-        }
-        if (check == false) {
-            alert("Lengkapi data terlebih dahulu");
+        $(".credit_period_input").on('change', function() {
             $('#checkbox-agree').removeAttr('checked');
-            if (!$('#btn-submit').hasClass('disabled')) {
-                $('#btn-submit').addClass('disabled');
+        })
+        $('#checkbox-agree').on('click', function() {
+            var inputs = $(".credit_period_input");
+            var check = true;
+            for (var i = 0; i < inputs.length; i++) {
+                if ($(inputs[i]).val() == "" || $(inputs[i]).val() == null) {
+                    check = false;
+                }
             }
-        } else {
-            if ($('#btn-submit').hasClass('disabled')) {
-                $('#btn-submit').removeClass('disabled');
+            if (check == false) {
+                alert("Lengkapi data terlebih dahulu");
+                $('#checkbox-agree').removeAttr('checked');
+                if (!$('#btn-submit').hasClass('disabled')) {
+                    $('#btn-submit').addClass('disabled');
+                }
+            } else {
+                if ($('#btn-submit').hasClass('disabled')) {
+                    $('#btn-submit').removeClass('disabled');
+                }
             }
-        }
-    });
+        });
 
-    function format_rupiah(number) {
-        var bilangan = Math.ceil(number);
-        console.log(bilangan)
+        function format_rupiah(number) {
+            var bilangan = Math.ceil(number);
+            console.log(bilangan)
 
-        var number_string = bilangan.toString(),
-            sisa = number_string.length % 3,
-            rupiah = number_string.substr(0, sisa),
-            ribuan = number_string.substr(sisa).match(/\d{3}/g);
+            var number_string = bilangan.toString(),
+                sisa = number_string.length % 3,
+                rupiah = number_string.substr(0, sisa),
+                ribuan = number_string.substr(sisa).match(/\d{3}/g);
 
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
 
-        return "IDR " + rupiah;
-    }
-
-    // Init map
-    var map = L.map('map').setView([-2.6, 120.16], 5);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    // Keep track of the currently displayed marker
-    var displayedMarker = null;
-
-    // Map on click event listener
-    map.on('click', function(e) {
-        // Get latitude longitude
-        var latitude = e.latlng.lat;
-        var longitude = e.latlng.lng;
-
-        // Remove the displayed marker (if any)
-        if (displayedMarker) {
-            displayedMarker.remove();
+            return "IDR " + rupiah;
         }
 
-        // Set input value
-        $('#latitude').val(latitude);
-        $('#longitude').val(longitude);
+        // Init map
+        var map = L.map('map').setView([-2.6, 120.16], 5);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
 
-        // Add marker to the map
-        displayedMarker = L.marker([latitude, longitude]).addTo(map);
-    });
-</script>
+        // Keep track of the currently displayed marker
+        var displayedMarker = null;
+
+        // Map on click event listener
+        map.on('click', function(e) {
+            // Get latitude longitude
+            var latitude = e.latlng.lat;
+            var longitude = e.latlng.lng;
+
+            // Remove the displayed marker (if any)
+            if (displayedMarker) {
+                displayedMarker.remove();
+            }
+
+            // Set input value
+            $('#latitude').val(latitude);
+            $('#longitude').val(longitude);
+
+            // Add marker to the map
+            displayedMarker = L.marker([latitude, longitude]).addTo(map);
+        });
+    </script>
 @endsection

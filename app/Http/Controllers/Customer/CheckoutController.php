@@ -83,7 +83,6 @@ class CheckoutController extends Controller
         );
         DB::beginTransaction();
         try {
-            dump($request->delivery_fee);
             $customer = Auth::guard('customer')->user();
             $transaction = Transaction::where('customer_id', $customer->id)->withTrashed()->get()->count();
             $code = "TRX-" . strval($transaction + 1) . "-CS-" . $customer->id;
